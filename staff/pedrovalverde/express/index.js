@@ -1,8 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-const port = process.argv[2]
 
+const port = process.argv[2]
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false })) // middleware
 
@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
             </form>
         </body>
     </html>`)
+    
 })
 
 app.post('/add-note', (req, res) => {
@@ -45,6 +46,7 @@ app.post('/add-note', (req, res) => {
 
 app.listen(port, () => console.log(`server running on port ${port}`))
 
+// SI LA SEÑAL 
 process.on('SIGINT', () => {
     console.log('\nstopping server')
 
