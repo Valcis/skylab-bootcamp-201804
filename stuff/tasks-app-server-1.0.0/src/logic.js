@@ -70,3 +70,5 @@ var logic = (function () {
         }
     }
 })();
+
+module.exports = logic

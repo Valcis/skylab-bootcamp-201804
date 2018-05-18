@@ -35,7 +35,7 @@ app.get('/add-note', (req, res) => {
                 <button type="submit">keep</button>
             </form>
             <ul>
-                ${notes.map(note => `<li>${note}</li>`)}
+                ${notes.map(note => `<li>${note}</li>`).join('')}
             </ul>
         </body>
     </html>`)
