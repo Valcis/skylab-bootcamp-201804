@@ -1,0 +1,13 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href="#") Tasks App
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li(class=`nav-item ${path === '/'? 'active' : ''}`)
+                a.nav-link(href="/") Home
+            li(class=`nav-item ${path === '/about'? 'active' : ''}`)
+                a.nav-link(href="/about") About
+        form.form-inline.my-2.my-lg-0(action="/add-task" method="POST")
+            input.form-control.mr-sm-2(type="text" name="text" placeholder="enter a task")
+            button.btn.btn-outline-success.my-2.my-sm-0(type="submit") Add Task
