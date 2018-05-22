@@ -1,0 +1,23 @@
+extends layout.pug
+block content
+    include navbar.pug
+    main.container.main
+        if wordToGuessed.length
+            h3 INTENTA ADIVINAR LA PALABRA
+
+            span intentos : #{_attempts}
+                p
+                for char in logica._wordGuessed
+                    span 
+                    span #{char}
+
+            form(action="/try" method="post")
+                    input(type="text" name="char" value='' autofocus)                            
+                    button(type="submit") Try     
+
+                                        
+        else
+            h3 Introduce la palabra que quieres que sea adivinada :
+                form(action="/set-word" method="post")
+                    input(type="password" name="word" value='')                            
+                    button(type="submit") Play
