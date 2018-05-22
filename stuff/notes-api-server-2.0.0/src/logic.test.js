@@ -5,6 +5,7 @@ const logic = require('./logic')
 
 describe('logic (notes)', () => {
     const { _notes } = logic
+    const userId = '123'
 
     beforeEach(() => _notes.length = 0)
 
@@ -12,7 +13,7 @@ describe('logic (notes)', () => {
         it('should add on correct data', () => {
             expect(_notes.length).toBe(0)
 
-            const id = logic.addNote('my note')
+            const id = logic.addNote(userId, 'my note')
 
             expect(id).toBeDefined()
             expect(_notes.length).toBe(1)
@@ -21,6 +22,7 @@ describe('logic (notes)', () => {
 
             expect(note.id).toBeDefined()
             expect(note.id).toBe(id)
+            expect(note.userId).toBe(userId)
             expect(note.text).toBe('my note')
         })
 

@@ -1,8 +1,19 @@
 'use strict'
 
+const uuidv4 = require('uuid/v4')
+
+/**
+ * Note abstraction
+ */
 class Note {
-    constructor(text) {
-        this.id = `${Date.now()}-${Math.random()}`
+    /**
+     * 
+     * @param {string} userId 
+     * @param {string} text 
+     */
+    constructor(userId, text) {
+        this.id = uuidv4()
+        this.userId = userId
         this.text = text
     }
 }
@@ -12,16 +23,21 @@ const logic = {
 
     /**
      * 
-     * @param {*} text 
+     * @param {string} userId
+     * @param {string} text 
      * 
      * @throws
      */
-    addNote(text) {
+    addNote(userId, text) {
+        if (typeof userId !== 'string') throw Error('userId is not a string')
+
+        if (!(userId = userId.trim()).length) throw Error('userId is empty or blank')
+
         if (typeof text !== 'string') throw Error('text is not a string')
 
         if ((text = text.trim()).length === 0) throw Error('text is empty or blank')
 
-        const note = new Note(text)
+        const note = new Note(userId, text)
 
         this._notes.push(note)
 
@@ -30,11 +46,14 @@ const logic = {
 
     /**
      * 
-     * @param {*} id 
+     * @param {string} userId
+     * @param {string} id 
      * 
      * @throws
      */
-    retrieveNote(id) {
+    retrieveNote(userdId, id) {
+        // TODO check userId in note
+
         if (typeof id !== 'string') throw Error('id is not a string')
 
         if (!(id = id.trim())) throw Error('id is empty or blank')
@@ -47,19 +66,23 @@ const logic = {
     },
 
     /**
-     * 
+     * @param {string} userId
      */
-    listNotes() {
+    listNotes(userId) {
+        // TODO filter by user id
         return this._notes
     },
 
     /**
      * 
-     * @param {*} id 
+     * @param {string} userId
+     * @param {string} id 
      *
      * @throws
      */
-    removeNote(id) {
+    removeNote(userId, id) {
+        // TODO check user id
+        
         if (typeof id !== 'string') throw Error('id is not a string')
 
         if (!(id = id.trim())) throw Error('id is empty or blank')
@@ -73,12 +96,15 @@ const logic = {
 
     /**
      * 
-     * @param {*} id 
-     * @param {*} text 
+     * @param {string} userId
+     * @param {string} id 
+     * @param {string} text 
      * 
      * @throws
      */
-    updateNote(id, text) {
+    updateNote(userId, id, text) {
+        // TODO check user id
+
         if (typeof id !== 'string') throw Error('id is not a string')
 
         if (!(id = id.trim())) throw Error('id is empty or blank')
@@ -96,11 +122,14 @@ const logic = {
 
     /**
      * 
-     * @param {*} text 
+     * @param {string} userId
+     * @param {string} text 
      * 
      * @throws
      */
-    findNotes(text) {
+    findNotes(userId, text) {
+        // TODO filter by user id too
+
         if (typeof text !== 'string') throw Error('text is not a string')
 
         if (!text.length) throw Error('text is empty')
