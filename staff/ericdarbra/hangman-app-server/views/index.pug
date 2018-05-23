@@ -1,0 +1,23 @@
+doctype html
+head
+	meta(charset='UTF-8')
+	meta(name='viewport' content='width=device-width, initial-scale=1.0')
+	meta(http-equiv='X-UA-Compatible' content='ie=edge')
+	link(rel="stylesheet" href="styles/main.css")
+	title Hangman app
+body
+	main
+		h1 Hangman!
+		//if error
+			//h4(class="error") #{error}
+		h3 Give it a try!
+		form(action='/try' method='POST')
+			input(type='text' name='text' autofocus='autofocus')
+			button(type="submit") Try
+		each letter in guessed
+			span.letter #{letter}
+		if status === Hangman.WIN
+			h3 YOU WIN
+			form(action='/new-game' method='post')
+				input(type='text' name='guess' autofocus='autofocus')
+				button(type="submit") Restart Game

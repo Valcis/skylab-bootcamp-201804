@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task App</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Pacifico" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+</head>
+
+<body>
+    <div class="container card ml-3 mt-3">
+    <header class="container">
+        <h1 class="display-4 pb-3">Task App</h1>
+        <form action="">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">➕</button>
+                </div>
+            </div>
+        </form>
+    </header>
+
+    <main class="mt-4">
+        <section class="toDo container card m-1">
+            <h2>To do List</h2>
+            <ul>
+            </ul>
+        </section>
+        <section class="doneTasks container card m-1">
+            <h2>Done list</h2>
+            <ul>
+            </ul>
+        </section>
+    </main>
+</div>
+    <script src="vendor/jquery/3.3.1/jquery-3.3.1.js"></script>
+    <script src="vendor/popper/1.14.3/popper-utils.min.js "></script>
+    <script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

@@ -11,3 +11,4 @@ pow(2, 2)
         pow(res, 4)
     )
     .then(console.log)
+

@@ -34,4 +34,6 @@ rs.on('end', () => {
 })
 
 rs.pipe(ws)
+// Igual que esto:
+// rs.on('data', chunk => ws.write(chunk))
 

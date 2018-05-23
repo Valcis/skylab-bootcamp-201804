@@ -15,6 +15,7 @@ pow(2, 2, function(res) {
         // console.log(res)
 
         pow(res, 4, console.log)
+       
     })
 })
 

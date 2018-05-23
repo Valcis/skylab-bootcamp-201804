@@ -1,4 +1,15 @@
 'use strict';
+
+/**
+ * converts letters in uppercase or lowercase randomly
+ * @example
+ * randomCase("hello world") // --> heLLo worLd;
+ * 
+ * @param {'string'} str 
+ * 
+ * @throws
+ * input is not a string
+ */
 function randomCase(str) {
   if (typeof str !== 'string')
     throw Error('input is not a string');

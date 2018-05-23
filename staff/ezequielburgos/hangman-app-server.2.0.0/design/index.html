@@ -1,0 +1,78 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman app server</title>
+    <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <main class="container main">
+        <section class="p-3 mb-2 bg-dark text-white">
+
+
+            <h1>HANGMAN App</h1>
+            <p>Insert the word you want to be guessed:</p>
+        </section>
+        <form action="/insert-word" method="post">
+            <input type="text" placeholder="enter a word">
+            <button type="submit" class="btn btn-primary">Insert Word</button>
+        </form>
+    </main>
+    <script src="vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/1.14.3/popper.min.js"></script>
+    <script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman app server</title>
+    <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <main class="container main">
+        <section class="p-3 mb-2 bg-dark text-white">
+            <h1>HANGMAN App</h1>
+            <p>Welcome! insert a letter or the whole word:</p>
+        </section>
+        <section class="main-div">
+            <div>
+                <p>insert a word to be guessed:</p>
+            </div>
+            <form action="/insert-guess" method="POST">
+                <input type="text" name="word" placeholder="letter or word">
+                <button type="submit" class="btn btn-primary">Try me!</button>
+            </form>
+        </section>
+
+        <div class="container main">
+            <section class="p-3 mb-2 bg-dark text-white">
+
+            </section>
+            <section class="main-div">
+                <p>Insert a word or a letter:</p>
+                <form action="/insert-try" method="post">
+                    <input type="text" name="letter" placeholder="enter a letter or word">
+                    <button type="submit" class="btn btn-primary">Insert Word</button>
+                </form>
+            </section>
+        </div>
+    </main>
+</body>
+<script src="vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+<script src="vendor/popper/1.14.3/popper.min.js"></script>
+<script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+</html>

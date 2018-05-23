@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CalculatorJS</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 class="site_title">
+            <a href="http://www.skylabcoders.com/">
+                <img class="site_logo" src="http://www.skylabcoders.com/images/403/default.png">
+            </a>
+            <span class="main_title">CALCULATOR ES6 CHALLENGE</span>
+        </h1>
+    </header>
+
+    <section>
+        <header class="section_header">
+            <p> Calculadora HTML + CSS + Javascript</p>
+        </header>
+        
+        <div class="calculator">
+        
+            <div class="calc_detail">
+                <table class="tblCalculator">
+                    <tr>
+                        <td class="total btnsCommon" colspan="4" id="display">0</td>
+                    </tr>
+                    <tr>
+                        <td id="btnAC"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnAcOnClick()" 
+                            onmousedown="changeColorOnMouseDown('btnAC', 'grey')" 
+                            onmouseup="changeColorOnMouseUp('btnAC','grey')"
+                            >AC</td>
+                        <td id="btnNegative"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNegativeOnClick()" 
+                            onmousedown="changeColorOnMouseDown('btnNegative','grey')"
+                            onmouseup="changeColorOnMouseUp('btnNegative','grey')"
+                            >+/-</td>
+                        <td id="btnPercent"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnPercentOnClick()" 
+                            onmousedown="changeColorOnMouseDown('btnPercent','grey')" 
+                            onmouseup="changeColorOnMouseUp('btnPercent','grey')"
+                            >%</td>
+                        <td id="btnDiv"
+                            class="btnsCommon btns btnOrange" 
+                            onclick="btnOperatorOnClick('/')"
+                            onmousedown="changeColorOnMouseDown('btnDiv','orange')" 
+                            onmouseup="changeColorOnMouseUp('btnDiv','orange')"
+                            >÷</td>
+                    </tr>
+                    <tr>
+                        <td id="btn7"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('7')"                     
+                            onmousedown="changeColorOnMouseDown('btn7','grey')"
+                            onmouseup="changeColorOnMouseUp('btn7','grey')" 
+                            >7</td>
+                        <td id="btn8"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('8')" 
+                            onmousedown="changeColorOnMouseDown('btn8','grey')"
+                            onmouseup="changeColorOnMouseUp('btn8','grey')" 
+                            >8</td>
+                        <td id="btn9"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('9')"                            
+                            onmousedown="changeColorOnMouseDown('btn9','grey')"
+                            onmouseup="changeColorOnMouseUp('btn9','grey')" 
+                            >9</td>
+                        <td id="btnMult"
+                            class="btnsCommon btns btnOrange" 
+                            onclick="btnOperatorOnClick('*')" 
+                            onmousedown="changeColorOnMouseDown('btnMult','orange')" 
+                            onmouseup="changeColorOnMouseUp('btnMult','orange')"
+                            >x</td>
+                    </tr>
+                    <tr>
+                        <td id="btn4"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('4')" 
+                            onmousedown="changeColorOnMouseDown('btn4','grey')"
+                            onmouseup="changeColorOnMouseUp('btn4','grey')" 
+                            >4</td>
+                        <td id="btn5"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('5')" 
+                            onmousedown="changeColorOnMouseDown('btn5','grey')"
+                            onmouseup="changeColorOnMouseUp('btn5','grey')" 
+                            >5</td>
+                        <td id="btn6"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('6')" 
+                            onmousedown="changeColorOnMouseDown('btn6','grey')"
+                            onmouseup="changeColorOnMouseUp('btn6','grey')" 
+                            >6</td>
+                        <td id="btnSubs"
+                            class="btnsCommon btns btnOrange" 
+                            onclick="btnOperatorOnClick('-')" 
+                            onmousedown="changeColorOnMouseDown('btnSubs','orange')"
+                            onmouseup="changeColorOnMouseUp('btnSubs','orange')" 
+                            >-</td>
+                    </tr>
+                    <tr>
+                        <td id="btn1"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('1')" 
+                            onmousedown="changeColorOnMouseDown('btn1','grey')"
+                            onmouseup="changeColorOnMouseUp('btn1','grey')" 
+                            >1</td>
+                        <td id="btn2"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('2')" 
+                            onmousedown="changeColorOnMouseDown('btn2','grey')"
+                            onmouseup="changeColorOnMouseUp('btn2','grey')" 
+                            >2</td>
+                        <td id="btn3" 
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('3')" 
+                            onmousedown="changeColorOnMouseDown('btn3','grey')"
+                            onmouseup="changeColorOnMouseUp('btn3','grey')" 
+                            >3</td>
+                        <td id="btnSum"
+                            class="btnsCommon btns btnOrange" 
+                            onclick="btnOperatorOnClick('+')" 
+                            onmousedown="changeColorOnMouseDown('btnSum','orange')" 
+                            onmouseup="changeColorOnMouseUp('btnSum','orange')"
+                            >+</td>
+                    </tr>
+                    <tr>
+                        <td id="btn0"
+                            class="btnsCommon btns btnSoftGrey" style="border-right-style:none"
+                            onclick="btnNumOnClick('0')"
+                            onmousedown="changeColorOnMouseDown('btn0','grey');changeColorOnMouseDown('btn0n','grey')" 
+                            onmouseup="changeColorOnMouseUp('btn0','grey');changeColorOnMouseUp('btn0n','grey')"
+                            >0</td>
+                        <td id="btn0n"
+                            class="btnsCommon btns btnSoftGrey" style="border-left-style:none"
+                            onclick="btnNumOnClick('0')"
+                            onmousedown="changeColorOnMouseDown('btn0','grey');changeColorOnMouseDown('btn0n','grey')" 
+                            onmouseup="changeColorOnMouseUp('btn0','grey');changeColorOnMouseUp('btn0n','grey')"
+                            ></td>
+                        <td id="btnComma"
+                            class="btnsCommon btns btnSoftGrey" 
+                            onclick="btnNumOnClick('.')"
+                            onmousedown="changeColorOnMouseDown('btnComma','grey')" 
+                            onmouseup="changeColorOnMouseUp('btnComma','grey')"
+                            >,</td>
+                        <td class="btnsCommon btns btnOrange" 
+                            onclick="btnEqualsOnClick()"
+                            onmousedown="changeColorOnMouseDown('btnEquals','orange')" 
+                            onmouseup="changeColorOnMouseUp('btnEquals','orange')"
+                            id="btnEquals">=</td>
+                    </tr>
+                </table>
+        
+            </div>
+        
+        
+        </div>
+    </section>
+    <footer class="site_footer">
+        <div class="name">
+            <p><span class="copy-left">©</span> 2018 lgimenez</p>
+        </div>
+    </footer>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

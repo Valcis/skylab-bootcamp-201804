@@ -1,0 +1,30 @@
+extends layout.pug
+block content
+    main.container
+        section.box1
+            article
+                h1.text-info HANGMAN
+                p.text Insert the word that wants to be guessed
+            article
+                form(action="/add-word" method="POST")
+                    input(class='inpIndex' autocomplete="off" name="word" type="text" placeholder="word")
+                    div.input-group-append
+                    button(class="btn btn-outline-info" type="submit") ACCEPT
+        section.box2
+            article.ord1
+                if game
+                    p.letters Letters
+                    p.letters #{letters.join(' ')}
+            article.ord2
+                if game
+                    p.guessed #{game._guessed.join(' ')}
+                    p.text Insert the letter or the word that you think are correct
+                    form(action="/insert-letter" method="POST")
+                        input(class='inpIndex' autofocus  autocomplete="off" type="text" name="letter" placeholder="letter or word")
+                        div.input-group-append
+                        button(class="btn btn-outline-info")  TRY
+                if error
+                    p.error #{error}
+            article.ord3
+                if game
+                    p.attempts #{game._attempts}  

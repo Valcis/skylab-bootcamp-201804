@@ -1,0 +1,26 @@
+extends layout.pug
+block content    
+    main.container.main
+        section.p-3.mb-2.bg-dark.text-white
+            h1 HANGMAN App
+            p Welcome! insert a letter or the whole word:
+        section.main-div
+            div
+                p insert a word to be guessed:
+            form(action="/insert-guess" method="POST")
+                input(type="text" name="word" placeholder="letter or word")
+                button.btn.btn-primary(type="submit") Try me!
+                a.nav-link(href="/game") Go to game
+        .container.main
+            section.p-3.mb-2.bg-dark.text-white
+                if game
+                    p #{game._guessed.join(" ")}
+                    p STATUS: #{game._status}
+                    p ATTEMTPS: #{game._attempts}
+                else
+                    p here goes the new word
+            section.main-div
+                p Insert a word or a letter:
+                form(action="/insert-try" method="post")
+                    input(type="text" name="letter" placeholder="enter a letter or word")
+                    button.btn.btn-primary(type="submit") Insert Word

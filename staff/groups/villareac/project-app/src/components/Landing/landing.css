@@ -1,0 +1,15 @@
+.landing .firstSection {
+  background: linear-gradient(to bottom right, #4177c994, #19b95c98),
+    url(../../static/images/copazo.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.landing p {
+  color: white;
+  line-height: 1.5em;
+}
+
+.landing h2 {
+  color: white;
+}

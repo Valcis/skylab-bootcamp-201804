@@ -47,20 +47,19 @@ class Hangman {
 }
 
 function tryLetter(_this, letter) {
-    // var wordArr = _this._word.split("");
+    var wordArr = _this._word.split(""); // ['h', 'e'...]
 
-    // for (let i = 0; i < wordArr.length; i++) {
-    //     const element = wordArr[i];
-    //     if (wordArr[i] === letter) {
-    //         _this._wordEmptyArr[i] = letter;
-    //     }else{
-    //         _this._attempts--;
-    //         if (_this._attempts === 0) { _this._status = 0 }
-    //     }
-    // }
+    for (let i = 0; i < wordArr.length; i++) {
+        if (wordArr[i] === letter) {
+            _this._wordEmptyArr[i] = letter;
+        }
+    }
 
-    if (_this._word.indexOf(letter) !== -1) {
-        return _this._wordEmptyArr[_this._word.indexOf(letter)] = letter;
+    if (_this._word.indexOf(letter) > -1) {
+        if (wordArr[wordArr.length - 1] === letter){
+            _this._status = 2;             
+        }
+         return true
     } else {
         _this._attempts--;
         if (_this._attempts === 0) { _this._status = 0 }

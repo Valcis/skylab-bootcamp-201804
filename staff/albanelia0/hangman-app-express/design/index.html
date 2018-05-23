@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hangman</title>
+  <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+</head>
+
+<body>
+  <main class="container">
+    <h1>Hangman</h1>
+    <h3>New game</h3>
+    <div class ="form">
+      <form action="">
+        <input type="text" placeholder="write word">
+        <button class="btn btn-success" type="button">Check answer</button>
+      </form>
+      <form action="">
+        <input type="password">
+        <button class="btn btn-info" type="button">Word to guess</button>
+      </form>
+    </div>
+    <div class="guesses">
+      <p class="guesses">__ ___ ___ ___ ___ ___</p>
+    </div>
+    <div class="container2">
+      <figure>
+        <img src="./image/0.png" class="rounded float-right" alt="">
+      </figure>
+      <button class="btn btn-primary btn-lg"type="submit">Restart</button>
+    </div>
+
+    <script src="vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/1.14.3/popper.min.js"></script>
+    <script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  </main>
+</body>
+
+</html>

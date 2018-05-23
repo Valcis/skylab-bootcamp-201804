@@ -1,0 +1,19 @@
+extends layout.pug
+block content
+    main.container
+        section.box2
+            article.ord1
+                p.letters Letters 
+                p.letters  #{letters.join(' ')}
+            article.ord2
+                if game
+                    p.guessed #{game._guessed.join(' ')}
+                    p.text Insert the letter or the word that you think are correct
+                    form(action="/insert-letter" method="POST")
+                        input(class='inpIndex' autofocus type="text" name="letter" autocomplete="off" placeholder="letter or word")
+                        div.input-group-append
+                        button(class="btn btn-outline-info") TRY
+                if error
+                    p.error #{error}
+            article.ord3
+                p.attempts #{game._attempts}

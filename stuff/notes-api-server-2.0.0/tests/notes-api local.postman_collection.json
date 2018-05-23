@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "286a265e-82b3-487d-b6dc-d65ff985baa8",
+		"_postman_id": "53d48546-f2f8-481d-bae9-1d637a03adc4",
 		"name": "notes-api local",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,10 +17,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"text\": \"my note aAb\" }"
+					"raw": "{ \"text\": \"my note abcd\" }"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes",
+					"raw": "http://localhost:3000/api/users/123/notes",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,6 +28,8 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"users",
+						"123",
 						"notes"
 					]
 				}
@@ -39,8 +41,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1526986522590-0.870965673870832",
+					"raw": "http://localhost:3000/api/users/123/notes/963eb1df-5f93-42a2-a62c-a96dc9850e47",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -48,8 +54,10 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"users",
+						"123",
 						"notes",
-						"1526986522590-0.870965673870832"
+						"963eb1df-5f93-42a2-a62c-a96dc9850e47"
 					]
 				}
 			},
@@ -60,8 +68,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes?q=new",
+					"raw": "http://localhost:3000/api/users/123/notes?q=my",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -69,12 +81,14 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"users",
+						"123",
 						"notes"
 					],
 					"query": [
 						{
 							"key": "q",
-							"value": "new"
+							"value": "my"
 						}
 					]
 				}
@@ -86,8 +100,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1526986697131-0.4052847693662016",
+					"raw": "http://localhost:3000/api/users/123/notes/721187d5-7fff-4fc8-8b6f-498189988942",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -95,8 +113,10 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"users",
+						"123",
 						"notes",
-						"1526986697131-0.4052847693662016"
+						"721187d5-7fff-4fc8-8b6f-498189988942"
 					]
 				}
 			},
@@ -105,7 +125,7 @@
 		{
 			"name": "update note",
 			"request": {
-				"method": "PUT",
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -117,7 +137,7 @@
 					"raw": "{ \"text\": \"my new note\" }"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1526995963225-0.21361808339416166",
+					"raw": "http://localhost:3000/api/users/123/notes/2a61bb17-9094-4749-8d8b-f5c93822d7cf",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -125,8 +145,10 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"users",
+						"123",
 						"notes",
-						"1526995963225-0.21361808339416166"
+						"2a61bb17-9094-4749-8d8b-f5c93822d7cf"
 					]
 				}
 			},

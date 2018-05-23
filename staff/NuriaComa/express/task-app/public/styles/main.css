@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    
+    height: 100%;
+    margin: 10% 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(167, 170, 170)
+
+}
+
+.error { color: red; }
+
+.titles{
+    margin-top: 5%;
+    font-size: 100%;
+    color: #17a2b8
+}
+.group{
+    width: 40%;
+    margin: 1% 4%;
+}
+.input-group {
+    width: 60%;
+}
+.input-group-text{
+    
+    background-color:#17a2b8 !important;
+    color: white !important;
+
+}

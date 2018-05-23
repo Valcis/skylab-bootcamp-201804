@@ -1,0 +1,107 @@
+.container {
+  width: 100%;
+  
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  background: #ccc;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.content-api {
+  height: 100%;
+}
+
+.content-home {
+  height: 100%;
+}
+
+.buttonSubmit{
+  display: inline-block;
+  padding-right: 10px;
+} 
+.header {
+  height: 150px;
+  width: 100%;
+  background: red;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  background: #ccc
+}
+
+.container-App {
+  height: 100%;
+  width: 100%;
+}
+
+.container-route {
+  height: 100%;
+  width: 100%;
+}
+
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.input {
+  text-align: center;
+  margin-right: 10px;
+}
+
+.main {
+  background: rgb(80, 96, 105);
+  border-radius: 20px;
+  margin-top: 20px;
+  height: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 700px;
+  color: white;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.container-LAV {
+  height: 100%;
+}
+
+.container-start {
+  height: 100%;
+}
+
+.favorite{
+  margin: 1px;
+  padding: 1px;
+  width: 25px;
+  border: 0;
+}
+
+.fav{
+  float: right;
+}
+

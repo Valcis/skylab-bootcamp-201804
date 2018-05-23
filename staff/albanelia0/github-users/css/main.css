@@ -1,0 +1,57 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  flex-basis: 100%;
+  background: #204C6F;
+  color: rgb(223, 208, 208)
+}
+
+header {
+  background: #3A867B;
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+  flex-basis: 50%;
+}
+
+main {
+  padding: 30px;
+  flex-basis: 50%;
+}
+
+.profile {
+  display: flex;
+  flex-basis: 50%;
+  height: 50%;
+}
+
+.result {
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  flex-basis: 50%;
+  padding-right: 30px;
+}
+
+.result .results-container ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.result .results-container ul li {
+  margin: 20px;
+  cursor: pointer;
+}
+
+.results-container {
+  display: flex;
+  flex-basis: 50%;
+  height: 100%;
+}

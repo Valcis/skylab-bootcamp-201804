@@ -18,7 +18,7 @@ const requester = {
             resp.on('data', chunk => content += chunk)
 
             resp.on('end', () => {
-                const listeners = this._listeners['response']
+                const listeners = this._listeners.response
 
                 if (listeners && listeners.length)
                     listeners.forEach(listener => listener(content))

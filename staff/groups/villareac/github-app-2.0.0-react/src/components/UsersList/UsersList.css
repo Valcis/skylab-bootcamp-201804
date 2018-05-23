@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+}
+
+.usersList{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: lightblue;
+    padding: 3%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+img {
+    border: 2px solid black;
+    box-shadow: 3px 3px 2px black;
+}

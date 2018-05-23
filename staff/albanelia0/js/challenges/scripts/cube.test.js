@@ -1,15 +1,33 @@
 'use strict';
-var array = [2,3,4];
-var error;
 
-var count = cube(array);
-console.log('cube("[2,3,4]") should return', count !== undefined, count);
+test(function () {
+  return cube(3);
+},
+  'cube(3) should return 27',
+  function (result) {
+    return result === 27;
+  });
 
-error = undefined;
-try {
-  count = cube('string');
-} catch (err) {
-  error = err
-  console.log('cube(12) should launch an error', error !== undefined, error);
-}
+test(function () {
+  return cube([1, 2, 3]);
+},
+  'cube([1, 2, 3]) should return [1, 8, 27]',
+  function (result) {
+    return result.toString() === [1, 8, 27].toString();
+  });
 
+test(withErrorCapturing(function () {
+  cube(true);
+}),
+  'cube(true) should throw an error',
+  function (result) {
+    return result.message === 'input num is not a number, neither an array';
+  });
+
+test(withErrorCapturing(function () {
+  cube([1, 2, 'a']);
+}),
+  'cube([1, 2, "a"]) should throw an error',
+  function (result) {
+    return result.message === 'input array is not a number at index 2';
+  });

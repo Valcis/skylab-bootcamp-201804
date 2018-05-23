@@ -1,0 +1,43 @@
+//- extends layout.pug
+doctype html
+html(lang="en")
+		head
+			meta(charset="UTF-8")
+			meta(name="viewport" content="width=device-width, initial-scale=1.0")
+			meta(http-equiv="X-UA-Compatible" content="ie=edge")
+			title Hangman
+			link(rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css")
+			link(rel="stylesheet" href="styles/main.css")
+			link(href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet")
+		body
+			block.container
+				main.container
+					h1 Hangman
+					h3 New game
+					div.form
+						if status === Hangman.WIN || hangman._word === '---'
+							form(action="/try-word" method="post")
+								input(type="text" name="text" placeholder="write word")
+								button.btn.btn-success(type="submit" disabled="disabled") Check answer
+						else
+							form(action="/try-word" method="post")
+								input(type="text" name="text" placeholder="write word")
+								button.btn.btn-success(type="submit") Check answer
+						form(action='/guess' method="POST")
+							input(type="password" name="word")
+							button.btn.btn-info(type="submit") Word to guess
+					div.guesses
+						each letter in guessed
+							span.letter #{letter}
+					if status === Hangman.WIN
+						img(src='/image/win.png')
+					else
+						img(src=`/image/${attemptsDone}.png`)
+						//- | #{status === Hangman.WIN? img(src='/image/win.png') : ''}
+					form(action="/guess" method="GET")
+						button.btn.btn-primary.btn-lg(type="submit") Restart
+
+
+				script(src="vendor/jquery/3.3.1/jquery-3.3.1.min.js")
+				script(src="vendor/popper/1.14.3/popper.min.js")
+				script(src="vendor/bootstrap/4.1.0/js/bootstrap.min.js")

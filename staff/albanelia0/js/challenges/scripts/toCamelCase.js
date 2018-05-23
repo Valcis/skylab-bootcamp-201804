@@ -1,5 +1,10 @@
 'use strict';
-
+/**
+ * Convert string to camel case
+ * @example
+ * toCamelCase('Hello World') // -> helloWorld
+ * @param {string} str - 
+ */
 function toCamelCase(str) {
   if (typeof str !== 'string') {
     throw Error('input is not a string');

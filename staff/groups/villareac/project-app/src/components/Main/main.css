@@ -1,0 +1,182 @@
+
+/*General estructure*/
+
+.container {
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.firstSection, .secondSection {
+    height: 100%;
+    width: 50%;
+    word-wrap: break-word;
+    padding: 4%;
+    padding-top: 15%;
+}
+
+.firstSection{
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+button {
+    padding: 3%;
+    width: 100%;
+    margin: 5% 0%;
+    font-size: 20px;
+    border-radius: 7px;
+    border: none;
+    background-color: rgb(241, 80, 134);
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(241, 80, 88);
+    cursor: pointer;
+}
+
+h2, h3, h5{
+    color: rgb(192, 43, 112);
+}
+
+h2 {
+    font-size: 35px;
+    padding: 5% 0% 5%;
+}
+
+h3{
+    font-size: 30px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin: 5% 0% 5%;
+    border-radius: 7px;
+    border: none;
+    background: #dee3e6;
+    padding: 4%;
+    font-size:60%;
+}
+
+input[text]{
+    font-size:70%;
+}
+
+input[type=text]:active, 
+input[type=password]:active, 
+input[type=text]:focus, 
+input[type=password]:focus {
+    box-shadow: 0 0 5px rgb(126, 19, 103) !important;
+    border: 1px solid rgb(192, 43, 112) !important;
+    outline: none;
+  }
+
+
+
+
+
+
+
+::-webkit-input-placeholder {
+    padding: 5%;
+    font-size: 120%;
+    color: palevioletred
+}
+
+.list {
+    list-style: none;
+}
+
+.list li:before {
+    content: '🍍 ';
+}
+
+.list li {
+    margin-bottom: 5%;
+    font-size: 90%;
+}
+
+.big {
+    font-size: 300%;
+    padding: 0%;
+}
+
+.small {
+    font-size: 70%;
+    color: white;
+    padding-top: 4%;
+}
+
+.session {
+    text-decoration: none;
+    font-weight: 700;
+    color:rgb(241, 80, 134);
+}
+
+.session:hover{
+    color:rgb(241, 80, 88);
+    text-shadow: 0px 1px orange
+}
+
+.inicia {
+    font-size: 14px;
+}
+
+/*Solo Container style for Login and Home*/
+
+.soloContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 15%;
+}
+
+label{
+    color: rgb(223, 108, 66);
+    font-size:15px;
+    font-weight: 700;
+}
+
+
+.container h2{
+    padding:0;
+}
+
+.soloContainer form {
+    width: 50%;
+}
+
+
+
+
+
+/* style="background-image: url(images/meeting.jpg); background-size: 150%; background-repeat: no-repeat;" */
+#meetingPic{
+    background-image: url(../Profile/meeting.jpg);
+    background-size: 150%;
+    background-repeat: no-repeat;
+}
+
+.cocktail{
+   width:80%
+}
+
+
+.cocktail img{
+    margin-top:30px;
+    width: 100%;
+}
+
+.cocktail .firstSection{
+    line-height: 2em
+}
+
+.cocktail h2{
+    margin-top:30px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,57 @@
+
+#wrapper{
+    padding: 20px;
+    text-align: center;
+}
+
+#maincontent{
+    display: inline-block;
+}
+
+.hangman-1{
+    width: 110px;
+    height: 170px;
+    background: url(../images/hangman.png) 0 0;
+}
+
+.hangman-2{
+    width: 130px;
+    height: 170px;
+    background: url(../images/hangman.png) -123px 0;
+}
+
+.hangman-3{
+    width: 130px;
+    height: 170px;
+    background: url(../images/hangman.png) -248px 0;
+}
+
+.hangman-4{
+    width: 130px;
+    height: 170px;
+    background: url(../images/hangman.png) -375px 0;
+}
+
+.hangman-5{
+    width: 120px;
+    height: 168px;
+    background: url(../images/hangman.png) +3px -170px;
+}
+
+.hangman-6{
+    width: 120px;
+    height: 168px;
+    background: url(../images/hangman.png) -123px -170px;
+}
+
+.hangman-7{
+    width: 120px;
+    height: 168px;
+    background: url(../images/hangman.png) -248px -170px;
+}
+
+.hangman-8{
+    width: 120px;
+    height: 168px;
+    background: url(../images/hangman.png) -375px -170px;
+}

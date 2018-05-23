@@ -29,9 +29,9 @@ describe('logic (notes)', () => {
         it('should add notes with different ids', () => {
             expect(_notes.length).toBe(0)
 
-            logic.addNote('my note 1')
-            logic.addNote('my note 2')
-            logic.addNote('my note 3')
+            logic.addNote(userId, 'my note 1')
+            logic.addNote(userId, 'my note 2')
+            logic.addNote(userId, 'my note 3')
 
             expect(_notes.length).toBe(3)
 
@@ -42,69 +42,143 @@ describe('logic (notes)', () => {
             expect(note3.id).not.toBe(note1.id)
 
             expect(note1.text).toBe('my note 1')
+            expect(note1.userId).toBe(userId)
             expect(note2.text).toBe('my note 2')
+            expect(note2.userId).toBe(userId)
             expect(note3.text).toBe('my note 3')
+            expect(note3.userId).toBe(userId)
+        })
+
+        it('should throw error on no userId', () => {
+            expect(() => logic.addNote()).toThrowError('userId is not a string')
+        })
+
+        it('should throw error on empty userId', () => {
+            expect(() => logic.addNote('')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on blank userId', () => {
+            expect(() => logic.addNote('   ')).toThrowError('userId is empty or blank')
         })
 
         it('should throw error on no text', () => {
-            expect(() => logic.addNote()).toThrowError('text is not a string')
+            expect(() => logic.addNote(userId)).toThrowError('text is not a string')
         })
 
         it('should throw error on empty text', () => {
-            expect(() => logic.addNote('')).toThrowError('text is empty or blank')
+            expect(() => logic.addNote(userId, '')).toThrowError('text is empty or blank')
         })
 
         it('should throw error on blank text', () => {
-            expect(() => logic.addNote('   ')).toThrowError('text is empty or blank')
+            expect(() => logic.addNote(userId, '   ')).toThrowError('text is empty or blank')
         })
     })
 
-    it('should list notes', () => {
-        expect(_notes.length).toBe(0)
+    describe('list notes', () => {
+        it('should succeed on correct data', () => {
+            expect(_notes.length).toBe(0)
 
-        logic.addNote('my note 1')
-        logic.addNote('my note 2')
-        logic.addNote('my note 3')
+            const ids = []
+            ids.push(logic.addNote(userId, 'my note 1'))
+            ids.push(logic.addNote(userId, 'my note 2'))
+            ids.push(logic.addNote(userId, 'my note 3'))
 
-        expect(_notes.length).toBe(3)
+            const userId2 = '456'
 
-        const notes = logic.listNotes()
+            const ids2 = []
+            ids2.push(logic.addNote(userId2, 'my note 4'))
+            ids2.push(logic.addNote(userId2, 'my note 5'))
+            ids2.push(logic.addNote(userId2, 'my note 6'))
+            ids2.push(logic.addNote(userId2, 'my note 7'))
 
-        expect(notes.length).toBe(_notes.length)
-        expect(notes).toBe(_notes)
+            expect(_notes.length).toBe(7)
+
+            const notes = logic.listNotes(userId)
+
+            expect(notes.length).toBe(3)
+
+            notes.forEach((note, index) => {
+                expect(note.id).toBe(ids[index])
+                expect(note.userId).toBe(userId)
+                expect(note.text).toBe(`my note ${index + 1}`)
+            })
+
+            const notes2 = logic.listNotes(userId2)
+
+            expect(notes2.length).toBe(4)
+
+            notes2.forEach((note, index) => {
+                expect(note.id).toBe(ids2[index])
+                expect(note.userId).toBe(userId2)
+                expect(note.text).toBe(`my note ${index + 4}`)
+            })
+        })
+
+        it('should throw error on non userId', () => {
+            expect(() => logic.listNotes()).toThrowError('userId is not a string')
+        })
+
+        it('should throw error on empty userId', () => {
+            expect(() => logic.listNotes('')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on blank userId', () => {
+            expect(() => logic.listNotes('      ')).toThrowError('userId is empty or blank')
+        })
     })
 
     describe('retrieve note', () => {
         it('should succeed on correct data', () => {
             expect(_notes.length).toBe(0)
 
-            const id = logic.addNote('my note')
+            const id = logic.addNote(userId, 'my note')
 
             expect(_notes.length).toBe(1)
 
-            const note = logic.retrieveNote(id)
+            const note = logic.retrieveNote(userId, id)
 
             expect(note).toBeDefined()
             expect(note.id).toBe(id)
+            expect(note.userId).toBe(userId)
             expect(note.text).toBe('my note')
+
+            expect(() => logic.retrieveNote('456', id)).toThrowError(`note with id ${id} does not exist`)
+        })
+
+        it('should throw error on non userId', () => {
+            expect(() => logic.retrieveNote()).toThrowError('userId is not a string')
+        })
+
+        it('should throw error on empty userId', () => {
+            expect(() => logic.retrieveNote('')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on blank userId', () => {
+            expect(() => logic.retrieveNote('      ')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on wrong userId', () => {
+            const id = logic.addNote(userId, 'my note')
+
+            expect(() => logic.retrieveNote('wrong-id', id)).toThrowError(`note with id ${id} does not exist for userId wrong-id`)
         })
 
         it('should throw error on no id', () => {
-            expect(() => logic.retrieveNote()).toThrowError('id is not a string')
+            expect(() => logic.retrieveNote(userId)).toThrowError('id is not a string')
         })
 
         it('should throw error on empty id', () => {
-            expect(() => logic.retrieveNote('')).toThrowError('id is empty or blank')
+            expect(() => logic.retrieveNote(userId, '')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on blank id', () => {
-            expect(() => logic.retrieveNote('             ')).toThrowError('id is empty or blank')
+            expect(() => logic.retrieveNote(userId, '             ')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on wrong id', () => {
-            const id = 'non-existing-note-id'
+            const id = logic.addNote(userId, 'my note')
 
-            expect(() => logic.retrieveNote(id)).toThrowError(`note with id ${id} does not exist`)
+            expect(() => logic.retrieveNote(userId, 'wrong-id')).toThrowError(`note with id wrong-id does not exist for userId ${userId}`)
         })
     })
 
@@ -112,34 +186,52 @@ describe('logic (notes)', () => {
         it('should remove a note', () => {
             expect(_notes.length).toBe(0)
 
-            logic.addNote('my note')
+            const id = logic.addNote(userId, 'my note')
 
             expect(_notes.length).toBe(1)
 
-            const [note] = _notes
+            expect(() => logic.removeNote('wrong-id', id)).toThrowError(`note with id ${id} does not exist for userId wrong-id`)
 
-            logic.removeNote(note.id)
+            logic.removeNote(userId, id)
 
             expect(_notes.length).toBe(0)
             expect(_notes).toBe(logic._notes)
         })
 
+        it('should throw error on non userId', () => {
+            expect(() => logic.removeNote()).toThrowError('userId is not a string')
+        })
+
+        it('should throw error on empty userId', () => {
+            expect(() => logic.removeNote('')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on blank userId', () => {
+            expect(() => logic.removeNote('      ')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on wrong userId', () => {
+            const id = logic.addNote(userId, 'my note')
+
+            expect(() => logic.removeNote('wrong-id', id)).toThrowError(`note with id ${id} does not exist for userId wrong-id`)
+        })
+
         it('should throw error on no id', () => {
-            expect(() => logic.removeNote()).toThrowError('id is not a string')
+            expect(() => logic.removeNote(userId)).toThrowError('id is not a string')
         })
 
         it('should throw error on empty id', () => {
-            expect(() => logic.removeNote('')).toThrowError('id is empty or blank')
+            expect(() => logic.removeNote(userId, '')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on blank id', () => {
-            expect(() => logic.removeNote('             ')).toThrowError('id is empty or blank')
+            expect(() => logic.removeNote(userId, '             ')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on wrong id', () => {
-            const id = 'non-existing-note-id'
+            const id = logic.addNote(userId, 'my note')
 
-            expect(() => logic.removeNote(id)).toThrowError(`note with id ${id} does not exist`)
+            expect(() => logic.removeNote(userId, 'wrong-id')).toThrowError(`note with id wrong-id does not exist for userId ${userId}`)
         })
     })
 
@@ -147,50 +239,69 @@ describe('logic (notes)', () => {
         it('should succeed on correct data', () => {
             expect(_notes.length).toBe(0)
 
-            logic.addNote('my note')
+            const id = logic.addNote(userId, 'my note')
 
             expect(_notes.length).toBe(1)
 
-            const [{ id }] = _notes
+            expect(() => logic.updateNote('wrong-id', id, 'my new note')).toThrowError(`note with id ${id} does not exist for userId wrong-id`)
 
-            logic.updateNote(id, 'my new note')
+            logic.updateNote(userId, id, 'my new note')
 
             expect(_notes.length).toBe(1)
 
             const [note] = _notes
 
+            expect(note.userId).toBe(userId)
             expect(note.id).toBe(id)
             expect(note.text).toBe('my new note')
         })
 
+        it('should throw error on non userId', () => {
+            expect(() => logic.updateNote()).toThrowError('userId is not a string')
+        })
+
+        it('should throw error on empty userId', () => {
+            expect(() => logic.updateNote('')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on blank userId', () => {
+            expect(() => logic.updateNote('      ')).toThrowError('userId is empty or blank')
+        })
+
+        it('should throw error on wrong userId', () => {
+            const id = logic.addNote(userId, 'my note')
+
+            expect(() => logic.updateNote('wrong-id', id, 'my new note')).toThrowError(`note with id ${id} does not exist for userId wrong-id`)
+        })
+
         it('should throw error on no id', () => {
-            expect(() => logic.updateNote()).toThrowError('id is not a string')
+            expect(() => logic.updateNote(userId)).toThrowError('id is not a string')
         })
 
         it('should throw error on empty id', () => {
-            expect(() => logic.updateNote('')).toThrowError('id is empty or blank')
+            expect(() => logic.updateNote(userId, '')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on blank id', () => {
-            expect(() => logic.updateNote('             ')).toThrowError('id is empty or blank')
+            expect(() => logic.updateNote(userId, '             ')).toThrowError('id is empty or blank')
         })
 
         it('should throw error on wrong id', () => {
-            const id = 'non-existing-note-id'
+            const id = logic.addNote(userId, 'my note')
 
-            expect(() => logic.updateNote(id, 'text')).toThrowError(`note with id ${id} does not exist`)
+            expect(() => logic.updateNote(userId, 'wrong-id', 'my new note')).toThrowError(`note with id wrong-id does not exist for userId ${userId}`)
         })
 
         it('should throw error on no text', () => {
-            expect(() => logic.updateNote('123')).toThrowError('text is not a string')
+            expect(() => logic.updateNote(userId, '123')).toThrowError('text is not a string')
         })
 
         it('should throw error on empty text', () => {
-            expect(() => logic.updateNote('123', '')).toThrowError('text is empty or blank')
+            expect(() => logic.updateNote(userId, '123', '')).toThrowError('text is empty or blank')
         })
 
         it('should throw error on blank text', () => {
-            expect(() => logic.updateNote('123', '   ')).toThrowError('text is empty or blank')
+            expect(() => logic.updateNote(userId, '123', '             ')).toThrowError('text is empty or blank')
         })
     })
 
@@ -198,11 +309,16 @@ describe('logic (notes)', () => {
         it('should return results on matching text', () => {
             expect(_notes.length).toBe(0)
 
-            const id1 = logic.addNote('my note 1')
-            const id2 = logic.addNote('my note 11')
-            const id3 = logic.addNote('my note 111')
+            const id1 = logic.addNote(userId, 'my note 1')
+            const id2 = logic.addNote(userId, 'my note 11')
+            const id3 = logic.addNote(userId, 'my note 111')
 
-            const res = logic.findNotes('11')
+            let res = logic.findNotes('456', '11')
+
+            expect(res).toBeDefined()
+            expect(res.length).toBe(0)
+
+            res = logic.findNotes(userId, '11')
 
             expect(res).toBeDefined()
             expect(res.length).toBe(2)
@@ -212,20 +328,27 @@ describe('logic (notes)', () => {
             expect(note1).toBeDefined()
             expect(note1.id).toBe(id2)
             expect(note1.text).toBe('my note 11')
+            expect(note1.userId).toBe(userId)
 
             expect(note2).toBeDefined()
             expect(note2.id).toBe(id3)
             expect(note2.text).toBe('my note 111')
+            expect(note2.userId).toBe(userId)
         })
 
         it('should return results on matching text case', () => {
             expect(_notes.length).toBe(0)
 
-            const id1 = logic.addNote('my note a')
-            const id2 = logic.addNote('my note aA')
-            const id3 = logic.addNote('my note aAa')
+            const id1 = logic.addNote(userId, 'my note a')
+            const id2 = logic.addNote(userId, 'my note aA')
+            const id3 = logic.addNote(userId, 'my note aAa')
 
-            const res = logic.findNotes('aA')
+            let res = logic.findNotes('456', '11')
+
+            expect(res).toBeDefined()
+            expect(res.length).toBe(0)
+
+            res = logic.findNotes(userId, 'aA')
 
             expect(res).toBeDefined()
             expect(res.length).toBe(2)
@@ -235,18 +358,28 @@ describe('logic (notes)', () => {
             expect(note1).toBeDefined()
             expect(note1.id).toBe(id2)
             expect(note1.text).toBe('my note aA')
+            expect(note1.userId).toBe(userId)
 
             expect(note2).toBeDefined()
             expect(note2.id).toBe(id3)
             expect(note2.text).toBe('my note aAa')
+            expect(note2.userId).toBe(userId)
         })
 
         it('should throw error on no text', () => {
-            expect(() => logic.findNotes()).toThrowError('text is not a string')
+            expect(() => logic.findNotes(userId)).toThrowError('text is not a string')
         })
 
         it('should throw error on empty text', () => {
-            expect(() => logic.findNotes('')).toThrowError('text is empty')
+            expect(() => logic.findNotes(userId, '')).toThrowError('text is empty')
+        })
+
+        it('should throw error on no text', () => {
+            expect(() => logic.findNotes(userId)).toThrowError('text is not a string')
+        })
+
+        it('should throw error on empty text', () => {
+            expect(() => logic.findNotes(userId, '')).toThrowError('text is empty')
         })
     })
 })

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 class="site_title">
+            <a href="http://www.skylabcoders.com/">
+                <img class="site_logo" src="http://www.skylabcoders.com/images/403/default.png">
+            </a>
+            <span class="main_title">HANGMAN ES6 CHALLENGE</span>
+        </h1>
+    </header>
+
+    <section>
+        <header class="section_header">
+            <p> Hangman HTML + CSS + Javascript</p>
+        </header>
+
+        <div id="wrapper">
+            <div id='maincontent'>
+                <img id='imghangman' class="hangman-1" src="images/transparent.png" alt=""> 
+                <p><h2 id="wordguessed"></h2></p>
+                <form>
+                    <input type="text" id="txbHangManWord">
+                    <button id="btntry">Try</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="site_footer">
+        <div class="name">
+            <p><span class="copy-left">©</span> 2018 lgimenez</p>
+        </div>
+    </footer>
+    <script src="scripts/logic.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

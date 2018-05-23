@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="ie=edge")
+    title Testing ejs
+    link(rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css")
+    link(rel="stylesheet" href="styles/main.css")
+  body
+    nav.navbar.navbar-expand-md.navbar-dark.bg-primary
+      a.navbar-brand(href="/") Hangman
+      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href="/new-game")
+              | New game 
+              span.sr-only (current)
+    .container
+      .py-5
+        h1.display-4 Hangman
+        p.lead Guess the word before your man gets hung! Try one letter at a time.
+      .row.justify-content-center
+        .col-sm-12.col-md-6
+          img.rounded.mx-auto.d-block.attempts(src="images/transparent.png" class=`hangman-${attempts}` alt="image")
+        .col-sm-12.col-md-6.text-md-left.text-center
+          p.display-4.py-2= guessed
+          form.form-inline.py-3.justify-content-md-start.justify-content-center(action="/try-letter" method="POST")
+            .form-group.mb-2
+              input.form-control(type="text" name="text" placeholder="Letter" autofocus="autofocus")
+            button.btn.btn-primary.mb-2.ml-3(type="submit") Try
+    // Modal
+    #exampleModalCenter.modal.fade(tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true")
+      .modal-dialog.modal-dialog-centered(role="document")
+        .modal-content
+          .modal-header
+            h5#exampleModalCenterTitle.modal-title Hangman
+          .modal-body.text-center
+            if status === 1
+              img(src="images/won.jpg" alt="image")      
+              h1 You WON!!!
+            if status === 2
+              img(src="images/transparent.png" class="hangman-7" alt="image")      
+              h1 Game over!
+          .modal-footer
+            form.form-inline(action="/new-game" method="POST")
+              button.btn.btn-primary(type="submit") Play again
+    script(src="vendor/jquery/3.3.1/jquery-3.3.1.min.js")
+    script(src="vendor/popper/1.14.3/popper.min.js")
+    script(src="vendor/bootstrap/4.1.0/js/bootstrap.min.js")
+    script.
+      if (#{status} === 1){
+        $('#exampleModalCenter').modal('show')
+      }
+      if (#{status} === 2){
+        $('#exampleModalCenter').modal('show')
+      }

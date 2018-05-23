@@ -1,0 +1,19 @@
+.profile input[type="text"] {
+  margin-top: 5px;
+  border-radius: 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid orange;
+}
+
+.profile h2 {
+  margin-bottom: 30px;
+}
+
+.passRequired {
+  display: flex;
+}
+
+.passRequired button {
+  margin-left: 15px;
+}

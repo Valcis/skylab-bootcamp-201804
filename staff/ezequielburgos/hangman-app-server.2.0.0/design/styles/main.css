@@ -1,0 +1,18 @@
+body {
+
+}
+
+.error {
+    color: red;
+}
+
+.main {
+    padding-top: 20px;
+}
+
+.main-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

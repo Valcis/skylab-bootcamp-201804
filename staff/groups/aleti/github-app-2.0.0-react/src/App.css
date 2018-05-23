@@ -1,0 +1,25 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  background: rgb(82, 44, 44);
+}
+
+.results-container {
+  display: flex;
+  background: #eee;
+  margin: 0 auto;
+  max-width: 900px;
+  margin-top: 60px;
+  border-radius: 60px;
+  padding: 50px;
+}
+
+.results-container .user-list {
+  flex-basis: 70%;
+}
+
+.results-container .user-detail {
+  flex-basis: 30%;
+}

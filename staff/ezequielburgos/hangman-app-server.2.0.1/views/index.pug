@@ -1,0 +1,18 @@
+extends layout.pug
+block content    
+    main.container.main
+        section.p-3.mb-2.bg-dark.text-white
+            h1 HANGMAN App
+            p Welcome! insert a letter or the whole word:
+        section.main-div
+            div
+                p insert a word to be guessed:
+            form(action="/insert-guess" method="POST")
+                .input-group
+                    input(type="text" class="form-control" name="word" placeholder="letter or word")
+                    .input-group-append
+                        button.btn.btn-primary(class="input-group-text" type="submit" onClick="move()") Try me!
+            if error
+                p.error #{error}
+    
+        

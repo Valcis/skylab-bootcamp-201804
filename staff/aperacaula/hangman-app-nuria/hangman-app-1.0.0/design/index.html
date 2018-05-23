@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+       <html lang="en">
+           <head>
+               <meta charset="UTF-8">
+               <meta name="viewport" content="width=device-width, initial-scale=1.0">
+               <meta http-equiv="X-UA-Compatible" content="ie=edge">
+               <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+               <link rel="stylesheet" href="styles/main.css">
+               <title>HANGMAN APP</title>
+           </head>
+           <body>
+               <main class='container'>
+                   <section class='box1'>
+                       <article>
+                           <h1>HANGMAN</h1>
+                           <p>Insert the word that wants to be guessed</p>
+                       <article>
+                       </article>
+                           <form action='/add-word' method='POST'>
+                               <input name='word' type='text' placeholder="word"><button type='submit'>ACCEPT</button>
+                           </form>
+                       </article>
+                   </section>
+                   <section class='box2'>
+                       <article>  
+                       <p class='guessed'> </p> <p class='letters'></p>
+                       <p>Insert the letter or the word that you think are correct</p>
+                        </article>
+                        <article>  
+                           <form action='/insert-letter' method='POST'>
+                           <p class='attempts'>  </p><input type='text' name='letter' placeholder="letter or word"><button>TRY</button>
+                           </form>
+                       </article>
+                   </section>
+               </main>
+               <script src="vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+               <script src="vendor/popper/1.14.3/popper.min.js"></script>
+               <script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+           </body>
+       </html>

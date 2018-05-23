@@ -1,11 +1,22 @@
 'use strict'; 
 
-var count = countWords("Hello World");
-console.log('countWords("hello World") should return 2', count === 2, count);
+test ( function(){
+  return countWords("Hello World");
+}, 'countWords("hello World") should return 2', function(result) {
+  return result === 2;
+});
+  
+test (
+  withErrorCapturing(function () {
+    countWords(true)
+  }), 'countWords(true) should throw an error', function(result){
+    return result.message === 'input is not a string';
+  }
+);
 
-
-try {
-  count = countWords(12);
-} catch (error) {
-  console.log('countWords(12) should launch an error', error !== undefined, error);
-}
+test (
+  withErrorCapturing(function () {
+    countWords(12);}), 'countWords(12) should launch an error', function (result) {
+      return result.message === 'input is not a string';
+  }
+);

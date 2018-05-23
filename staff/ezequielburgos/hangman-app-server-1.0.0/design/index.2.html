@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tasks App</title>
+    <link rel="stylesheet" href="vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Tasks App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+            </ul>
+            <form action="/add-task" method="POST" class="form-inline my-2 my-lg-0">
+                <input type="text" name="text" placeholder="enter a task" class="form-control mr-sm-2">
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Add Task</button>
+            </form>
+        </div>
+    </nav>
+    <main class="container main">
+        <h4>TODO list</h4>
+        <ul>
+            <li>
+                <form action="/mark-task-done" method="post">buy milk
+                    <input type="hidden" name="id" value="123">
+                    <button type="submit">√</button>
+                </form>
+            </li>
+        </ul>
+        <h4>DONE list</h4>
+        <ul>
+            <li>
+                <form action="/remove-task" method="post">go to gym
+                    <input type="hidden" name="id" value="456">
+                    <button type="submit">†</button>
+                </form>
+            </li>
+        </ul>
+    </main>
+    <script src="vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="vendor/popper/1.14.3/popper.min.js"></script>
+    <script src="vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>

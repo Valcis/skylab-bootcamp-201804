@@ -1,0 +1,24 @@
+extends layout.pug
+block content
+    include navbar.pug
+    main.container.main
+        if error
+            h4(class="error") #{error}
+        if todos.length
+            h4 TODO list
+            ul
+                each task in todos
+                    li
+                        form(action="/mark-task-done" method="post")
+                            | #{task.text} 
+                            input(type="hidden" name="id" value=`${task.id}`)
+                            button(type="submit") √
+        if dones.length
+            h4 DONE list
+            ul
+                each task in dones
+                    li
+                        form(action="/remove-task" method="post")
+                            | #{task.text} 
+                            input(type="hidden" name="id" value=`${task.id}`)
+                            button(type="submit") †

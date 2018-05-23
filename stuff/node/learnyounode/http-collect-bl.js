@@ -11,6 +11,7 @@ http.get(url, res => {
     res.pipe(bl((err, content) => {
         console.log(content.length)
         //console.log(content.toString().length)
+        if (err) return console.err(err)
 
         console.log(content.toString())
     }))

@@ -1,0 +1,20 @@
+header{
+    display: flex;
+    height: 150px;
+    background: lightgray;
+    
+}
+header nav {
+    width: 100%;
+}
+
+header ul{
+    list-style-type: none;
+    margin: 0;
+}
+
+header li {
+    display: flex;
+    justify-content: space-evenly;
+    display: inline-block;
+}

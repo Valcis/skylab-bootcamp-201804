@@ -32,4 +32,3 @@ app-template
 
 - ```register.html``` is the page a new user fulfills information to register into the app
 
-

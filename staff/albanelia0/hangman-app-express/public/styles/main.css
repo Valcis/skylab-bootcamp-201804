@@ -1,0 +1,32 @@
+body {
+  padding: 10px;
+  margin: 10px;
+  font-family: 'Abel', sans-serif;
+  background: #E0F2F1
+}
+
+.letters {
+  padding: 20px;
+}
+
+.btn {
+  margin: 5px;
+}
+
+img {
+  height: 500px;
+  width: 300px;
+}
+
+.letter {
+  padding-right: 5px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between
+}
+
+.guesses {
+  margin: 20px 0 30px;
+}

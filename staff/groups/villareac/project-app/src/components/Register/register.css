@@ -1,0 +1,17 @@
+
+.register .secondSection{
+    background: linear-gradient(to bottom right, #4177c994, #19b95c98), url(../../static/images/mango.jpg);
+    background-size: cover;
+    background-position: left;
+}
+
+.register .secondSection h2, 
+.register .secondSection h5 {
+    color: white;
+    letter-spacing: 0.1em;
+}
+
+.register .secondSection label{
+letter-spacing: 0.1em;
+color: rgb(255, 200, 97);
+}

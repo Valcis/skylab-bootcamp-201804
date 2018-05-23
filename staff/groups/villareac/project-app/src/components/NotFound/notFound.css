@@ -1,0 +1,6 @@
+.notFound{
+    padding: 4%;
+    background: linear-gradient(to bottom right, #4177c994, #19b95c98), url(../../static/images/notFound.jpg);
+    width: 100%;
+    height: 100%;
+}

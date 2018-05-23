@@ -1,0 +1,15 @@
+extends layout.pug
+block content
+    main.container
+        section.box1
+            article
+                h1.text-info HANGMAN
+                p.text Insert the word that wants to be guessed
+            article
+                form( action="/add-word" method="POST")
+                    input(class='inpIndex' autofocus autocomplete="off" name="word" type="text" placeholder="word")
+                    div.input-group-append
+                    button(class="btn btn-outline-info" type="submit") ACCEPT
+                if error
+                    p.error #{error}
+    

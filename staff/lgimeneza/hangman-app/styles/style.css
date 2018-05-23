@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+}
+
+.site_title{
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.main_title{
+    padding-left: 30px;
+    color: rgb(82, 81, 81);
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.site_logo{
+    width: 200px;
+    vertical-align: bottom;
+}
+
+.section_header{
+    padding-left: 10px;
+    padding-top:5px;
+    padding-bottom: 5px;
+    color: white;
+    background-color: rgba(54, 54, 54, 0.7);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.site_footer{
+    padding-top:10px;
+    padding-bottom: 10px;
+    color: white;
+    background-color: rgba(54, 54, 54, 0.7);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+.name{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.copy-left { 
+    display: inline-block; 
+    text-align: right; 
+    margin: 0px; 
+    -moz-transform: scaleX(-1); 
+    -o-transform: scaleX(-1); 
+    -webkit-transform: scaleX(-1); 
+    transform: scaleX(-1); 
+    filter: FlipH; 
+    -ms-filter: “FlipH”; 
+}
+
+input{
+    background: #f6f6f6;
+    border: 1px solid rgba(54, 54, 54, 0.3);
+    font-size: 20px;
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+}
+
+button{
+    background: #f6f6f6;
+    border: 1px solid rgba(54, 54, 54, 0.3);
+    font-size: 20px;
+    width: 135px;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 20px;
+    color: #0791d0;
+}
+
+li{
+    padding: 5px;
+    list-style: none;
+}
+
+a{
+    color: white;
+}
