@@ -1,35 +1,48 @@
+'use strict'
+
 const { MongoClient } = require('mongodb')
+const express = require('express')
 
-MongoClient.connect('mongodb://localhost:27017/skylab-bootcamp-201804', (err, conn) => {
+MongoClient.connect('mongodb://localhost:27017/skylab-bootcamp-201804', { useNewUrlParser: true }, (err, conn) => {
     if (err) throw err
-
-    console.log('todo bien')
 
     const db = conn.db()
 
-    const cars = db.collection('cars')
+    const persons = db.collection('persons')
 
-    // cars.find({}, (err, cursor) => {
-    //     if (err) throw err
+    const app = express()
 
-    //     // cursor.toArray(((err, cars) => console.log(cars)))
+    app.get('/add-person', (req, res) => {
+        const { query: { name, surname } } = req
 
-    //     cursor.toArray()
-    //         //.then(console.log)
-    //         .then(cars => {
-    //             console.log(cars)
+        persons.insertOne({ name, surname })
+            .then(() => res.json({ status: 'OK' }))
+            .catch(({ message }) => {
+                res.status(400)
 
-    //             conn.close()
-    //         })
-    //         .catch(console.error)
-    // })
+                res.json({ status: 'KO', error: message })
+            })
+    })
 
-    cars.find().toArray()
-        //.then(console.log)
-        .then(cars => {
-            console.log(cars)
+    app.get('/list-persons', (req, res) => {
+        persons.find().toArray()
+            .then(persons => res.json({ status: 'OK', data: persons }))
+            .catch(({ message }) => {
+                res.status(400)
 
-            conn.close()
-        })
-        .catch(console.error)
+                res.json({ status: 'KO', error: message })
+            })
+    })
+
+    const port = process.argv[2] || 3000
+
+    app.listen(port, () => console.log(`server running on port ${port}`))
+
+    process.on('SIGINT', () => {
+        console.log('\nstopping server')
+
+        conn.close()
+
+        process.exit()
+    })
 })
