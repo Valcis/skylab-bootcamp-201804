@@ -1,5 +1,7 @@
 # testing
 
 ```sh
-$ mocha src/logic.test.js
+$ npm i -g mocha
+
+$ mocha src/
 ```

@@ -1,15 +1,9 @@
-'use strict'
-
 const express = require('express')
-const bodyParser = require('body-parser')
-const logic = require('./src/logic')
+const logic = require('../logic')
 
-const port = process.argv[2] || 3000
+const router = express.Router()
 
-const app = express()
-app.use(bodyParser.json()) // middleware
-
-app.post('/api/users/:userId/notes', (req, res) => {
+router.post('/users/:userId/notes', (req, res) => {
     const { params: { userId }, body: { text } } = req
 
     try {
@@ -25,7 +19,7 @@ app.post('/api/users/:userId/notes', (req, res) => {
     }
 })
 
-app.get('/api/users/:userId/notes/:id', (req, res) => {
+router.get('/users/:userId/notes/:id', (req, res) => {
     const { params: { userId, id } } = req
 
     try {
@@ -39,7 +33,7 @@ app.get('/api/users/:userId/notes/:id', (req, res) => {
     }
 })
 
-app.get('/api/users/:userId/notes', (req, res) => {
+router.get('/users/:userId/notes', (req, res) => {
     const { params: { userId }, query: { q } } = req
 
     if (q) {
@@ -54,7 +48,7 @@ app.get('/api/users/:userId/notes', (req, res) => {
         res.json({ status: 'OK', data: logic.listNotes(userId) })
 })
 
-app.delete('/api/users/:userId/notes/:id', (req, res) => {
+router.delete('/users/:userId/notes/:id', (req, res) => {
     const { params: { userId, id } } = req
 
     try {
@@ -68,7 +62,7 @@ app.delete('/api/users/:userId/notes/:id', (req, res) => {
     }
 })
 
-app.patch('/api/users/:userId/notes/:id', (req, res) => {
+router.patch('/users/:userId/notes/:id', (req, res) => {
     const { params: { userId, id }, body: { text } } = req
 
     try {
@@ -82,10 +76,4 @@ app.patch('/api/users/:userId/notes/:id', (req, res) => {
     }
 })
 
-app.listen(port, () => console.log(`server running on port ${port}`))
-
-process.on('SIGINT', () => {
-    console.log('\nstopping server')
-
-    process.exit()
-})
+module.exports = router
