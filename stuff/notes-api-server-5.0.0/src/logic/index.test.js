@@ -100,5 +100,40 @@ describe('logic (notes)', () => {
         // TODO error cases
     })
 
+
+    describe('add note', () => {
+        it('should succeed on correct data', () =>
+            User.create({ name: 'John', surname: 'Doe', email: 'jd@mail.com', password: '123' })
+                .then(({ id }) => {
+                    return logic.addNote(id, 'my note')
+                        .then(noteId => {
+                            debugger
+                            expect(typeof noteId).toBe('string')
+                            expect(noteId).toBeDefined()
+
+                            return User.findById(id)
+                                .then(user => {
+                                    expect(user).toBeDefined()
+
+                                    expect(user.notes).toBeDefined()
+                                    expect(user.notes.length).toBe(1)
+
+                                    const [{ id, text }] = user.notes
+
+                                    expect(id).toBe(noteId)
+                                    expect(text).toBe('my note')
+                                })
+                        })
+                })
+        )
+
+        it('should throw error on wrong user id', () => {
+            const userId = '123456781234567812345678'
+
+            return logic.addNote(userId, 'my note')
+                .catch(({ message }) => expect(message).toBe(`no user found with id ${userId}`))
+        })
+    })
+
     after(done => mongoose.connection.db.dropDatabase(() => mongoose.connection.close(done)))
 })

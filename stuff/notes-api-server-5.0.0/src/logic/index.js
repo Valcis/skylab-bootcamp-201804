@@ -142,10 +142,26 @@ const logic = {
 
                 if ((text = text.trim()).length === 0) throw Error('text is empty or blank')
 
-                const note = new Note(userId, text)
+                // way 1 (step by step)
+                // return User.findById(userId)
+                //     .then(user => {
+                //         if (!user) throw Error(`no user found with id ${userId}`)
 
-                return this._notes.insertOne(note)
-                    .then(() => note._id.toString())
+                //         const note = new Note({ text })
+
+                //         user.notes.push(note)
+
+                //         return user.save()
+                //             .then(() => note.id)
+                //     })
+
+                // way 2 (1 step)
+                return User.findByIdAndUpdate(userId, { $push: { notes: { text } } }, { new: true })
+                    .then(user => {
+                        if (!user) throw Error(`no user found with id ${userId}`)
+
+                        return user.notes[user.notes.length - 1].id
+                    })
             })
     },
 
