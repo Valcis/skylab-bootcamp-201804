@@ -1,25 +1,43 @@
 'use strict'
 
-const { ObjectId } = require('mongodb')
-
-/**
- * Note abstraction
- */
-class Note {
-    /**
-     * 
-     * @param {string} userId 
-     * @param {string} text 
-     */
-    constructor(userId, text) {
-        this.userId = userId
-        this.text = text
-    }
-}
+const { User, Note } = require('../models')
 
 const logic = {
-    init(db) {
-        this._notes = db.collection('notes')
+    /**
+     * 
+     * @param {string} name 
+     * @param {string} surname 
+     * @param {string} email 
+     * @param {string} password 
+     * 
+     * @returns {Promise<Boolean>}
+     */
+    register(name, surname, email, password) {
+        return Promise.resolve()
+            .then(() => {
+                // TODO validations (name, surname, email, password)
+
+                return User.create({ name, surname, email, password })
+                    .then(() => true)
+            })
+    },
+
+    login(email, password) {
+        return Promise.resolve()
+            .then(() => {
+                // TODO validations
+
+                return User.findOne({ email, password })
+            })
+            .then(user => {
+                if (!user) throw Error('wrong credentials')
+
+                return user.id
+            })
+    },
+
+    retrieve(id) {
+        // TODO
     },
 
     /**
