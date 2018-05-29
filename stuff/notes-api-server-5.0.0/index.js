@@ -1,14 +1,18 @@
 'use strict'
 
+require('dotenv').config()
+
 const mongoose = require('mongoose')
 const express = require('express')
 const bodyParser = require('body-parser')
 const router = require('./src/routes')
 const cors = require('cors')
 
-mongoose.connect('mongodb://localhost/skylab-bootcamp-201804')
+const { env: { PORT, DB_URL } } = process
+
+mongoose.connect(DB_URL)
     .then(() => {
-        const port = process.argv[2] || 3000
+        const port = PORT || process.argv[2] || 3000
 
         const app = express()
 
