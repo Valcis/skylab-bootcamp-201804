@@ -15,10 +15,29 @@ const logic = {
     registerUser(name, surname, email, password) {
         return Promise.resolve()
             .then(() => {
-                // TODO validations (name, surname, email, password)
+                if (typeof name !== 'string') throw Error('user name is not a string')
 
-                return User.create({ name, surname, email, password })
-                    .then(() => true)
+                if (!(name = name.trim()).length) throw Error('user name is empty or blank')
+
+                if (typeof surname !== 'string') throw Error('user surname is not a string')
+
+                if ((surname = surname.trim()).length === 0) throw Error('user surname is empty or blank')
+
+                if (typeof email !== 'string') throw Error('user email is not a string')
+
+                if (!(email = email.trim()).length) throw Error('user email is empty or blank')
+
+                if (typeof password !== 'string') throw Error('user password is not a string')
+
+                if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
+
+                return User.findOne({ email })
+                    .then(user => {
+                        if (user) throw Error(`user with email ${email} already exists`)
+
+                        return User.create({ name, surname, email, password })
+                            .then(() => true)
+                    })
             })
     },
 
@@ -32,7 +51,13 @@ const logic = {
     authenticateUser(email, password) {
         return Promise.resolve()
             .then(() => {
-                // TODO validations
+                if (typeof email !== 'string') throw Error('user email is not a string')
+
+                if (!(email = email.trim()).length) throw Error('user email is empty or blank')
+
+                if (typeof password !== 'string') throw Error('user password is not a string')
+
+                if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
 
                 return User.findOne({ email, password })
             })
@@ -54,7 +79,7 @@ const logic = {
             .then(() => {
                 if (typeof id !== 'string') throw Error('user id is not a string')
 
-                // TODO validations
+                if (!(id = id.trim()).length) throw Error('user id is empty or blank')
 
                 return User.findById(id).select({ _id: 0, name: 1, surname: 1, email: 1 })
             })
@@ -80,7 +105,25 @@ const logic = {
     updateUser(id, name, surname, email, password, newEmail, newPassword) {
         return Promise.resolve()
             .then(() => {
-                // TODO validations
+                if (typeof id !== 'string') throw Error('user id is not a string')
+
+                if (!(id = id.trim()).length) throw Error('user id is empty or blank')
+
+                if (typeof name !== 'string') throw Error('user name is not a string')
+
+                if (!(name = name.trim()).length) throw Error('user name is empty or blank')
+
+                if (typeof surname !== 'string') throw Error('user surname is not a string')
+
+                if ((surname = surname.trim()).length === 0) throw Error('user surname is empty or blank')
+
+                if (typeof email !== 'string') throw Error('user email is not a string')
+
+                if (!(email = email.trim()).length) throw Error('user email is empty or blank')
+
+                if (typeof password !== 'string') throw Error('user password is not a string')
+
+                if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
 
                 return User.findOne({ email, password })
             })
@@ -89,6 +132,18 @@ const logic = {
 
                 if (user.id !== id) throw Error(`no user found with id ${id} for given credentials`)
 
+                if (newEmail) {
+                    return User.findOne({ email: newEmail })
+                        .then(_user => {
+                            if (_user && _user.id !== id) throw Error(`user with email ${newEmail} already exists`)
+
+                            return user
+                        })
+                }
+
+                return user
+            })
+            .then(user => {
                 user.name = name
                 user.surname = surname
                 user.email = newEmail ? newEmail : email
@@ -110,7 +165,17 @@ const logic = {
     unregisterUser(id, email, password) {
         return Promise.resolve()
             .then(() => {
-                // TODO validations
+                if (typeof id !== 'string') throw Error('user id is not a string')
+
+                if (!(id = id.trim()).length) throw Error('user id is empty or blank')
+
+                if (typeof email !== 'string') throw Error('user email is not a string')
+
+                if (!(email = email.trim()).length) throw Error('user email is empty or blank')
+
+                if (typeof password !== 'string') throw Error('user password is not a string')
+
+                if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
 
                 return User.findOne({ email, password })
             })
