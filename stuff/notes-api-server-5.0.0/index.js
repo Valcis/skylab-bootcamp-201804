@@ -1,37 +1,33 @@
 'use strict'
 
-const { MongoClient } = require('mongodb')
+const mongoose = require('mongoose')
 const express = require('express')
 const bodyParser = require('body-parser')
 const router = require('./src/routes')
-const logic = require('./src/logic')
 const cors = require('cors')
 
-MongoClient.connect('mongodb://localhost:27017/skylab-bootcamp-201804', { useNewUrlParser: true }, (err, conn) => {
-    if (err) throw err
+mongoose.connect('mongodb://localhost/skylab-bootcamp-201804')
+    .then(() => {
+        const port = process.argv[2] || 3000
 
-    const db = conn.db()
+        const app = express()
 
-    logic.init(db)
+        app.use(cors())
 
-    const port = process.argv[2] || 3000
+        app.use(bodyParser.json()) // middleware
 
-    const app = express()
+        app.use('/api', router)
 
-    app.use(cors())
+        app.listen(port, () => console.log(`server running on port ${port}`))
 
-    app.use(bodyParser.json()) // middleware
+        process.on('SIGINT', () => {
+            console.log('\nstopping server')
 
-    app.use('/api', router)
+            mongoose.connection.close(() => {
+                console.log('db connection closed')
 
-    app.listen(port, () => console.log(`server running on port ${port}`))
-
-    process.on('SIGINT', () => {
-        console.log('\nstopping server')
-
-        conn.close()
-
-        process.exit()
+                process.exit()
+            })
+        })
     })
-
-})
+    .catch(console.error)
