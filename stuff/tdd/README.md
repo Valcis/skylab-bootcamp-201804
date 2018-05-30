@@ -1,0 +1,1 @@
+[A guide to code coverage, part 1: Code coverage explained](https://www.codacy.com/blog/a-guide-to-code-coverage-part-1-code-coverage-explained/)

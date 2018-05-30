@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/"
+    "test": "mocha src/",
+    "coverage": "nyc mocha src/",
+    "coverage-report": "nyc --reporter=html --reporter=text mocha src/"
   },
   "keywords": [],
   "author": "",

@@ -109,7 +109,7 @@ describe('logic (notes api)', () => {
         )
     })
 
-    false && describe('authenticate user', () => {
+    describe('authenticate user', () => {
         it('should succeed on correct data', () =>
             User.create(userData)
                 .then(() =>
@@ -149,7 +149,7 @@ describe('logic (notes api)', () => {
         )
     })
 
-    false && describe('retrieve user', () => {
+    describe('retrieve user', () => {
         it('should succeed on correct data', () =>
             User.create(userData)
                 .then(({ id }) => {
