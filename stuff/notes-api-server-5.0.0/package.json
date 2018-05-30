@@ -7,7 +7,9 @@
     "start": "node .",
     "watch": "nodemon .",
     "debug": "node debug .",
-    "test": "mocha src/logic/"
+    "test": "mocha src/logic/",
+    "coverage": "nyc mocha src/logic/",
+    "coverage-report": "nyc --reporter=html --reporter=text mocha src/logic/"
   },
   "keywords": [],
   "author": "",
