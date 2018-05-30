@@ -72,7 +72,17 @@ $ echo "some content" > <path-to-file>
 $ grep -r <path-to-folder> -e <expression>
 ```
 
+- show PATH env var value
 
+```sh
+$ echo $PATH
+```
+
+- list env vars
+
+```sh
+$ printenv
+```
 
 
 
