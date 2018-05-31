@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const { mongoose } = require('notes-data')
 const express = require('express')
-const bodyParser = require('body-parser')
+//const bodyParser = require('body-parser')
 const router = require('./src/routes')
 const cors = require('cors')
 
@@ -18,7 +18,7 @@ mongoose.connect(DB_URL)
 
         app.use(cors())
 
-        app.use(bodyParser.json()) // middleware
+        //app.use(bodyParser.json()) // middleware
 
         app.use('/api', router)
 

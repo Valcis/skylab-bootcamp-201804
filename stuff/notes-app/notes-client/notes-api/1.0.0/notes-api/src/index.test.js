@@ -6,16 +6,19 @@ const { mongoose, models: { User, Note } } = require('notes-data')
 const { expect } = require('chai')
 const notesApi = require('.')
 const _ = require('lodash')
+const sinon = require('sinon')
+const axios = require('axios')
+const jwt = require('jsonwebtoken')
 
-const { env: { DB_URL, API_URL } } = process
+const { env: { DB_URL, API_URL, TOKEN_SECRET } } = process
 
 notesApi.url = API_URL
 
 describe('logic (notes api)', () => {
     const userData = { name: 'John', surname: 'Doe', email: 'jd@mail.com', password: '123' }
     const otherUserData = { name: 'Jack', surname: 'Wayne', email: 'jw@mail.com', password: '456' }
-    const dummyUserId = '123456781234567812345678'
-    const dummyNoteId = '123456781234567812345678'
+    const fakeUserId = '123456781234567812345678'
+    const fakeNoteId = '123456781234567812345678'
     const noteText = 'my note'
     const indexes = []
 
@@ -106,6 +109,59 @@ describe('logic (notes api)', () => {
             notesApi.registerUser(userData.name, userData.surname, userData.email, '     ')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
+
+        describe('on unexpected server behavior', () => {
+            let sandbox
+
+            beforeEach(() => sandbox = sinon.createSandbox())
+
+            afterEach(() => sandbox.restore())
+
+            it('should fail on response status hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    resolve({ status: 201, data: { status: 'KO' } })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { name, surname, email, password } = userData
+
+                return notesApi.registerUser(name, surname, email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal(`unexpected response status 201 (KO)`)
+                    })
+            })
+
+            it('should fail on email hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ response: { data: { error: 'email is not a string' } } })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { name, surname, email, password } = userData
+
+                return notesApi.registerUser(name, surname, email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('email is not a string')
+                    })
+            })
+
+            it('should fail on server down', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ code: 'ECONNREFUSED' })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { name, surname, email, password } = userData
+
+                return notesApi.registerUser(name, surname, email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('could not reach server')
+                    })
+            })
+        })
     })
 
     describe('authenticate user', () => {
@@ -113,7 +169,11 @@ describe('logic (notes api)', () => {
             User.create(userData)
                 .then(() =>
                     notesApi.authenticateUser('jd@mail.com', '123')
-                        .then(id => expect(id).to.exist)
+                        .then(id => {
+                            expect(id).to.exist
+
+                            expect(notesApi.token).not.to.equal('NO-TOKEN')
+                        })
                 )
         )
 
@@ -146,12 +206,69 @@ describe('logic (notes api)', () => {
             notesApi.authenticateUser(userData.email, '     ')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
+
+        describe('on unexpected server behavior', () => {
+            let sandbox
+
+            beforeEach(() => sandbox = sinon.createSandbox())
+
+            afterEach(() => sandbox.restore())
+
+            it('should fail on response status hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    resolve({ status: 200, data: { status: 'KO' } })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { email, password } = userData
+
+                return notesApi.authenticateUser(email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal(`unexpected response status 200 (KO)`)
+                    })
+            })
+
+            it('should fail on email hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ response: { data: { error: 'email is not a string' } } })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { email, password } = userData
+
+                return notesApi.authenticateUser(email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('email is not a string')
+                    })
+            })
+
+            it('should fail on server down', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ code: 'ECONNREFUSED' })
+                })
+
+                sandbox.stub(axios, 'post').returns(resolved)
+
+                const { email, password } = userData
+
+                return notesApi.authenticateUser(email, password)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('could not reach server')
+                    })
+            })
+        })
     })
 
     describe('retrieve user', () => {
         it('should succeed on correct data', () =>
             User.create(userData)
                 .then(({ id }) => {
+                    const token = jwt.sign({ id }, TOKEN_SECRET)
+
+                    notesApi.token = token
+
                     return notesApi.retrieveUser(id)
                 })
                 .then(user => {
@@ -183,6 +300,53 @@ describe('logic (notes api)', () => {
             notesApi.retrieveUser('     ')
                 .catch(({ message }) => expect(message).to.equal('user id is empty or blank'))
         )
+
+        describe('on unexpected server behavior', () => {
+            let sandbox
+
+            beforeEach(() => sandbox = sinon.createSandbox())
+
+            afterEach(() => sandbox.restore())
+
+            it('should fail on response status hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    resolve({ status: 200, data: { status: 'KO' } })
+                })
+
+                sandbox.stub(axios, 'get').returns(resolved)
+
+                return notesApi.retrieveUser(fakeUserId)
+                    .catch(({ message }) => {
+                        expect(message).to.equal(`unexpected response status 200 (KO)`)
+                    })
+            })
+
+            it('should fail on id hacked', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ response: { data: { error: 'user id is not a string' } } })
+                })
+
+                sandbox.stub(axios, 'get').returns(resolved)
+
+                return notesApi.retrieveUser(fakeUserId)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('user id is not a string')
+                    })
+            })
+
+            it('should fail on server down', () => {
+                const resolved = new Promise((resolve, reject) => {
+                    reject({ code: 'ECONNREFUSED' })
+                })
+
+                sandbox.stub(axios, 'get').returns(resolved)
+
+                return notesApi.retrieveUser(fakeUserId)
+                    .catch(({ message }) => {
+                        expect(message).to.equal('could not reach server')
+                    })
+            })
+        })
     })
 
     false && describe('udpate user', () => {
@@ -238,62 +402,62 @@ describe('logic (notes api)', () => {
         )
 
         it('should fail on no user name', () =>
-            notesApi.updateUser(dummyUserId)
+            notesApi.updateUser(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('user name is not a string'))
         )
 
         it('should fail on empty user name', () =>
-            notesApi.updateUser(dummyUserId, '')
+            notesApi.updateUser(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
         )
 
         it('should fail on blank user name', () =>
-            notesApi.updateUser(dummyUserId, '     ')
+            notesApi.updateUser(fakeUserId, '     ')
                 .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
         )
 
         it('should fail on no user surname', () =>
-            notesApi.updateUser(dummyUserId, userData.name)
+            notesApi.updateUser(fakeUserId, userData.name)
                 .catch(({ message }) => expect(message).to.equal('user surname is not a string'))
         )
 
         it('should fail on empty user surname', () =>
-            notesApi.updateUser(dummyUserId, userData.name, '')
+            notesApi.updateUser(fakeUserId, userData.name, '')
                 .catch(({ message }) => expect(message).to.equal('user surname is empty or blank'))
         )
 
         it('should fail on blank user surname', () =>
-            notesApi.updateUser(dummyUserId, userData.name, '     ')
+            notesApi.updateUser(fakeUserId, userData.name, '     ')
                 .catch(({ message }) => expect(message).to.equal('user surname is empty or blank'))
         )
 
         it('should fail on no user email', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname)
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname)
                 .catch(({ message }) => expect(message).to.equal('user email is not a string'))
         )
 
         it('should fail on empty user email', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname, '')
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname, '')
                 .catch(({ message }) => expect(message).to.equal('user email is empty or blank'))
         )
 
         it('should fail on blank user email', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname, '     ')
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname, '     ')
                 .catch(({ message }) => expect(message).to.equal('user email is empty or blank'))
         )
 
         it('should fail on no user password', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname, userData.email)
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname, userData.email)
                 .catch(({ message }) => expect(message).to.equal('user password is not a string'))
         )
 
         it('should fail on empty user password', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname, userData.email, '')
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname, userData.email, '')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
 
         it('should fail on blank user password', () =>
-            notesApi.updateUser(dummyUserId, userData.name, userData.surname, userData.email, '     ')
+            notesApi.updateUser(fakeUserId, userData.name, userData.surname, userData.email, '     ')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
     })
@@ -330,32 +494,32 @@ describe('logic (notes api)', () => {
         )
 
         it('should fail on no user email', () =>
-            notesApi.unregisterUser(dummyUserId)
+            notesApi.unregisterUser(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('user email is not a string'))
         )
 
         it('should fail on empty user email', () =>
-            notesApi.unregisterUser(dummyUserId, '')
+            notesApi.unregisterUser(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('user email is empty or blank'))
         )
 
         it('should fail on blank user email', () =>
-            notesApi.unregisterUser(dummyUserId, '     ')
+            notesApi.unregisterUser(fakeUserId, '     ')
                 .catch(({ message }) => expect(message).to.equal('user email is empty or blank'))
         )
 
         it('should fail on no user password', () =>
-            notesApi.unregisterUser(dummyUserId, userData.email)
+            notesApi.unregisterUser(fakeUserId, userData.email)
                 .catch(({ message }) => expect(message).to.equal('user password is not a string'))
         )
 
         it('should fail on empty user password', () =>
-            notesApi.unregisterUser(dummyUserId, userData.email, '')
+            notesApi.unregisterUser(fakeUserId, userData.email, '')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
 
         it('should fail on blank user password', () =>
-            notesApi.unregisterUser(dummyUserId, userData.email, '     ')
+            notesApi.unregisterUser(fakeUserId, userData.email, '     ')
                 .catch(({ message }) => expect(message).to.equal('user password is empty or blank'))
         )
     })
@@ -389,8 +553,8 @@ describe('logic (notes api)', () => {
         )
 
         it('should fail on wrong user id', () => {
-            return notesApi.addNote(dummyUserId, noteText)
-                .catch(({ message }) => expect(message).to.equal(`no user found with id ${dummyUserId}`))
+            return notesApi.addNote(fakeUserId, noteText)
+                .catch(({ message }) => expect(message).to.equal(`no user found with id ${fakeUserId}`))
         })
 
         it('should fail on no user id', () =>
@@ -409,17 +573,17 @@ describe('logic (notes api)', () => {
         )
 
         it('should fail on no text', () => {
-            notesApi.addNote(dummyUserId)
+            notesApi.addNote(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('text is not a string'))
         })
 
         it('should fail on empty text', () =>
-            notesApi.addNote(dummyUserId, '')
+            notesApi.addNote(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('text is empty or blank'))
         )
 
         it('should fail on blank text', () =>
-            notesApi.addNote(dummyUserId, '   ')
+            notesApi.addNote(fakeUserId, '   ')
                 .catch(({ message }) => expect(message).to.equal('text is empty or blank'))
         )
     })
@@ -464,23 +628,23 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ notes: [{ id: noteId }] }) => {
-                    return notesApi.retrieveNote(dummyUserId, noteId)
-                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${dummyUserId}`))
+                    return notesApi.retrieveNote(fakeUserId, noteId)
+                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${fakeUserId}`))
                 })
         })
 
         it('should fail on no note id', () =>
-            notesApi.retrieveNote(dummyUserId)
+            notesApi.retrieveNote(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('note id is not a string'))
         )
 
         it('should fail on empty note id', () =>
-            notesApi.retrieveNote(dummyUserId, '')
+            notesApi.retrieveNote(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('note id is empty or blank'))
         )
 
         it('should fail on blank note id', () =>
-            notesApi.retrieveNote(dummyUserId, '       ')
+            notesApi.retrieveNote(fakeUserId, '       ')
                 .catch(({ message }) => expect(message).to.equal('note id is empty or blank'))
         )
 
@@ -492,8 +656,8 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ id: userId }) => {
-                    return notesApi.retrieveNote(userId, dummyNoteId)
-                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${dummyNoteId}`))
+                    return notesApi.retrieveNote(userId, fakeNoteId)
+                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${fakeNoteId}`))
                 })
         })
     })
@@ -601,8 +765,8 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ notes: [{ id: noteId }] }) => {
-                    return notesApi.updateNote(dummyUserId, noteId, `${noteText} 2`)
-                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${dummyUserId}`))
+                    return notesApi.updateNote(fakeUserId, noteId, `${noteText} 2`)
+                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${fakeUserId}`))
                 })
         })
 
@@ -614,8 +778,8 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ id: userId }) => {
-                    return notesApi.updateNote(userId, dummyNoteId, `${noteText} 2`)
-                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${dummyNoteId}`))
+                    return notesApi.updateNote(userId, fakeNoteId, `${noteText} 2`)
+                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${fakeNoteId}`))
                 })
         })
     })
@@ -665,23 +829,23 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ notes: [{ id: noteId }] }) => {
-                    return notesApi.removeNote(dummyUserId, noteId)
-                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${dummyUserId}`))
+                    return notesApi.removeNote(fakeUserId, noteId)
+                        .catch(({ message }) => expect(message).to.equal(`no user found with id ${fakeUserId}`))
                 })
         })
 
         it('should fail on no note id', () =>
-            notesApi.removeNote(dummyUserId)
+            notesApi.removeNote(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('note id is not a string'))
         )
 
         it('should fail on empty note id', () =>
-            notesApi.removeNote(dummyUserId, '')
+            notesApi.removeNote(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('note id is empty or blank'))
         )
 
         it('should fail on blank note id', () =>
-            notesApi.removeNote(dummyUserId, '       ')
+            notesApi.removeNote(fakeUserId, '       ')
                 .catch(({ message }) => expect(message).to.equal('note id is empty or blank'))
         )
 
@@ -693,8 +857,8 @@ describe('logic (notes api)', () => {
 
             return user.save()
                 .then(({ id: userId }) => {
-                    return notesApi.removeNote(userId, dummyNoteId)
-                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${dummyNoteId}`))
+                    return notesApi.removeNote(userId, fakeNoteId)
+                        .catch(({ message }) => expect(message).to.equal(`no note found with id ${fakeNoteId}`))
                 })
         })
     })
@@ -751,12 +915,12 @@ describe('logic (notes api)', () => {
         )
 
         it('should fail on no text', () =>
-            notesApi.findNotes(dummyUserId)
+            notesApi.findNotes(fakeUserId)
                 .catch(({ message }) => expect(message).to.equal('text is not a string'))
         )
 
         it('should fail on empty text', () =>
-            notesApi.findNotes(dummyUserId, '')
+            notesApi.findNotes(fakeUserId, '')
                 .catch(({ message }) => expect(message).to.equal('text is empty'))
         )
     })

@@ -5,6 +5,8 @@ const axios = require('axios')
 const notesApi = {
     url: 'NOWHERE',
 
+    token: 'NO-TOKEN',
+
     /**
      * 
      * @param {string} name 
@@ -34,13 +36,20 @@ const notesApi = {
                 if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
 
                 return axios.post(`${this.url}/users`, { name, surname, email, password })
-                    //.then(({ status, data }) => status === 201 && data.status === 'OK')
                     .then(({ status, data }) => {
                         if (status !== 201 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
 
                         return true
                     })
-                    .catch(({ response: { data: { error } } }) => error)
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+
+                            throw Error(message)
+                        } else throw err
+                    })
             })
     },
 
@@ -63,13 +72,24 @@ const notesApi = {
                 if ((password = password.trim()).length === 0) throw Error('user password is empty or blank')
 
                 return axios.post(`${this.url}/auth`, { email, password })
-                    //.then(({ data: { data: { id } } }) => id)
                     .then(({ status, data }) => {
                         if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
 
-                        return data.data.id
+                        const { data: { id, token } } = data
+
+                        this.token = token
+
+                        return id
                     })
-                    .catch(({ response: { data: { error } } }) => error)
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+
+                            throw Error(message)
+                        } else throw err
+                    })
             })
     },
 
@@ -86,14 +106,21 @@ const notesApi = {
 
                 if (!(id = id.trim()).length) throw Error('user id is empty or blank')
 
-                return axios.get(`${this.url}/users/${id}`)
-                    //.then(({ data: { data: user } }) => user)
+                return axios.get(`${this.url}/users/${id}`, { headers: { authorization: `Bearer ${this.token}` } })
                     .then(({ status, data }) => {
                         if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
 
                         return data.data
                     })
-                    .catch(({ response: { data: { error } } }) => error)
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+
+                            throw Error(message)
+                        } else throw err
+                    })
             })
     }
 }

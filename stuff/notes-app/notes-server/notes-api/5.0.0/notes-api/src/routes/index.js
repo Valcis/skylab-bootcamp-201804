@@ -1,9 +1,18 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const logic = require('notes-logic')
+const jwt = require('jsonwebtoken')
+const jwtValidation = require('./utils/jwt-validation')
 
 const router = express.Router()
 
-router.post('/users', (req, res) => {
+const { env: { TOKEN_SECRET, TOKEN_EXP } } = process
+
+const jwtValidator = jwtValidation(TOKEN_SECRET)
+
+const jsonBodyParser = bodyParser.json()
+
+router.post('/users', jsonBodyParser, (req, res) => {
     const { body: { name, surname, email, password } } = req
 
     logic.registerUser(name, surname, email, password)
@@ -17,13 +26,15 @@ router.post('/users', (req, res) => {
         })
 })
 
-router.post('/auth', (req, res) => {
+router.post('/auth', jsonBodyParser, (req, res) => {
     const { body: { email, password } } = req
 
     logic.authenticateUser(email, password)
         .then(id => {
+            const token = jwt.sign({ id }, TOKEN_SECRET, { expiresIn: TOKEN_EXP })
+
             res.status(200)
-            res.json({ status: 'OK', data: { id } })
+            res.json({ status: 'OK', data: { id, token } })
         })
         .catch(({ message }) => {
             res.status(400)
@@ -31,10 +42,10 @@ router.post('/auth', (req, res) => {
         })
 })
 
-router.get('/users/:userId', (req, res) => {
+router.get('/users/:userId', jwtValidator, (req, res) => {
     const { params: { userId } } = req
 
-    logic.retrieveUser(userId)
+    return logic.retrieveUser(userId)
         .then(user => {
             res.status(200)
             res.json({ status: 'OK', data: user })
@@ -43,9 +54,10 @@ router.get('/users/:userId', (req, res) => {
             res.status(400)
             res.json({ status: 'KO', error: message })
         })
+
 })
 
-router.patch('/users/:userId', (req, res) => {
+router.patch('/users/:userId', [jwtValidator, jsonBodyParser], (req, res) => {
     const { params: { userId }, body: { name, surname, email, password, newEmail, newPassword } } = req
 
     logic.updateUser(userId, name, surname, email, password, newEmail, newPassword)
@@ -59,7 +71,7 @@ router.patch('/users/:userId', (req, res) => {
         })
 })
 
-router.delete('/users/:userId', (req, res) => {
+router.delete('/users/:userId', [jwtValidator, jsonBodyParser], (req, res) => {
     const { params: { userId }, body: { email, password } } = req
 
     logic.unregisterUser(userId, email, password)
@@ -73,7 +85,7 @@ router.delete('/users/:userId', (req, res) => {
         })
 })
 
-router.post('/users/:userId/notes', (req, res) => {
+router.post('/users/:userId/notes', [jwtValidator, jsonBodyParser], (req, res) => {
     const { params: { userId }, body: { text } } = req
 
     logic.addNote(userId, text)
@@ -87,7 +99,7 @@ router.post('/users/:userId/notes', (req, res) => {
         })
 })
 
-router.get('/users/:userId/notes/:id', (req, res) => {
+router.get('/users/:userId/notes/:id', jwtValidator, (req, res) => {
     const { params: { userId, id } } = req
 
     logic.retrieveNote(userId, id)
@@ -100,7 +112,7 @@ router.get('/users/:userId/notes/:id', (req, res) => {
         })
 })
 
-router.get('/users/:userId/notes', (req, res) => {
+router.get('/users/:userId/notes', jwtValidator, (req, res) => {
     const { params: { userId }, query: { q } } = req;
 
     (q ? logic.findNotes(userId, q) : logic.listNotes(userId))
@@ -114,7 +126,7 @@ router.get('/users/:userId/notes', (req, res) => {
 
 })
 
-router.delete('/users/:userId/notes/:id', (req, res) => {
+router.delete('/users/:userId/notes/:id', jwtValidator, (req, res) => {
     const { params: { userId, id } } = req
 
     logic.removeNote(userId, id)
@@ -127,7 +139,7 @@ router.delete('/users/:userId/notes/:id', (req, res) => {
         })
 })
 
-router.patch('/users/:userId/notes/:id', (req, res) => {
+router.patch('/users/:userId/notes/:id', [jwtValidator, jsonBodyParser], (req, res) => {
     const { params: { userId, id }, body: { text } } = req
 
     logic.updateNote(userId, id, text)
