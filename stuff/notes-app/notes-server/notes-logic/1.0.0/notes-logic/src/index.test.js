@@ -358,7 +358,6 @@ describe('logic (notes)', () => {
         )
     })
 
-
     describe('add note', () => {
         it('should succeed on correct data', () =>
             User.create(userData)
@@ -433,9 +432,10 @@ describe('logic (notes)', () => {
                 .then(({ id: userId, notes: [{ id: noteId }] }) => {
                     return logic.retrieveNote(userId, noteId)
                 })
-                .then(({ id, text }) => {
+                .then(({ id, text, _id }) => {
                     expect(id).to.equal(note.id)
                     expect(text).to.equal(note.text)
+                    expect(_id).not.to.exist
                 })
         })
 

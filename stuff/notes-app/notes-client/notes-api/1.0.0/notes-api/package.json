@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha src/",
+    "debug-test": "mocha debug src/",
     "coverage": "nyc mocha src/",
     "coverage-report": "nyc --reporter=html --reporter=text mocha src/"
   },
