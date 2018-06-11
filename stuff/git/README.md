@@ -19,3 +19,5 @@ $ git checkout pr
 # references
 
 [GitHub Learning Lab](https://lab.github.com/)
+
+[Learning Git Branching](https://learngitbranching.js.org/)

@@ -1,0 +1,11 @@
+body {
+    background-color: aquamarine;
+}
+
+.error {
+    color: red;
+}
+
+.main {
+    padding-top: 20px;
+}
