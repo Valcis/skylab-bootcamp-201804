@@ -181,47 +181,6 @@ router.post('/news', jsonBodyParser, (req, res) => {
         })
 })
 
-
-('retrieve news', () => {
-
-  it('should succeed on correct data', () =>
-    news.create(userData)
-      .then(({ id }) => {
-        return logic.retrieveUser(id)
-      })
-      .then(user => {
-        expect(user).to.exist
-
-        const { name, surname, email, newsname, password, birthdate, gender, address, permission } = news
-
-        expect(name).to.equal('John')
-        expect(surname).to.equal('Doe')
-        expect(email).to.equal('jd@mail.com')
-        expect(username).to.equal('jhony2')
-        expect(password).to.equal('123')
-        expect(birthdate).to.equal(null)
-        expect(gender).to.equal('male')
-        expect(address).to.equal('anyDirection')
-        expect(permission).to.equal('reader')
-      })
-  )
-
-  it('should fail on no news id', () =>
-    logic.retrieveUser()
-      .catch(({ message }) => expect(message).to.equal('user id is not a string'))
-  )
-
-  it('should fail on empty news id', () =>
-    logic.retrieveUser('')
-      .catch(({ message }) => expect(message).to.equal('user id is empty or blank'))
-  )
-
-  it('should fail on blank news id', () =>
-    logic.retrieveUser('     ')
-      .catch(({ message }) => expect(message).to.equal('user id is empty or blank'))
-  )
-})
-
 router.post('/news/auth', jsonBodyParser, (req, res) => {
     const { body: { email, password } } = req
 
