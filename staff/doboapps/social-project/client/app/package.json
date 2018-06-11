@@ -1,0 +1,22 @@
+{
+  "name": "social-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "test-logic": "mocha src/logic"
+  },
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "social-api": "file:../api/"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2"
+  }
+}

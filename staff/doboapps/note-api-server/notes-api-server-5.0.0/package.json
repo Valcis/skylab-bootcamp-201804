@@ -1,0 +1,23 @@
+{
+  "name": "notes-api-server",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "watch": "nodemon .",
+    "debug": "node debug .",
+    "test": "mocha src/logic/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "expect": "^23.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.2"
+  },
+  "devDependencies": {}
+}

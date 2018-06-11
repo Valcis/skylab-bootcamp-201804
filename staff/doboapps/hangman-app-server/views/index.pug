@@ -1,0 +1,9 @@
+
+extends layout.pug
+block content
+	main.container.main.text-center
+		if word
+			h1 #{word}
+			form(action="/try" method="post")
+				input(class= " offset-sm-4 col-sm-4 mt-5 form-control" name="letter" type="text")
+				button(class=" mt-5 btn btn-outline-primary" type="submit")|Try
