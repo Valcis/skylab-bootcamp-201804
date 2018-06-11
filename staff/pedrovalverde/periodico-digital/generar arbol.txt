@@ -1,0 +1,3 @@
+ubicate en el directorio desde donde quieres generar su estructura:
+
+TREE /f >arbol.txt

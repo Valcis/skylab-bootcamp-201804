@@ -1,0 +1,16 @@
+
+conversor rss to json -->  https://rss2json.com
+___________________________________________________________
+
+20 minutos -> https://www.20minutos.com/rss/ 
+tiene : title desc, content, image. NO categories  pero RSS/categoria
+
+abc -> http://www.abc.es/rss/
+tiene : title, content image. no categories pero RSS/Categoria
+
+el confidencial -> https://rss.elconfidencial.com/espana/
+tiene title desc img, no categoriza pero RSS/ categoria
+
+as ->  https://as.com/rss/
+tiene : title, desc, img no categoriza pero el DEPORTES
+
