@@ -1,7 +1,7 @@
 'use strict'
 
 require('dotenv').config()
-const { mongoose } = require("data")
+const { mongoose } = require('data')
 const express = require('express')
 const router = require('./routes')
 const cors = require('cors')
