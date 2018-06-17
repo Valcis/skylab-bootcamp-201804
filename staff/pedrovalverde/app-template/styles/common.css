@@ -57,11 +57,11 @@ nav {
 
 .links {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    font-style: oblique;
-    font-weight: bold;
+        justify-content: center;
+        align-items: center;
+        font-size: 26px;
+        font-style: oblique;
+        font-weight: bold;
 }
 
 .links a, .links a:visited, .links a:link {

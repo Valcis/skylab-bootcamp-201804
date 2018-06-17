@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  background-color: mintcream;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 75% ;
+}
+
+
+
+

@@ -1,0 +1,44 @@
+.header {
+  margin-top: 10px;
+  color: peru;
+  display: grid;
+  grid-template-columns: 4fr 6fr 1fr;
+  text-align: justify;
+  align-items: center;
+  font-size: 1.5em;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+.logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 70px;
+}
+
+.logo2 {
+  animation: App-logo-spin2 infinite 20s linear;
+  height: 70px;
+}
+
+.title {
+  display: inline;
+  font-size: 1.5em;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1360deg);
+  }
+}
+
+@keyframes App-logo-spin2 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-1360deg);
+  }
+}

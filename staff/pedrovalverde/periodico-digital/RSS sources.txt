@@ -8,7 +8,7 @@ tiene : title desc, content, image. NO categories  pero RSS/categoria
 abc -> http://www.abc.es/rss/
 tiene : title, content image. no categories pero RSS/Categoria
 
-el confidencial -> https://rss.elconfidencial.com/espana/
+el confidencial -> https://rss.elconfidencial.com/rss/
 tiene title desc img, no categoriza pero RSS/ categoria
 
 as ->  https://as.com/rss/

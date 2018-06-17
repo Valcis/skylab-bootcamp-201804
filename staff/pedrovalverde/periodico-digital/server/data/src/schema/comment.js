@@ -6,11 +6,6 @@ module.exports = new Schema({
         ref : 'User',
         required: true
     },
-    newsId:{
-        type: ObjectId,
-        ref : 'News',
-        required: true
-    },
     content: {
         type: String,
         required: true
@@ -25,6 +20,4 @@ module.exports = new Schema({
         required: true,
         default: false
     }
-   
-
 })

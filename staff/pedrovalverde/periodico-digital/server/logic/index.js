@@ -19,7 +19,7 @@ const logic = {
      * @param {string} address 
      * @param {string} permission
      * 
-     * @returns {Promise<string>}
+     * @returns {Promise<boolean>}
      */
     registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
         return Promise.resolve()
@@ -396,7 +396,8 @@ const logic = {
     },
 
 
-//FOR COMMENTS BBDD :
+
+    //FOR COMMENTS BBDD :
 
     /**
      * 

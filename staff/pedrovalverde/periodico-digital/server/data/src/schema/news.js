@@ -1,6 +1,12 @@
 const { Schema, Schema: { ObjectId } } = require('mongoose')
 
+const Comment = require('./comment')
+
 module.exports = new Schema({
+    newsId:{
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
@@ -37,10 +43,6 @@ module.exports = new Schema({
         default: false,
         required : true
     },
-    comments: [{
-        type: ObjectId,
-        ref: 'Comment',
-        required : true
-    }]
+    comments: [Comment]
     
 })

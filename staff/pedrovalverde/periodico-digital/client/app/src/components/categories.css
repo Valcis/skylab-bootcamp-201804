@@ -1,0 +1,13 @@
+.categories {
+  color: #802081;
+  background-color: orange;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-style: oblique;
+  font-weight: bold;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  text-align: center
+}

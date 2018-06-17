@@ -1,0 +1,10 @@
+.lastNews {
+  border-top: 5px double green;
+  margin: 4px;
+}
+
+span {
+  text-align: justify;
+  display: block;
+  margin: 15px;
+}
