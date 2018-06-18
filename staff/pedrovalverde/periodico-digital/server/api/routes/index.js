@@ -88,6 +88,12 @@ router.delete('/users/:userId', [jwtValidator, jsonBodyParser], (req, res) => {
 
 // COMMENTS API ROUTES
 
+router.get('/news/:category', (req, res) => {
+    const { params: { category } } = req
+    logic.getNews(category).then(news => {
+        res.json(news);
+    })
+})
     //TODO -> addComment
     //TODO -> retrieveComment
     //TODO -> listCommentsByUser backoffice
@@ -167,7 +173,7 @@ router.patch('/news/:userId/comments/:id', [jwtValidator, jsonBodyParser], (req,
 
 // NEWS API ROUTES
 
-router.post('/news', jsonBodyParser, (req, res) => {
+router.post('/newssss', jsonBodyParser, (req, res) => {
     const { body: { title, subtitle, summary, complete, category, from, comments } } = req
 
     logic.addNews(title, subtitle, summary, complete, category, from, comments)

@@ -1,13 +1,12 @@
-
 'use strict'
 
 const { models: { User, Comment, News } } = require('data')
 
 const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-
+const apiNews = require('./newsConnection')
 const logic = {
 
-    //FOR USERS BBDD :
+//FOR USERS BBDD :
 
     /**
      * 
@@ -208,8 +207,11 @@ const logic = {
     },
 
 
+ // FOR NEWS BBDD:
 
-    // FOR NEWS BBDD:
+    getNews(category){
+        return apiNews.getNews(category)
+    },
 
     /**
      * 
