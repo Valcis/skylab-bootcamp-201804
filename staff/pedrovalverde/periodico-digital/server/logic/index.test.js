@@ -32,7 +32,7 @@ describe('logic (BBDD persistence)', () => {
     return Promise.all([User.remove()/*, Note.deleteMany()*/])
   })
 //TESTING USERS DATA BASE
-  false && describe('register user', () => {
+  !false && describe('register user', () => {
 
     it('should succeed on correct data', () =>
       logic.registerUser('John', 'Doe', 'jd@mail.com', 'jhony', '123', '', 'male', 'anyDirection', 'reader')
@@ -174,7 +174,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  false && describe('authenticate user', () => {
+  !false && describe('authenticate user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -215,7 +215,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  false && describe('retrieve user', () => {
+  !false && describe('retrieve user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -255,7 +255,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  false && describe('udpate user', () => {
+  !false && describe('udpate user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -424,7 +424,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  false && describe('unregister user', () => {
+  !false && describe('unregister user', () => {
 
     /* it('should succeed on correct data', () =>
       User.create(userData)
@@ -498,7 +498,7 @@ describe('logic (BBDD persistence)', () => {
   }) // DONE -> its OK
 
 //TESTING NEWS DATA BASE
-  false && describe('add news', () => {
+  !false && describe('add news', () => {
     
     it('should succeed on correct data', () =>
 
@@ -625,7 +625,7 @@ describe('logic (BBDD persistence)', () => {
 
 
 //TESTING COMMENTS DATA BASE
-  false && describe('add comment', () => {
+  !false && describe('add comment', () => {
 
     /* it('should succeed on correct data', () =>
       User.create(userData)
@@ -715,7 +715,7 @@ describe('logic (BBDD persistence)', () => {
     )
   })
 
-  false && describe('retrieve comment', () => {
+  !false && describe('retrieve comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
       const note = new Note({ text: noteText })
@@ -790,7 +790,7 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  false && describe('list comment', () => {
+  !false && describe('list comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
 
@@ -844,7 +844,7 @@ describe('logic (BBDD persistence)', () => {
     )
   })
 
-  false && describe('update comment', () => {
+  !false && describe('update comment', () => {
     it('should succeed on correct data', () =>
       User.create(userData)
         .then(({ id: userId }) =>
@@ -912,7 +912,7 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  false && describe('remove comment', () => {
+  !false && describe('remove comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
       const note = new Note({ text: noteText })
@@ -991,7 +991,7 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  false && describe('find comment', () => {
+  !false && describe('find comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
 

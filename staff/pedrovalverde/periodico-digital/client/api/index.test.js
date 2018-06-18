@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const { mongoose, models: { User } } = require('data')
 const { expect } = require('chai')
-const logic = require('.')
+const logic = require('./index')
 const _ = require('lodash')
 const sinon = require('sinon')
 const axios = require('axios')

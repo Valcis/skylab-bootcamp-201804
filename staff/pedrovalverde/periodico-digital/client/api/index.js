@@ -2,6 +2,8 @@
 
 const axios = require('axios')
 
+const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+
 const notesApi = {
     url: 'NO-URL',
 
@@ -14,18 +16,17 @@ const notesApi = {
      * @param {string} email 
      * @param {string} username
      * @param {string} password 
-     * @param {string} birthdate //luego convierto a object date
+     * @param {date} birthdate 
      * @param {string} gender
      * @param {string} address 
      * @param {string} permission
      * 
      * @returns {Promise<boolean>}
      */
-    registerUser(name, surname, email, username, password, birthdate , gender, address, permission) {
-        
+    registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
         return Promise.resolve()
             .then(() => {
-                 if (typeof name !== 'string') throw Error('user name is not a string')
+                if (typeof name !== 'string') throw Error('user name is not a string')
                 if (!(name = name.trim()).length) throw Error('user name is empty or blank')
 
                 if (typeof surname !== 'string') throw Error('user surname is not a string')
@@ -40,35 +41,29 @@ const notesApi = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
-                
+                if (typeof password !== 'string') throw Error('user password is not a string')
+                if (!(password = password.trim()).length) throw Error('user password is empty or blank')
+
+                if (typeof birthdate !== 'undefined' && !typeof birthdate !== 'string' && !DATE_REGEX.test(birthdate)) throw Error('user birthdate is not a date')
+
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
-                if (gender !== 'male' && gender !== 'female' && gender !== '') throw Error('user gender value not admited')
+                if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
 
                 if (typeof address !== 'string') throw Error('user address is not a string')
 
                 if (typeof permission !== 'string') throw Error('user permission is not a string')
-                if (permission !== 'reader' && permission !== 'editor' && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
-    
-                console.log("BIRTHDATE  ?: ",birthdate, " is ",typeof birthdate )
-    gender="male"
-    
+                if (permission !== "reader" && permission !== "editor" && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
 
-    console.log ("PASA con name: ", name," surname: ",surname," email ", email," username ", username," password ", password," birthdate ", birthdate," gender ", gender," address ", address," permission ", permission)
-
-                return axios.post(`${this.url}/users`, { name, surname, email, username, password, birthdate , gender, address, permission })
+                return axios.post(`${this.url}/users`, { name, surname, email, username, password, birthdate, gender, address, permission })
                     .then(({ status, data }) => {
-                        console.log("bien?", "status: ",status, "data: ",data)
                         if (status !== 201 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
-                        console.log("api logic OK, guardado en BBDD")
+
                         return true
-                        
                     })
                     .catch(err => {
                         if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
 
                         if (err.response) {
-                            
                             const { response: { data: { error: message } } } = err
 
                             throw Error(message)
@@ -152,7 +147,7 @@ const notesApi = {
      * @param {string} email 
      * @param {string} username
      * @param {string} password 
-     * @param {string} birthdate  //luego coonvertirlo a object date
+     * @param {date} birthdate 
      * @param {string} gender
      * @param {string} address 
      * @param {string} permission
@@ -182,7 +177,7 @@ const notesApi = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
+                if (birthdate.trim().length > 0) if (typeof birthdate !== 'date') throw Error('user birthdate is not a date')
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')

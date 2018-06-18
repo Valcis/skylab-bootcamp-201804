@@ -182,7 +182,7 @@ class RegisterPage extends Component {
           <FormGroup row>
             <Label for="birthdate" sm={2}>birthdate</Label>
             <Col sm={7}>
-              <Input type="date" name="birthdate" id="birthdate" value={user.birthdate} placeholder="birthdate" submitted={submitted} onChange={this.handleChange} />
+              <Input type="text" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="birthdate" id="birthdate" value={user.birthdate} placeholder="yyyy-mm-dd" submitted={submitted} onChange={this.handleChange} />
             </Col>
             <Col sm={2}>
               <FormText color="muted" >

@@ -3,9 +3,11 @@
 
 const { models: { User, Comment, News } } = require('data')
 
+const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+
 const logic = {
 
-//FOR USERS BBDD :
+    //FOR USERS BBDD :
 
     /**
      * 
@@ -21,11 +23,9 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    registerUser(name, surname, email, username, password, birthdate , gender, address, permission) {
-        Promise.resolve()
+    registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
+        return Promise.resolve()
             .then(() => {
-                console.log("entra aqui y birthdate es ", birthdate , " y es un ", typeof birthdate)
-
                 if (typeof name !== 'string') throw Error('user name is not a string')
                 if (!(name = name.trim()).length) throw Error('user name is empty or blank')
 
@@ -41,12 +41,8 @@ const logic = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-               // let birthdateObject = '';
-                if (birthdate.trim().length > 0) {
-                //    birthdateObject = new Date(birthdate)
-                   // if (typeof birthdateObject !== 'string') throw Error('user birthdateObject is not a object')
-                }
-                
+                if (typeof birthdate !== 'undefined' && !typeof birthdate !== 'string' && !DATE_REGEX.test(birthdate)) throw Error('user birthdate is not a date')
+
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
 
@@ -55,9 +51,7 @@ const logic = {
                 if (typeof permission !== 'string') throw Error('user permission is not a string')
                 if (permission !== "reader" && permission !== "editor" && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
 
-                
-                
-                return User.create({ name, surname, email, username, password, birthdate , gender, address, permission })
+                return User.create({ name, surname, email, username, password, birthdate: new Date(birthdate), gender, address, permission })
                     .then(() => true)
             })
     },
@@ -215,7 +209,7 @@ const logic = {
 
 
 
-// FOR NEWS BBDD:
+    // FOR NEWS BBDD:
 
     /**
      * 
@@ -255,7 +249,7 @@ const logic = {
                 if (typeof comments !== 'object') throw Error('comments is not an array')
 
                 return News.create({ title, subtitle, summary, complete, category, from, comments })
-                    .then(news => {return news.id})
+                    .then(news => { return news.id })
             })
     },
 
