@@ -16,6 +16,7 @@ function Header(props) {
       <h1 className="title">Mi Periodico Digital</h1>
 
       <Link to="/login">Login</Link>
+      
     </header>
 
   );

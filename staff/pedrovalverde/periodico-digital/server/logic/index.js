@@ -14,16 +14,18 @@ const logic = {
      * @param {string} email 
      * @param {string} username
      * @param {string} password 
-     * @param {date} birthdate 
+     * @param {string} birthdate 
      * @param {string} gender
      * @param {string} address 
      * @param {string} permission
      * 
      * @returns {Promise<boolean>}
      */
-    registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
-        return Promise.resolve()
+    registerUser(name, surname, email, username, password, birthdate , gender, address, permission) {
+        Promise.resolve()
             .then(() => {
+                console.log("entra aqui y birthdate es ", birthdate , " y es un ", typeof birthdate)
+
                 if (typeof name !== 'string') throw Error('user name is not a string')
                 if (!(name = name.trim()).length) throw Error('user name is empty or blank')
 
@@ -39,8 +41,12 @@ const logic = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (birthdate.trim().length > 0) if (typeof birthdate !== 'date') throw Error('user birthdate is not a date')
-
+               // let birthdateObject = '';
+                if (birthdate.trim().length > 0) {
+                //    birthdateObject = new Date(birthdate)
+                   // if (typeof birthdateObject !== 'string') throw Error('user birthdateObject is not a object')
+                }
+                
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
 
@@ -49,7 +55,9 @@ const logic = {
                 if (typeof permission !== 'string') throw Error('user permission is not a string')
                 if (permission !== "reader" && permission !== "editor" && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
 
-                return User.create({ name, surname, email, username, password, birthdate, gender, address, permission })
+                
+                
+                return User.create({ name, surname, email, username, password, birthdate , gender, address, permission })
                     .then(() => true)
             })
     },
@@ -107,7 +115,7 @@ const logic = {
      * @param {string} email 
      * @param {string} username
      * @param {string} password 
-     * @param {date} birthdate 
+     * @param {string} birthdate 
      * @param {string} gender
      * @param {string} address 
      * @param {string} permission
@@ -137,7 +145,7 @@ const logic = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (birthdate.trim().length > 0) if (typeof birthdate !== 'date') throw Error('user birthdate is not a date')
+                if (birthdate.trim().length > 0) if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')

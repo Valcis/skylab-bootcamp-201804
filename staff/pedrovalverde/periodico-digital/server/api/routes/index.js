@@ -14,9 +14,9 @@ const jsonBodyParser = bodyParser.json()
 // USERS API ROUTES
 
 router.post('/users', jsonBodyParser, (req, res) => {
-    const { body: { name, surname, email, username, password, birthdate, gender, address, permission } } = req
-
-    logic.registerUser(name, surname, email, username, password, birthdate, gender, address, permission)
+    const { body: { name, surname, email, username, password, birthdate , gender, address, permission } } = req
+    
+    logic.registerUser(name, surname, email, username, password, birthdate , gender, address, permission)
         .then(() => {
             res.status(201)
             res.json({ status: 'OK' })

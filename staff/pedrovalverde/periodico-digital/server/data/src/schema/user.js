@@ -25,7 +25,7 @@ module.exports = new Schema({
         required: true
     },
     birthdate: {
-        type: Date,
+        type: String,
         required: false
     },
     subscribeDate: {
@@ -33,11 +33,11 @@ module.exports = new Schema({
         default: Date.now,
         required: true
     },
-    gender: {
+    gender: [{
         type: String,
-        enum: ['male', 'female'],
+        enum: ['male', 'female', ''],
         required: false
-    },
+    }],
     address: {
         type: String,
         required: false

@@ -2,10 +2,11 @@ const apiClient = require('api-client')
 
 apiClient.url = 'http://localhost:5000/api'
 
-const logic = {
+const userLogic = {
     userId: 'NO-ID',
 
     registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
+        console.log("pasa por userLogic")
         return apiClient.registerUser(name, surname, email, username, password, birthdate, gender, address, permission)
     },
 
@@ -20,4 +21,4 @@ const logic = {
     
 }
 
-module.exports = logic
+module.exports = userLogic

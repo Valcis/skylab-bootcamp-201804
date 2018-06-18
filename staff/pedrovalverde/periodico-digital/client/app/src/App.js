@@ -9,7 +9,8 @@ import Home from './components/Home'
 import UpdateUser from './components/UpdateUser'
 import LoginPage from './components/LoginPage'
 import RegisterUser from './components/RegisterPage'
-import logic from './logic/index'
+import logic from './logic/index' 
+
 
 class App extends Component {
 

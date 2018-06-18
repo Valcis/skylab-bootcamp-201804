@@ -4,9 +4,13 @@ import logic from '../logic'
 import swal from 'sweetalert2'
 import Header from './Header'
 import Button from './Button';
-import { Col, Input, Form, FormGroup, Label } from 'reactstrap';
+import { Col, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
+
 
 class RegisterPage extends Component {
+  constructor() {
+    super()
+  }
 
   state = {
     // subscribeDate and permission are setted  by default
@@ -21,9 +25,9 @@ class RegisterPage extends Component {
       birthdate: '',
       gender: '',
       address: '',
-      permission: '',
-      comments: '',
-      likes: '',
+      permission: 'reader',
+      /*comments: '',
+      likes: '', */
 
     },
     submitted: false,
@@ -34,7 +38,7 @@ class RegisterPage extends Component {
     const { user } = this.state;
     this.setState({
       user: {
-        ...user,
+        ...this.state.user,
         [name]: value
       }
     });
@@ -44,36 +48,31 @@ class RegisterPage extends Component {
     event.preventDefault();
 
     this.setState({ submitted: true });
-    const { user } = this.state;
-    if (user.firstName && user.lastName && user.username && user.password && user.confirmpw) {
-      if (user.password === user.confirmpw) {
-        const body = {
-          "username": user.username,
-          "password": user.password,
-          "firstname": user.firstName,
-          "lastname": user.lastName
-        }
-
-        logic.user.registerUser(body).then(data => {
-          if (data.status === 'OK') {
-            swal({
-              text: 'Registered!',
-              title: 'Go to login!',
-              type: 'success'
-            }).then(result => {
-              if (result.value) {
-                this.props.history.push('/login')
-              }
-            })
-          } else {
-            swal({
-              type: 'error',
-              title: 'Something went wrong!',
-              text: data.error
-            })
-          }
-
-        })
+    const { name, surname, email, username, password, confirmpw, birthdate, gender, address } = this.state.user;
+    if (name && surname && email && username && password && confirmpw) {
+      if (password === confirmpw) {
+        logic.user.registerUser(name, surname, email, username, password, birthdate, gender, address, this.state.user.permission)
+          .then(data => {
+            if (data === true) {
+              swal({
+                text: 'Registered!',
+                title: 'Go to login!',
+                type: 'success'
+              })
+                .then(result => {
+                  if (result.value) {
+                    //this.props.history.push('/login')
+                    window.location = "#/login/"
+                  }
+                })
+            } else {
+              swal({
+                type: 'error',
+                title: 'Something went wrong!',
+                text: data.error
+              })
+            }
+          })
       } else {
         swal({
           type: 'error',
@@ -83,59 +82,157 @@ class RegisterPage extends Component {
       }
       this.setState({
         user: {
-          firstName: '',
-          lastName: '',
+          name: '',
+          surname: '',
+          email: '',
           username: '',
           password: '',
-          confirmpw: ''
+          confirmpw: '',
+          birthdate: '',
+          gender: '',
+          address: '',
+          permission: 'reader',
         },
         submitted: false
+      })
+    } else {
+      swal({
+        type: 'error',
+        title: 'OOOPS!',
+        text: "Some fields are required"
       })
     }
   }
 
 
   render() {
-    const { registering } = this.props;
     const { user, submitted } = this.state;
     return (
       <div>
         <Header />
-        <form name="form" onSubmit={this.handleSubmit}>
 
-          <Input type='text' name='username' helpText='Username is required' labelText='User Name'
-            value={user.username} submitted={submitted} handleChange={this.handleChange} />
-          <Input type='text' name='email' helpText='Email is required' labelText='Email'
-            value={user.email} submitted={submitted} handleChange={this.handleChange} />
-          <Input type='password' name='password' helpText='Password is required' labelText='Password'
-            value={user.password} submitted={submitted} handleChange={this.handleChange} />
-          <Input type='password' name='confirmpw' helpText='Password is required' labelText='Confirm password'
-            value={user.confirmpw} submitted={submitted} handleChange={this.handleChange} />
-          <Input type='text' name='name' helpText='First Name is required' labelText='Name'
-            value={user.name} submitted={submitted} handleChange={this.handleChange} />
-          <Input type='text' name='surname' helpText='SurName is required' labelText='SurName'
-            value={user.surname} submitted={submitted} handleChange={this.handleChange} /><br /><br /><br />
-          <Input type='date' name='birthdate' helpText='Birthdate is required' labelText='Birthdate'
-            value={user.birthdate} submitted={submitted} handleChange={this.handleChange} />
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup row>
+            <Label for="username" sm={2}>Username</Label>
+            <Col sm={7}>
+              <Input type="text" name="username" id="username" value={user.username} placeholder="username" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                Username is required
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="email" sm={2}>email</Label>
+            <Col sm={7}>
+              <Input type="text" name="email" id="email" value={user.email} placeholder="email" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                email is required
+              </FormText>
+            </Col>
 
-          <div >
-            <input type='radio' value='male' name='gender' /> Male
-            <input type='radio' value='female' name='gender' /> Female
-          </div>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="password" sm={2}>password</Label>
+            <Col sm={7}>
+              <Input type="password" name="password" id="password" value={user.password} placeholder="password" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                password is required
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="confirmpw" sm={2}>Confirm password</Label>
+            <Col sm={7}>
+              <Input type="password" name="confirmpw" id="confirmpw" value={user.confirmpw} placeholder="password" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                confirm the pass
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="name" sm={2}>name</Label>
+            <Col sm={7}>
+              <Input type="text" name="name" id="name" value={user.name} placeholder="name" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                name is required
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="surname" sm={2}>surname</Label>
+            <Col sm={7}>
+              <Input type="text" name="surname" id="surname" value={user.surname} placeholder="surname" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                surname is required
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="birthdate" sm={2}>birthdate</Label>
+            <Col sm={7}>
+              <Input type="date" name="birthdate" id="birthdate" value={user.birthdate} placeholder="birthdate" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                birthdate is optional
+              </FormText>
+            </Col>
+          </FormGroup>
 
-          <Input type='radio' name='gender' helpText=' is required' labelText='Male'
-            value='male' submitted={submitted} handleChange={this.handleChange} />
-          <Input type='radio' name='gender' helpText=' is required' labelText='Female'
-            value='female' submitted={submitted} handleChange={this.handleChange} />
+          <FormGroup row>
+            <legend className="col-form-label col-sm-2">Gender</legend>
+            <Col sm={7}>
+              <FormGroup check>
+                <Label check>
+                  <Input type="radio" name="radio2" value={user.gender} />{' '}
+                  Male
+              </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input type="radio" name="radio2" value={user.gender} />{' '}
+                  Female
+              </Label>
+              </FormGroup>
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                gender is optional
+              </FormText>
+            </Col>
+          </FormGroup>
 
-          <Input type='text' name='adderss' helpText='Adderss is required' labelText='Adderss'
-            value={user.adderss} submitted={submitted} handleChange={this.handleChange} />
+          <FormGroup row>
+            <Label for="address" sm={2}>address</Label>
+            <Col sm={7}>
+              <Input type="text" name="address" id="address" value={user.address} placeholder="address" submitted={submitted} onChange={this.handleChange} />
+            </Col>
+            <Col sm={2}>
+              <FormText color="muted" >
+                address is optional
+              </FormText>
+            </Col>
+          </FormGroup>
 
-          <Button name='Subscribe' destination='' namelink='' condition={registering} />
+          <FormGroup check row>
+            <Col sm={{ size: 7, offset: 2 }}>
+              <Button name='Subscribe' destination='home' namelink='Cancel' />
+            </Col>
+          </FormGroup>
+        </Form>
 
-
-          
-        </form>
       </div>
     )
   }
