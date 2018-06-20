@@ -11,7 +11,8 @@ class Categories extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      isActived : false
     };
   }
 
@@ -28,31 +29,31 @@ class Categories extends Component {
       <div className="categories">
         <Nav tabs>
           <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/introduction">Portada</NavLink>
+            <NavLink className="navLink" tag={Link} to="/news/introduction" active={this.state.isActived}>Portada</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/international">Internacional</Link>
+            <NavLink className="navLink" tag={Link} to="/news/international" active={this.state.isActived}>Internacional</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/national">Nacional</Link>
+            <NavLink className="navLink" tag={Link} to="/news/spain" active={this.state.isActived}>España</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/barcelona">Barcelona</Link>
+            <NavLink className="navLink" tag={Link} to="/news/culture" active={this.state.isActived}>Cultura</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/politica">Politica</Link>
+            <NavLink className="navLink" tag={Link} to="/news/politics" active={this.state.isActived}>Politica</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/sports">Deportes</Link>
+            <NavLink className="navLink" tag={Link} to="/news/sports" active={this.state.isActived}>Deportes</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/economia">Economia</Link>
+            <NavLink className="navLink" tag={Link} to="/news/economy" active={this.state.isActived}>Economia</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/tecnologia">Tecnologia</Link>
+            <NavLink className="navLink" tag={Link} to="/news/tecnology" active={this.state.isActived}>Tecnologia</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <Link className="navLink" to="/news/actualidad">Actualidad</Link>
+            <NavLink className="navLink" tag={Link} to="/news/health" active={this.state.isActived}>Salud</NavLink>
           </NavItem>
 
 

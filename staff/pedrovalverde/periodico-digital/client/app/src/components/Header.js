@@ -7,17 +7,10 @@ function Header(props) {
   return (
 
     <header className="header">
-      <section>
-        <img src={logo} className="logo" alt="logo" />
-        <img src={logo} className="logo2" alt="logo" />
-        <img src={logo} className="logo" alt="logo" />
-      </section>
-
-      <h1 className="title">Periodico Digital</h1>
-
+      <img src={logo} className="logo" alt="logo" />
+      <h1 className="title"> P e r i ó d i c o . D i g i t a l </h1>
       <Link className="link" to="/login">Acceder</Link>
       <Link className="link" to="/register">registrarse</Link>
-      
     </header>
 
   );

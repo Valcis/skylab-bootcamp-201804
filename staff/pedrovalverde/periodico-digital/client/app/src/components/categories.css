@@ -1,46 +1,33 @@
 .categories {
-  justify-content: center;
-  align-items: center;
+  margin-top: 70px;
   display: grid;
-  text-align: center
+  grid-template-columns: 9fr;
+  text-align: center;
+  align-items: center;
 }
 
-.navItem {
-  /*  font-style: oblique;
-  font-weight: bold; */
-}
-
-.navLink {
-  font-style: oblique;
+.navLink{
+  color :#0a126a;
   font-weight: bold;
-  color: tomato;
-  /* border : none !important; */
-  border-left: 1px solid black !important;
-  border-top: 1px solid black !important;
-  border-right: 1px solid black !important;
-  
-}
-
-
-.navLink:active {
-  /* color : green */
-}
-
-.navLink:link {
-  /* color : green */
-}
-
-.navLink:visited {
-  /*   color : lightgreen */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-top : 1px solid green !important;
+  border-left : 1px solid green !important;
+  border-right : 1px solid green !important;
 }
 
 .navLink:hover {
-  /* color : green */
+  color: white;
+  background-color: #0a126a;
 }
 
-.nav-tabs .nav-link.active {
-  background-color: red !important;
-  color: green !important;
-  border-radius: 10px 10px 0 0 !important;
-  border : none !important;
+.navLink:active {
+  color: green;
 }
+
+.navLink:link {
+  color: white;
+} 
+/* 
+.navLink:visited {
+  color: black;
+}  */

@@ -9,7 +9,6 @@ function Container(props) {
       <div className="container">
           <Header />
 
-          
           <Categories />
           <NewsGrid category={props.category} />
       </div>

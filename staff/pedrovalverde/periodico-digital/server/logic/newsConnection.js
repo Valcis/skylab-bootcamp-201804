@@ -35,7 +35,6 @@ const conection = {
         let feed = ''
 
         switch (section) {
-            //case 'introduction': feed = 'http://www.abc.es/rss/feeds/abc_Deportes.xml'; break;
             case 'introduction': feed = 'http://www.abc.es/rss/feeds/abcPortada.xml'; break;
             case 'spain': feed = 'http://www.abc.es/rss/feeds/abc_EspanaEspana.xml'; break;
             case 'international': feed = 'http://www.abc.es/rss/feeds/abc_Internacional.xml'; break;
