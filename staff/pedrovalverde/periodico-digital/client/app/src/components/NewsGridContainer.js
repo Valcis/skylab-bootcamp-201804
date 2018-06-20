@@ -4,7 +4,7 @@ import Header from './Header'
 import Categories from './Categories'
 import NewsGrid from './NewsGrid'
 
-function Container(props) {
+function NewsGridContainer(props) {
     return (
       <div className="container">
           <Header />
@@ -14,5 +14,5 @@ function Container(props) {
       </div>
     )
 }
-export default Container;
+export default NewsGridContainer;
 

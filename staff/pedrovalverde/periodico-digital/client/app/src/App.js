@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './components/NotFound'
-import Container from './components/Container'
+import NewsGridContainer from './components/NewsGridContainer'
 import UpdateUser from './components/UpdateUser'
 
 class App extends Component {
@@ -14,7 +14,12 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          <Route path="/news/:category" render={props => <Container category={props.match.params.category} />} />
+          <Route exact path="/" render={() => <Redirect to="/news/introduction" />} />
+
+          <Route path="/news/:category" render={props => <NewsGridContainer category={props.match.params.category} />} />
+
+          {/* DEMO: http://localhost:3000/#/news/culture/muere-el-poeta-cubano-rafael-alcides */}
+          {/* <Route path="/news/:category/:path" render={props => <NewsItemContainer category={props.match.params.category} path={props.match.params.path} />} /> */}
 
           <Route path="/users/update" component={UpdateUser} />
 
