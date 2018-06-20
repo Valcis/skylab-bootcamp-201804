@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './registerPage.css'
+import './userRegisterPage.css'
 import logic from '../logic'
 import swal from 'sweetalert2'
 import Header from './Header'
@@ -7,7 +7,7 @@ import Button from './Button';
 import { Col, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 
 
-class RegisterPage extends Component {
+class UserRegisterPage extends Component {
   constructor() {
     super()
   }
@@ -239,4 +239,4 @@ class RegisterPage extends Component {
 
 
 }
-export default RegisterPage;
+export default UserRegisterPage;

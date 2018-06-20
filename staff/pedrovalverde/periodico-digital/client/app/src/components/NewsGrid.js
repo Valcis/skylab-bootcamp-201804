@@ -42,18 +42,19 @@ class NewsItem extends Component {
 
     for (const key in this.state.items) {
       if (this.state.items.hasOwnProperty(key)) {
+        let _title = encodeURI(this.state.items[key].title)
+        let _href = "/news/"+this.props.category+"/"+_title;
+        console.log(_href)
 
-
-
-        items[key] = <Card>
-          {<CardHeader><span>ultima actualizacion : {this.state.items[key].pubDate}</span><span>{this.state.items[key].author}</span></CardHeader>}
-          <CardLink href="#" >
+          items[key] = <Card>
+            {<CardHeader><span>ultima actualizacion : {this.state.items[key].pubDate}</span><span>ABC</span></CardHeader>}
+            <CardLink href={_href} >
             <CardImg class="images" src={this.state.items[key].thumbnail} alt="Card image cap" />
             <CardBody className="cardBody">
               <CardTitle className="cardTitle">{this.state.items[key].title}</CardTitle>
             </CardBody>
           </CardLink>
-        </Card>;
+        </Card >;
       }
     }
 

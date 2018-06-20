@@ -3,11 +3,11 @@ import api from '../logic'
 import swal from 'sweetalert2'
 
 import Button from './Button';
-import './UpdateUser.css';
+import './userUpdatePage.css';
 import { withRouter } from 'react-router-dom'
 import { Col, Input, Form, FormGroup, Label } from 'reactstrap';
 
-class UpdateUser extends Component {
+class UserUpdatePage extends Component {
 
   state = {
     user: {
@@ -133,4 +133,4 @@ class UpdateUser extends Component {
 }
 
 
-export default withRouter(UpdateUser)
+export default withRouter(UserUpdatePage)

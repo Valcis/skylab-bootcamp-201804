@@ -7,18 +7,20 @@ import Button from './Button';
 import { Col, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 
 class FullItemPage extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
   }
 
 
 
   render() {
     const { user, submitted } = this.state;
+
+
     return (
       <div>
-       
 
+        {this.props}
       </div>
     )
   }

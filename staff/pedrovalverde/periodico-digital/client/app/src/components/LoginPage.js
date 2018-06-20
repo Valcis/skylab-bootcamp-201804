@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import swal from 'sweetalert2'
+import Header from './Header'
 import Button from './Button'
 import logic from '../logic/'
 
@@ -73,6 +74,8 @@ class LoginPage extends Component {
     const { loggingIn } = this.props;
     const { email, password, submitted } = this.state;
     return (
+      <div>
+      <Header />
       <Form name="form" onSubmit={this.handleSubmit}>
         <h2>Login</h2>
         <FormGroup row>
@@ -92,7 +95,7 @@ class LoginPage extends Component {
 
         <Button name='Login' destination='register' nameLink='Register' condition={loggingIn} />
       </Form>
-
+      </div>
     );
   }
 }
