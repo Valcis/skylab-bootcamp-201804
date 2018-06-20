@@ -18,7 +18,7 @@ class App extends Component {
 
           <Route path="/news/:category" render={props => <NewsGridContainer category={props.match.params.category} />} />
 
-          {/* DEMO: http://localhost:3000/#/news/culture/muere-el-poeta-cubano-rafael-alcides */}
+          {/* DEMO: http://localhost:3000/#/news/culture/Muere%20el%20poeta%20cubano%20Rafael%20Alcides */}
           {/* <Route path="/news/:category/:path" render={props => <NewsItemContainer category={props.match.params.category} path={props.match.params.path} />} /> */}
 
           <Route path="/users/update" component={UpdateUser} />
