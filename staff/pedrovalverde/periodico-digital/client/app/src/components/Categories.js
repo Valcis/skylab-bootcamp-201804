@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './categories.css'
 import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 
 class Categories extends Component {
@@ -27,34 +28,34 @@ class Categories extends Component {
       <div className="categories">
         <Nav tabs>
           <NavItem className="navItem">
-            <NavLink className="navLink"  href="/home/" active={true}>Portada</NavLink>
+            <NavLink className="navLink" tag={Link} to="/news/introduction">Portada</NavLink>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" category="international" href="/news/internacional/">Internacional</NavLink>
+            <Link className="navLink" to="/news/international">Internacional</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/nacional/">Nacional</NavLink>
+            <Link className="navLink" to="/news/national">Nacional</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/barcelona/">Barcelona</NavLink>
+            <Link className="navLink" to="/news/barcelona">Barcelona</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/politica/">Politica</NavLink>
+            <Link className="navLink" to="/news/politica">Politica</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" category="sports" href="/news/deportes/">Deportes</NavLink>
+            <Link className="navLink" to="/news/sports">Deportes</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/economia/">Economia</NavLink>
+            <Link className="navLink" to="/news/economia">Economia</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/tecnologia/">Tecnologia</NavLink>
+            <Link className="navLink" to="/news/tecnologia">Tecnologia</Link>
           </NavItem>
           <NavItem className="navItem">
-            <NavLink className="navLink" href="/news/actualidad/">Actualidad</NavLink>
+            <Link className="navLink" to="/news/actualidad">Actualidad</Link>
           </NavItem>
-          
-         
+
+
         </Nav>
       </div>
     );
