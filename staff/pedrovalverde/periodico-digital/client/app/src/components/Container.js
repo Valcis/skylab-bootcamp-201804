@@ -2,25 +2,18 @@ import React, { Component } from 'react'
 import './container.css'
 import Header from './Header'
 import Categories from './Categories'
-import NewsItem from './NewsItem'
+import NewsGrid from './NewsGrid'
 
-class Container extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    
+function Container(props) {
     return (
       <div className="container">
           <Header />
 
           
           <Categories />
-          <NewsItem path="/news/:category" />
+          <NewsGrid category={props.category} />
       </div>
     )
-  }
 }
 export default Container;
 

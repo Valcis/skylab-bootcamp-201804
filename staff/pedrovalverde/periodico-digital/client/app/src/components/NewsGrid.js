@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './newsItem.css'
+import './newsGrid.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logic from '../logic/index'
 import { Card, CardImg, CardText, CardBody, CardLink, CardHeader, CardFooter, CardTitle, CardSubtitle, Button } from 'reactstrap';
@@ -16,24 +16,14 @@ class NewsItem extends Component {
   }
 
   componentDidMount() {
+    this.loadNews(this.props.category)
+  }
 
-    //console.log('this.props: ', this.props.match.params.category);
+  componentWillReceiveProps(props) {    
+    this.loadNews(props.category)
+  }
 
-    let category = ''
-    switch (this.props.category) {
-      case "/home/": category = "introduction"; break;
-      case "/news/internacional/": category = ""; break;
-      case "/news/nacional/": category = ""; break;
-      case "/news/barcelona/": category = ""; break;
-      case "/news/politica/": category = ""; break;
-      case "/news/deportes/": category = "sports"; break;
-      case "/news/economia/": category = ""; break;
-      case "/news/tecnologia/": category = ""; break;
-      case "/news/actualidad/": category = ""; break;
-      default : category = "introduction"
-    }
-
-    
+  loadNews(category) {
     logic.news.getNews(category)
       .then(data => {
         if (data.status == 'ok') {
