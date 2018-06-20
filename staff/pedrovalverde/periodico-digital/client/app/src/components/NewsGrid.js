@@ -19,7 +19,7 @@ class NewsItem extends Component {
     this.loadNews(this.props.category)
   }
 
-  componentWillReceiveProps(props) {    
+  componentWillReceiveProps(props) {
     this.loadNews(props.category)
   }
 
@@ -44,14 +44,14 @@ class NewsItem extends Component {
       if (this.state.items.hasOwnProperty(key)) {
 
 
-        
+
         items[key] = <Card>
           {<CardHeader><span>ultima actualizacion : {this.state.items[key].pubDate}</span><span>{this.state.items[key].author}</span></CardHeader>}
           <CardLink href="#" >
-          <CardImg class="images" src={this.state.items[key].thumbnail} alt="Card image cap" />
-          <CardBody className="cardBody">
-            <CardTitle className="cardTitle">{this.state.items[key].title}</CardTitle>
-          </CardBody>
+            <CardImg class="images" src={this.state.items[key].thumbnail} alt="Card image cap" />
+            <CardBody className="cardBody">
+              <CardTitle className="cardTitle">{this.state.items[key].title}</CardTitle>
+            </CardBody>
           </CardLink>
         </Card>;
       }
@@ -60,9 +60,7 @@ class NewsItem extends Component {
 
     return (
       <div className="newsItem">
-
         {items}
-
       </div>
     );
   }

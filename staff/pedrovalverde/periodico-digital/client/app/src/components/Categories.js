@@ -8,12 +8,12 @@ class Categories extends Component {
 
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
-    this.state = {
-      dropdownOpen: false,
-      isActived : false
-    };
+  }
+
+  state = {
+    dropdownOpen: false,
+    isActived: false
   }
 
   toggle() {
@@ -55,8 +55,6 @@ class Categories extends Component {
           <NavItem className="navItem">
             <NavLink className="navLink" tag={Link} to="/news/health" active={this.state.isActived}>Salud</NavLink>
           </NavItem>
-
-
         </Nav>
       </div>
     );

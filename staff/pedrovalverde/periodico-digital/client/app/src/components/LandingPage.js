@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import './container.css'
+import './landingPage.css'
 import Header from './Header'
 import Categories from './Categories'
 import NewsGrid from './NewsGrid'
 
-function NewsGridContainer(props) {
+function LandingPage(props) {
     return (
       <div className="container">
           <Header />
-
           <Categories />
           <NewsGrid category={props.category} />
       </div>
     )
 }
-export default NewsGridContainer;
+export default LandingPage;
 

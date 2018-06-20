@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './home.css'
+import './registerPage.css'
 import logic from '../logic'
 import swal from 'sweetalert2'
 import Header from './Header'

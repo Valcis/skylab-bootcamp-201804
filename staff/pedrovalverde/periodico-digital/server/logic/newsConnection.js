@@ -45,7 +45,7 @@ const conection = {
             case 'tecnology': feed = 'http://www.abc.es/rss/feeds/abc_Tecnologia.xml'; break;
             case 'health': feed = 'http://www.abc.es/rss/feeds/abc_SociedadSalud.xml'; break;
         }
-console.log("conection to : ",`${this.converter}?rss_url=${feed}&api_key=${api_key_google}&order_by=pubDate&order_dir=desc&count=15`);
+
         return axios.get(`${this.converter}?rss_url=${feed}&api_key=${api_key_google}&order_by=pubDate&order_dir=desc&count=15`)
             .then(res => res.data)
             .catch(err => err)

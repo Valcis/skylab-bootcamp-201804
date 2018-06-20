@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import './App.css'
 import { Route, Switch, Redirect } from 'react-router-dom';
 import NotFound from './components/NotFound'
-import NewsGridContainer from './components/NewsGridContainer'
 import UpdateUser from './components/UpdateUser'
+import LandingPage from './components/LandingPage';
+import RegisterPage from './components/RegisterPage';
+import FullItemPage from './components/FullItemPage';
 
 class App extends Component {
 
@@ -14,12 +16,15 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
+          <Route exact path="/users/register" component={RegisterPage} />
           <Route exact path="/" render={() => <Redirect to="/news/introduction" />} />
 
-          <Route path="/news/:category" render={props => <NewsGridContainer category={props.match.params.category} />} />
+          
+
+          <Route path="/news/:category" render={props => <LandingPage category={props.match.params.category} />} />
 
           {/* DEMO: http://localhost:3000/#/news/culture/Muere%20el%20poeta%20cubano%20Rafael%20Alcides */}
-          {/* <Route path="/news/:category/:path" render={props => <NewsItemContainer category={props.match.params.category} path={props.match.params.path} />} /> */}
+          {<Route path="/news/:category/:path" render={props => <FullItemPage category={props.match.params.category} path={props.match.params.path} />} />}
 
           <Route path="/users/update" component={UpdateUser} />
 
