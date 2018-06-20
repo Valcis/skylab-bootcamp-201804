@@ -13,9 +13,10 @@ function Header(props) {
         <img src={logo} className="logo" alt="logo" />
       </section>
 
-      <h1 className="title">Mi Periodico Digital</h1>
+      <h1 className="title">Periodico Digital</h1>
 
-      <Link to="/login">Login</Link>
+      <Link className="link" to="/login">Acceder</Link>
+      <Link className="link" to="/register">registrarse</Link>
       
     </header>
 

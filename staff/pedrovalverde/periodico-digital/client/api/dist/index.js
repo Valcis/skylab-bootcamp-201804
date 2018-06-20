@@ -276,6 +276,34 @@ var notesApi = {
 
     // FOR NEWS BBDD:
 
+    getNews: function getNews(category) {
+        var _this6 = this;
+
+        return Promise.resolve().then(function () {
+            if (typeof category !== 'string') throw Error('category is not a string');
+            if (!(category = category.trim()).length) throw Error('category is empty or blank');
+
+            return axios.get(_this6.url + '/news/' + category + '/').then(function (_ref6) {
+                var status = _ref6.status,
+                    data = _ref6.data;
+
+                if (status !== 200 || data.status !== 'ok') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
+
+                return data;
+            }).catch(function (err) {
+                if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
+
+                if (err.response) {
+                    var message = err.response.data.error;
+
+
+                    throw Error(message);
+                } else throw err;
+            });
+        });
+    },
+
+
     /**
      * 
      * @param {string} userId
@@ -284,7 +312,7 @@ var notesApi = {
      * @returns {Promise<string>}
      */
     addNote: function addNote(userId, text) {
-        var _this6 = this;
+        var _this7 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -295,9 +323,9 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.post(_this6.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this6.token } }).then(function (_ref6) {
-                var status = _ref6.status,
-                    data = _ref6.data;
+            return axios.post(_this7.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this7.token } }).then(function (_ref7) {
+                var status = _ref7.status,
+                    data = _ref7.data;
 
                 if (status !== 201 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 
@@ -324,7 +352,7 @@ var notesApi = {
      * @returns {Promise<Note>}
      */
     retrieveNote: function retrieveNote(userId, noteId) {
-        var _this7 = this;
+        var _this8 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -335,9 +363,9 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.get(_this7.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this7.token } }).then(function (_ref7) {
-                var status = _ref7.status,
-                    data = _ref7.data;
+            return axios.get(_this8.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this8.token } }).then(function (_ref8) {
+                var status = _ref8.status,
+                    data = _ref8.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 
@@ -362,16 +390,16 @@ var notesApi = {
      * @returns {Promise<[Note]>}
      */
     listNotes: function listNotes(userId) {
-        var _this8 = this;
+        var _this9 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
 
             if (!(userId = userId.trim()).length) throw Error('user id is empty or blank');
 
-            return axios.get(_this8.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this8.token } }).then(function (_ref8) {
-                var status = _ref8.status,
-                    data = _ref8.data;
+            return axios.get(_this9.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this9.token } }).then(function (_ref9) {
+                var status = _ref9.status,
+                    data = _ref9.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 
@@ -399,7 +427,7 @@ var notesApi = {
      * @returns {Promise<boolean>}
      */
     updateNote: function updateNote(userId, noteId, text) {
-        var _this9 = this;
+        var _this10 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -414,9 +442,9 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.patch(_this9.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this9.token } }).then(function (_ref9) {
-                var status = _ref9.status,
-                    data = _ref9.data;
+            return axios.patch(_this10.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref10) {
+                var status = _ref10.status,
+                    data = _ref10.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 
@@ -443,7 +471,7 @@ var notesApi = {
      * @returns {Promise<boolean>}
      */
     removeNote: function removeNote(userId, noteId) {
-        var _this10 = this;
+        var _this11 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -454,9 +482,9 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.delete(_this10.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref10) {
-                var status = _ref10.status,
-                    data = _ref10.data;
+            return axios.delete(_this11.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref11) {
+                var status = _ref11.status,
+                    data = _ref11.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 
@@ -484,7 +512,7 @@ var notesApi = {
      * @returns {Promise<[Note]>}
      */
     findNotes: function findNotes(userId, text) {
-        var _this11 = this;
+        var _this12 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -495,9 +523,9 @@ var notesApi = {
 
             if (!text.length) throw Error('text is empty');
 
-            return axios.get(_this11.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref11) {
-                var status = _ref11.status,
-                    data = _ref11.data;
+            return axios.get(_this12.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this12.token } }).then(function (_ref12) {
+                var status = _ref12.status,
+                    data = _ref12.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
 

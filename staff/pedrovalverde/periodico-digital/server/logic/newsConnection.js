@@ -28,9 +28,14 @@ const conection = {
 
     getNews(section) {
 
+        
+        let api_key_google = 'rctozux60qq0jkynqwpwl45cc3j4kylqltucas7k' // Generada con registro mediante cuenta de google
+        let api_key_this = 'apabksulqoq5ltg6uoodnje6qu1ssfticnkzd2zp'
+
         let feed = ''
 
         switch (section) {
+            //case 'introduction': feed = 'http://www.abc.es/rss/feeds/abc_Deportes.xml'; break;
             case 'introduction': feed = 'http://www.abc.es/rss/feeds/abcPortada.xml'; break;
             case 'spain': feed = 'http://www.abc.es/rss/feeds/abc_EspanaEspana.xml'; break;
             case 'international': feed = 'http://www.abc.es/rss/feeds/abc_Internacional.xml'; break;
@@ -41,8 +46,8 @@ const conection = {
             case 'tecnology': feed = 'http://www.abc.es/rss/feeds/abc_Tecnologia.xml'; break;
             case 'health': feed = 'http://www.abc.es/rss/feeds/abc_SociedadSalud.xml'; break;
         }
-
-        return axios.get(`${this.converter}?rss_url=${feed}`)
+console.log("conection to : ",`${this.converter}?rss_url=${feed}&api_key=${api_key_google}&order_by=pubDate&order_dir=desc&count=15`);
+        return axios.get(`${this.converter}?rss_url=${feed}&api_key=${api_key_google}&order_by=pubDate&order_dir=desc&count=15`)
             .then(res => res.data)
             .catch(err => err)
     },

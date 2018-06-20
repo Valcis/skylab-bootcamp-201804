@@ -6,6 +6,7 @@ const userLogic = {
     userId: 'NO-ID',
 
     registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
+        
         return apiClient.registerUser(name, surname, email, username, password, birthdate, gender, address, permission)
     },
 

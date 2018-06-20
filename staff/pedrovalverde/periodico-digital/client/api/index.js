@@ -251,6 +251,31 @@ const notesApi = {
 
     // FOR NEWS BBDD:
 
+    getNews(category){
+        return Promise.resolve()
+            .then(() => {
+                if (typeof category !== 'string') throw Error('category is not a string')
+                if (!(category = category.trim()).length) throw Error('category is empty or blank')
+
+                return axios.get(`${this.url}/news/${category}/`)
+                
+                    .then(({ status, data }) => {
+                        if (status !== 200 || data.status !== 'ok') throw Error(`unexpected response status ${status} (${data.status})`)
+
+                        return data
+                    })
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+
+                            throw Error(message)
+                        } else throw err
+                    })
+            })
+    },
+
     /**
      * 
      * @param {string} userId
