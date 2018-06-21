@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
 import './fullItemPage.css'
-import logic from '../logic'
-import swal from 'sweetalert2'
 import Header from './Header'
-import Button from './Button';
-import { Col, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
+import Categories from './Categories'
+import FullItem from './FullItem'
 
-class FullItemPage extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-
-
-  render() {
-    const { user, submitted } = this.state;
-
-
-    return (
-      <div>
-
-        {this.props}
-      </div>
-    )
-  }
+function FullItemPage(props) {
+  console.log("props de pagina ", props);
+  return (
+    <div className="container">
+      <Header />
+      <Categories />
+      <FullItem category={props.category} title={props.title} data="hola" />
+    </div>
+  )
 
 }
 export default FullItemPage;

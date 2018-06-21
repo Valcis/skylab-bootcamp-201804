@@ -5,29 +5,30 @@
   text-align: center;
   align-items: center;
 }
-
-.navLink{
+/*
+.nav-link{
   color :#0a126a;
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+ 
+.nav-link:link{
+  color:yellow !important;
+}
+.nav-link:hover{
+  color: white !important;
+  background-color: #0a126a;
+}
+.nav-link:active{
+  color:green !important;
+}
+.nav-link:visited{
   border-top : 1px solid green !important;
   border-left : 1px solid green !important;
   border-right : 1px solid green !important;
-}
+} */
 
-.navLink:hover {
-  color: white;
-  background-color: #0a126a;
-}
-
-.navLink:active {
-  color: green;
-}
-
-.navLink:link {
-  color: white;
-} 
-/* 
+/* esto no
 .navLink:visited {
   color: black;
 }  */

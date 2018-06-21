@@ -23,10 +23,12 @@ class App extends Component {
 
           <Route exact path="/" render={() => <Redirect to="/news/introduction" />} />
 
-          <Route path="/news/:category" render={props => <LandingPage category={props.match.params.category} />} />
+          <Route exact path="/news/:category/:title" strict render = {props => <FullItemPage data={props} category={props.match.params.category} title={props.match.params.title} />} />
 
-          {/* DEMO: http://localhost:3000/#/news/culture/Muere%20el%20poeta%20cubano%20Rafael%20Alcides */}
-          {<Route path="/news/:category/:path" render={props => <FullItemPage category={props.match.params.category} path={props.match.params.path} />} />}
+          <Route exact path="/news/:category" render={props => <LandingPage category={props.match.params.category} />} />
+
+
+          
 
           <Route path="/404" component={NotFound} />
         </Switch >

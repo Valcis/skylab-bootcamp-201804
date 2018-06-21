@@ -2,24 +2,26 @@ import React, { Component } from 'react'
 import './categories.css'
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom'
+import classnames from 'classnames';
 
 
 class Categories extends Component {
 
   constructor(props) {
     super(props);
+
     this.toggle = this.toggle.bind(this);
+    this.state = {
+      activeTab: 'introduction'
+    };
   }
 
-  state = {
-    dropdownOpen: false,
-    isActived: false
-  }
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
 
 
@@ -28,32 +30,32 @@ class Categories extends Component {
 
       <div className="categories">
         <Nav tabs>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/introduction" active={this.state.isActived}>Portada</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/introduction" className={classnames({ active: this.state.activeTab === 'introduction' })}  onClick={() => { this.toggle('introduction'); }}>Portada</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/international" active={this.state.isActived}>Internacional</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/international" className={classnames({ active: this.state.activeTab === 'international' })}  onClick={() => { this.toggle('international'); }}>Internacional</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/spain" active={this.state.isActived}>España</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/spain" className={classnames({ active: this.state.activeTab === 'spain' })}  onClick={() => { this.toggle('spain'); }}>España</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/culture" active={this.state.isActived}>Cultura</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/culture" className={classnames({ active: this.state.activeTab === 'culture' })}  onClick={() => { this.toggle('culture'); }}>Cultura</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/politics" active={this.state.isActived}>Politica</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/politics" className={classnames({ active: this.state.activeTab === 'politics' })}  onClick={() => { this.toggle('politics'); }}>Politica</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/sports" active={this.state.isActived}>Deportes</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/sports" className={classnames({ active: this.state.activeTab === 'sports' })}  onClick={() => { this.toggle('sports'); }}>Deportes</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/economy" active={this.state.isActived}>Economia</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/economy" className={classnames({ active: this.state.activeTab === 'economy' })}  onClick={() => { this.toggle('economy'); }}>Economia</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/tecnology" active={this.state.isActived}>Tecnologia</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/tecnology" className={classnames({ active: this.state.activeTab === 'tecnology' })}  onClick={() => { this.toggle('tecnology'); }}>Tecnologia</NavLink>
           </NavItem>
-          <NavItem className="navItem">
-            <NavLink className="navLink" tag={Link} to="/news/health" active={this.state.isActived}>Salud</NavLink>
+          <NavItem >
+            <NavLink tag={Link} to="/news/health" className={classnames({ active: this.state.activeTab === 'health' })}  onClick={() => { this.toggle('health'); }}>Salud</NavLink>
           </NavItem>
         </Nav>
       </div>
