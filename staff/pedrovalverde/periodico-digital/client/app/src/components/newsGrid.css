@@ -1,21 +1,18 @@
- .newsItem {
+.tc-grid {
   border-left : 2px solid #f8f9fa ;
   border-right : 2px solid #f8f9fa ;
-} 
-.tab-content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr !important  ;
-
+  grid-template-columns: 1fr 1fr 1fr ;
   text-align: center;
 }
 
 .card{
   margin: 10px;
-  border: 1px solid grey !important;
+  border: 1px solid grey ;
 }
 
 .card-header {
-  padding: 4px !important;
+  padding: 5px !important;
   color : darkgray;
   display: grid;
   grid-template-columns: 5fr 1fr;

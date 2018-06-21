@@ -2,14 +2,10 @@ import React, { Component } from 'react'
 import './newsGrid.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logic from '../logic/index'
-import { TabContent, TabPane, Card, CardImg, CardBody, CardLink, CardHeader, CardTitle } from 'reactstrap';
+import { TabContent, TabPane, Card, CardImg, CardBody, CardHeader, CardTitle } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 class NewsGrid extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     items: {},
     feed: {},
@@ -26,7 +22,7 @@ class NewsGrid extends Component {
   loadNews(category) {
     logic.news.getNews(category)
       .then(data => {
-        
+
         if (data.status == 'ok') {
           this.setState({
             items: data.items,
@@ -44,30 +40,33 @@ class NewsGrid extends Component {
       if (this.state.items.hasOwnProperty(key)) {
 
         let _title = encodeURI(this.state.items[key].title)
-        let _href = "/#/news/"+this.props.category+"/"+_title;
+        let _href = "/news/" + this.props.category + "/" + _title;
 
-          items[key] = 
-          <TabPane tabId={this.props.category}>
-          <Card>
-            {<CardHeader><span>ultima actualizacion : {this.state.items[key].pubDate}</span><span>ABC</span></CardHeader>}
-            <CardLink  href={_href} >
-            <CardImg class="images" src={this.state.items[key].thumbnail} alt="Card image cap" />
-            <CardBody className="cardBody">
-              <CardTitle className="cardTitle">{this.state.items[key].title}</CardTitle>
-            </CardBody>
-          </CardLink>
-        </Card >
-        </TabPane>
+        items[key] =
+          <TabPane key={"tb" + key} tabId={this.props.category}>
+            <Card>
+              {<CardHeader><span>last update : {this.state.items[key].pubDate}</span><span>ABC</span></CardHeader>}
+
+              <Link to={_href} onClick={() => {
+                this.props.setActualNews(this.state.items[key])
+              }}>
+                <CardImg src={this.state.items[key].thumbnail} alt="Card image cap" />
+                <CardBody >
+                  <CardTitle >{this.state.items[key].title}</CardTitle>
+                </CardBody>
+              </Link>
+            </Card >
+          </TabPane>
       }
     }
 
 
     return (
-      <div className="newsItem">
-      <TabContent activeTab={this.props.category}>
+
+      <TabContent className="tc-grid" activeTab={this.props.category}>
         {items}
-        </TabContent>
-      </div>
+      </TabContent>
+
     );
   }
 };

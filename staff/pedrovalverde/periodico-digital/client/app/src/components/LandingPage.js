@@ -9,7 +9,7 @@ function LandingPage(props) {
       <div className="container">
           <Header />
           <Categories />
-          <NewsGrid category={props.category} />
+          <NewsGrid setActualNews={props.setActualNews} category={props.category} />
       </div>
     )
 }

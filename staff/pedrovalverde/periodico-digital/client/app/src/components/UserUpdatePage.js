@@ -63,9 +63,9 @@ class UserUpdatePage extends Component {
       title: 'Login to confirm',
       html:
         `<label>username : </label>` +
-        `<input id="username" class="swal2-input" value="">` +
+        `<input id="username" className="swal2-input" value="">` +
         `<label>password : </label>` +
-        `<input type="password" id="password" class="swal2-input" value="">`,
+        `<input type="password" id="password" className="swal2-input" value="">`,
       showCancelButton: true,
       backdrop: "rgba(44, 50, 55, 0.92)",
       focusConfirm: false,

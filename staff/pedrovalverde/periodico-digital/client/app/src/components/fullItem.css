@@ -1,0 +1,20 @@
+.card{
+/*   margin: 30px; */
+}
+
+#cardtitle {
+  color: darkblue;
+  font-size: 1.5rem;
+} 
+
+.item-card img {
+  float : left;
+  margin-right: 30px;
+}
+
+.item-card p {
+  text-align: justify;
+
+
+}
+
