@@ -6,10 +6,14 @@ const newsLogic = {
     userId: 'NO-ID',
 
     getNews(category) {
-        return apiClient.getNews(category)
+        return apiClient.getExternNews(category)
     },
 
-  
+    // TO DO : buscar si existe la noticia en MI base-> exist(pubDate){}
+    
+    exist (pubDate){
+        return apiClient.getNewsByPubDate(pubDate)
+    }
     
 }
 

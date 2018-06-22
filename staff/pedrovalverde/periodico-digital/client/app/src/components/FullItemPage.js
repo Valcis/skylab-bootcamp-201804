@@ -3,15 +3,20 @@ import './fullItemPage.css'
 import Header from './Header'
 import Categories from './Categories'
 import FullItem from './FullItem'
+import CommentsGrid from './CommentsGrid'
 
-function FullItemPage(props) {
-  return (
-    <div className="container">
-      <Header />
-      <Categories />
-      <FullItem actualNews={props.actualNews}  category={props.category} title={props.title} datos={props} />
-    </div>
-  )
+class FullItemPage extends Component {
 
+  render() {
+    return (
+      <div className="container">
+        <Header />
+        <Categories />
+        <FullItem actualNews={this.props.actualNews} category={this.props.category} title={this.props.title} />
+        <CommentsGrid data={this.props.actualNews}/>
+
+      </div>
+    )
+  }
 }
 export default FullItemPage;

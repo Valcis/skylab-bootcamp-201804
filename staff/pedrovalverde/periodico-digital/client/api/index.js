@@ -6,7 +6,6 @@ const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
 
 const notesApi = {
     url: 'NO-URL',
-
     token: 'NO-TOKEN',
 
     /**
@@ -251,18 +250,48 @@ const notesApi = {
 
     // FOR NEWS BBDD:
 
-    getNews(category){
+    /**
+     * 
+     * @param {string} category 
+     * 
+     * @returns {Promise<categoryobject>}
+     */
+    getExternNews(category) {
         return Promise.resolve()
             .then(() => {
                 if (typeof category !== 'string') throw Error('category is not a string')
                 if (!(category = category.trim()).length) throw Error('category is empty or blank')
 
                 return axios.get(`${this.url}/news/${category}/`)
-                
+
                     .then(({ status, data }) => {
                         if (status !== 200 || data.status !== 'ok') throw Error(`unexpected response status ${status} (${data.status})`)
-
                         return data
+                    })
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+
+                            throw Error(message)
+                        } else throw err
+                    })
+            })
+    },
+
+    getNewsByPubDate(pubDate) {
+        return Promise.resolve()
+            .then(() => {
+                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
+                if (!(pubDate = pubDate.trim())) throw Error('pubDate is empty or blank')
+
+                return axios.post(`${this.url}/news-bbdd`, { pubDate })
+                    .then(( res) => {
+                        console.log(res);
+                       let { status, data } = res
+                        if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
+                        return id
                     })
                     .catch(err => {
                         if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
@@ -283,7 +312,7 @@ const notesApi = {
      * 
      * @returns {Promise<string>}
      */
-    addNote(userId, text) {
+    addComnent(userId, text) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')
@@ -317,9 +346,9 @@ const notesApi = {
      * @param {string} userId
      * @param {string} noteId 
      * 
-     * @returns {Promise<Note>}
+     * @returns {Promise<Comnent>}
      */
-    retrieveNote(userId, noteId) {
+    retrieveComnent(userId, noteId) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')
@@ -351,9 +380,9 @@ const notesApi = {
     /**
      * @param {string} userId
      * 
-     * @returns {Promise<[Note]>}
+     * @returns {Promise<[Comnent]>}
      */
-    listNotes(userId) {
+    listComnents(userId) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')
@@ -386,7 +415,7 @@ const notesApi = {
      * 
      * @returns {Promise<boolean>}
      */
-    updateNote(userId, noteId, text) {
+    updateComnent(userId, noteId, text) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')
@@ -426,7 +455,7 @@ const notesApi = {
      *
      * @returns {Promise<boolean>}
      */
-    removeNote(userId, noteId) {
+    removeComnent(userId, noteId) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')
@@ -461,9 +490,9 @@ const notesApi = {
      * @param {string} userId
      * @param {string} text 
      * 
-     * @returns {Promise<[Note]>}
+     * @returns {Promise<[Comnent]>}
      */
-    findNotes(userId, text) {
+    findComnents(userId, text) {
         return Promise.resolve()
             .then(() => {
                 if (typeof userId !== 'string') throw Error('user id is not a string')

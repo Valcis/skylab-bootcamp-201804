@@ -1,7 +1,3 @@
-.card{
-/*   margin: 30px; */
-}
-
 #cardtitle {
   color: darkblue;
   font-size: 1.5rem;
@@ -14,7 +10,8 @@
 
 .item-card p {
   text-align: justify;
-
-
 }
-
+#area{
+  width : 100%;
+  resize : none;
+}

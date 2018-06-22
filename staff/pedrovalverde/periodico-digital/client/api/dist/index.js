@@ -8,7 +8,6 @@ var DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}');
 
 var notesApi = {
     url: 'NO-URL',
-
     token: 'NO-TOKEN',
 
     /**
@@ -276,7 +275,13 @@ var notesApi = {
 
     // FOR NEWS BBDD:
 
-    getNews: function getNews(category) {
+    /**
+     * 
+     * @param {string} category 
+     * 
+     * @returns {Promise<categoryobject>}
+     */
+    getExternNews: function getExternNews(category) {
         var _this6 = this;
 
         return Promise.resolve().then(function () {
@@ -288,8 +293,33 @@ var notesApi = {
                     data = _ref6.data;
 
                 if (status !== 200 || data.status !== 'ok') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
-
                 return data;
+            }).catch(function (err) {
+                if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
+
+                if (err.response) {
+                    var message = err.response.data.error;
+
+
+                    throw Error(message);
+                } else throw err;
+            });
+        });
+    },
+    getNewsByPubDate: function getNewsByPubDate(pubDate) {
+        var _this7 = this;
+
+        return Promise.resolve().then(function () {
+            if (typeof pubDate !== 'string') throw Error('pubDate is not a string');
+            if (!(pubDate = pubDate.trim())) throw Error('pubDate is empty or blank');
+
+            return axios.post(_this7.url + '/news-bbdd', { pubDate: pubDate }).then(function (res) {
+                console.log(res);
+                var status = res.status,
+                    data = res.data;
+
+                if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
+                return id;
             }).catch(function (err) {
                 if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
 
@@ -311,8 +341,8 @@ var notesApi = {
      * 
      * @returns {Promise<string>}
      */
-    addNote: function addNote(userId, text) {
-        var _this7 = this;
+    addComnent: function addComnent(userId, text) {
+        var _this8 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -323,7 +353,7 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.post(_this7.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this7.token } }).then(function (_ref7) {
+            return axios.post(_this8.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this8.token } }).then(function (_ref7) {
                 var status = _ref7.status,
                     data = _ref7.data;
 
@@ -349,10 +379,10 @@ var notesApi = {
      * @param {string} userId
      * @param {string} noteId 
      * 
-     * @returns {Promise<Note>}
+     * @returns {Promise<Comnent>}
      */
-    retrieveNote: function retrieveNote(userId, noteId) {
-        var _this8 = this;
+    retrieveComnent: function retrieveComnent(userId, noteId) {
+        var _this9 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -363,7 +393,7 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.get(_this8.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this8.token } }).then(function (_ref8) {
+            return axios.get(_this9.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this9.token } }).then(function (_ref8) {
                 var status = _ref8.status,
                     data = _ref8.data;
 
@@ -387,17 +417,17 @@ var notesApi = {
     /**
      * @param {string} userId
      * 
-     * @returns {Promise<[Note]>}
+     * @returns {Promise<[Comnent]>}
      */
-    listNotes: function listNotes(userId) {
-        var _this9 = this;
+    listComnents: function listComnents(userId) {
+        var _this10 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
 
             if (!(userId = userId.trim()).length) throw Error('user id is empty or blank');
 
-            return axios.get(_this9.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this9.token } }).then(function (_ref9) {
+            return axios.get(_this10.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref9) {
                 var status = _ref9.status,
                     data = _ref9.data;
 
@@ -426,8 +456,8 @@ var notesApi = {
      * 
      * @returns {Promise<boolean>}
      */
-    updateNote: function updateNote(userId, noteId, text) {
-        var _this10 = this;
+    updateComnent: function updateComnent(userId, noteId, text) {
+        var _this11 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -442,7 +472,7 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.patch(_this10.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref10) {
+            return axios.patch(_this11.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref10) {
                 var status = _ref10.status,
                     data = _ref10.data;
 
@@ -470,8 +500,8 @@ var notesApi = {
      *
      * @returns {Promise<boolean>}
      */
-    removeNote: function removeNote(userId, noteId) {
-        var _this11 = this;
+    removeComnent: function removeComnent(userId, noteId) {
+        var _this12 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -482,7 +512,7 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.delete(_this11.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref11) {
+            return axios.delete(_this12.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this12.token } }).then(function (_ref11) {
                 var status = _ref11.status,
                     data = _ref11.data;
 
@@ -509,10 +539,10 @@ var notesApi = {
      * @param {string} userId
      * @param {string} text 
      * 
-     * @returns {Promise<[Note]>}
+     * @returns {Promise<[Comnent]>}
      */
-    findNotes: function findNotes(userId, text) {
-        var _this12 = this;
+    findComnents: function findComnents(userId, text) {
+        var _this13 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -523,7 +553,7 @@ var notesApi = {
 
             if (!text.length) throw Error('text is empty');
 
-            return axios.get(_this12.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this12.token } }).then(function (_ref12) {
+            return axios.get(_this13.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this13.token } }).then(function (_ref12) {
                 var status = _ref12.status,
                     data = _ref12.data;
 

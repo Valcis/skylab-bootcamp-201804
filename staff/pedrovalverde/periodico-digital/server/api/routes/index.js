@@ -14,9 +14,9 @@ const jsonBodyParser = bodyParser.json()
 // USERS API ROUTES
 
 router.post('/users', jsonBodyParser, (req, res) => {
-    const { body: { name, surname, email, username, password, birthdate , gender, address, permission } } = req
-    
-    logic.registerUser(name, surname, email, username, password, birthdate , gender, address, permission)
+    const { body: { name, surname, email, username, password, birthdate, gender, address, permission } } = req
+
+    logic.registerUser(name, surname, email, username, password, birthdate, gender, address, permission)
         .then(() => {
             res.status(201)
             res.json({ status: 'OK' })
@@ -94,13 +94,27 @@ router.get('/news/:category', (req, res) => {
         res.json(news);
     })
 })
-    //TODO -> addComment
-    //TODO -> retrieveComment
-    //TODO -> listCommentsByUser backoffice
-    //TODO -> listCommentsByNews backoffice
-    //TODO -> removeComment
-    //TODO -> updateComment
-    //TODO -> findComment backoffice
+
+router.post('/news/news-bbdd', jsonBodyParser, (req, res) => {
+    const { body: { pubDate } } = req
+
+    logic.getNewsByPubDate(pubDate)
+        .then(item => {
+            res.status(200)
+            res.json({ status: 'OK', data:item })
+        })
+        .catch(({ message }) => {
+            res.status(400)
+            res.json({ status: 'KO', error: message })
+        })
+})
+//TODO -> addComment
+//TODO -> retrieveComment
+//TODO -> listCommentsByUser backoffice
+//TODO -> listCommentsByNews backoffice
+//TODO -> removeComment
+//TODO -> updateComment
+//TODO -> findComment backoffice
 
 
 
@@ -179,7 +193,7 @@ router.post('/newssss', jsonBodyParser, (req, res) => {
     logic.addNews(title, subtitle, summary, complete, category, from, comments)
         .then(id => {
             res.status(201)
-            res.json({ status: 'OK', data: {id} })
+            res.json({ status: 'OK', data: { id } })
         })
         .catch(({ message }) => {
             res.status(400)
@@ -219,8 +233,8 @@ router.get('/news/:userId', (req, res) => {
 })
 
 
-    //TODO -> Update
-    //TODO -> Delete
+//TODO -> Update
+//TODO -> Delete
 
 
 

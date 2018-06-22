@@ -213,6 +213,22 @@ const logic = {
         return apiNews.getNews(category)
     },
 
+    getNewsByPubDate(pubDate) {
+        return Promise.resolve()
+            .then(() => {
+                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
+                if (!(pubDate = pubDate.trim()).length) throw Error('pubDate is empty or blank')
+
+                return News.findOne({ pubDate })
+            })
+            .then(item => {
+                if (!item) throw Error('No news with pubDate : '+{ pubDate })
+
+                return item
+            })
+    },
+
+
     /**
      * 
      * @param {string} title

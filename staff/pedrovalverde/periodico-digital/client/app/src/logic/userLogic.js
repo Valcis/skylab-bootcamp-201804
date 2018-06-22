@@ -1,6 +1,8 @@
 const apiClient = require('api-client')
 
 apiClient.url = 'http://localhost:5000/api'
+//apiClient.url = 'https://murmuring-anchorage-32488.herokuapp.com/'
+
 
 const userLogic = {
     userId: 'NO-ID',
@@ -14,7 +16,6 @@ const userLogic = {
         return apiClient.authenticateUser(email, password)
             .then(id => {
                 this.userId = id
-
                 return true
             })
     }
