@@ -1,0 +1,10 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-info
+	a.navbar-brand(href="#") Hangman
+	button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+		span.navbar-toggler-icon
+	#navbarSupportedContent.collapse.navbar-collapse
+		ul.navbar-nav.mr-auto
+			li(class=`nav-item ${path === '/'? 'active' : ''}`)
+				a.nav-link(href="/") Home
+			li(class=`nav-item ${path === '/play'? 'active' : ''}`)
+				a.nav-link(href="/play") Play

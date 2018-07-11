@@ -1,0 +1,11 @@
+body{background-color: lightgray;}
+
+h1 {
+    text-align:center;
+    color: whitesmoke;
+    text-shadow: 0 0 5px rgb(0, 255, 0);
+    font-variant: small-caps;
+    margin: 10px;
+    margin-bottom: 40px;
+}
+

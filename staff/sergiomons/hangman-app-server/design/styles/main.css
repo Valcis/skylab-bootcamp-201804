@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(238, 237, 229);
+    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.5em;
+}
+
+.error {
+    color: red;
+}
+
+.main {
+    padding-top: 20px;
+}
+.secretWord {
+    color: grey;
+    margin-top: 4%;
+    font-style: italic;
+}
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
+.attempts {
+    font-size: 1.2em;
+}

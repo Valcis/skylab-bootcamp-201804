@@ -1,4 +1,9 @@
 'use strict';
+/**
+ * toRomanNumeral generates a randon number between 1 and 9, and it transforms it in a roman numeral
+ * 
+ * @example
+ */
 
 function toRomanNumeral(num) {
     

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.general {
+    text-align: center;
+  }
+  
+.tittleH{
+    margin-top: 15vw;
+    color: black;
+    font-size: 11vw;
+    font-family: 'Montserrat', sans-serif;
+
+}
+.textH{
+    color:white;
+    
+}
+img{
+    width:50%;
+    padding:20% 20%;
+}
+.box1{
+    background: linear-gradient(70deg, #105380, #829bac);
+    border-radius:7vw;
+    width: 36%;
+    margin-top:5%;
+    margin-left: 10%;
+    margin-right: 3.5%;
+    float: left;
+}
+.box2{
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border-radius:7vw;
+    width: 36%;
+    margin-top:5%;
+    margin-left: 3.5%;
+    margin-right: 10%;
+    float: left;
+}
+.box3{
+    background: linear-gradient(70deg, #9c1212, #fa7f7f);
+    border-radius:7vw;
+    width: 36%;
+    margin-top:7%;
+    margin-left: 10%;
+    margin-right: 2.5%;
+    float: left;
+}
+.box4{
+    background: linear-gradient(70deg, #bd8215, #fccd77);
+    border-radius:7vw;
+    width: 36%;
+    margin-top:7%;
+    margin-left: 3.5%;
+    margin-right: 10%;
+    float: left;
+}
+.box5{
+    background: linear-gradient(70deg, #5a4280, rgb(187, 182, 204));
+    border-radius:7vw;
+    width: 36%;
+    margin-top:7%;
+    margin-left: 10%;
+    margin-right: 2.5%;
+    float: left;
+}
+.box6{
+    background: linear-gradient(70deg, #404040, #7a7a7a); 
+    border-radius:7vw;
+    width: 36%;
+    margin-top:7%;
+    margin-left: 3.5%;
+    margin-right: 10%;
+    float: left;
+}

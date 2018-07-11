@@ -1,0 +1,44 @@
+
+section{
+    float: left;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.466);
+
+}
+aside{
+    float: left;
+    width: 50%;
+    height: 100%;
+    
+}
+h1{
+ padding-top: 40%;
+}
+form {
+    margin-top: 30%;
+    color: rgb(72, 113, 141);
+}
+.formulario{
+    width: 40%;
+    font-size: 20px;
+    border: 5px solid color rgb(52, 88, 112)
+    
+}
+.buton{
+    background-color: rgb(52, 88, 112);
+    border: 30% color rgb(52, 88, 112) ;
+    color: white;
+    width: 15%;
+    height: 7%;
+    margin-top: 5%;
+}
+p{
+    color: rgb(72, 113, 141); 
+    margin-top: 1%;
+}
+a{
+    color: rgb(72, 113, 141);
+    text-decoration: none;
+}

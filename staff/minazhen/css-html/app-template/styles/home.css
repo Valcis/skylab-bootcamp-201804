@@ -1,0 +1,149 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon-menu{
+    border:0;
+    outline:0;
+    background-color: transparent;
+    position:absolute;
+    z-index:20;
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    background-image: url("../images/k_ico.ico");
+    background-size: 36px;
+    top:-50px;
+    right: -50px;  
+}
+
+.icon-menu:hover + .menu nav {
+    background-color: springgreen;
+}
+
+
+.menu {
+    flex-basis: 10%;
+    min-width: 160px;
+    height: 100%;
+    padding: 10px;
+}
+.menu nav{
+    position:relative;
+    height: 100%;
+    width:100%;
+    background-color: var(--font-border-color);
+    display: grid;
+    align-items: space-around;
+    border-radius: 30px;
+    border: 8px solid var(--font-border-color);
+    box-shadow: 0 0 5px var(--font-border-color), 0 0 15px white;
+}
+
+.menu nav input, .periodicity {
+    font: 22px 'Just Another Hand', sans-serif;
+    color: var(--font-border-color);
+    text-align-last: center;
+    border-radius: 20px;
+    border: 1px solid var(--font-border-color);
+    box-shadow: 0 0 5px rgb(163, 79, 22);
+}
+
+.menu nav input{
+    margin: auto 0 auto 0;
+    font: 18px 'Just Another Hand', sans-serif;
+}
+
+.menu button:first-of-type {
+    margin-top:0.5em;
+    margin-bottom:3em;
+}
+
+.button-light{
+    width: 100%;
+    border-radius: 20px;
+}
+
+.calendar{
+    flex-basis: 85%;
+    height: 100%;
+    margin:auto;
+    float: left;
+    padding:20px;
+}
+
+.calen-box{
+    border-radius:10px;
+    border: 5px solid var(--font-border-color);
+    height: 100%;
+    width:100%;
+    padding:10px;
+    display:grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-auto-flow: column;
+}
+
+.period-box{
+    grid-row: 1;
+    grid-column: 1 / span 7;
+    margin: -11px -11px 20px -11px;
+    background-color: var(--font-border-color);
+    text-align: center;
+    display:flex;
+}
+
+.period-box h1{
+    color: white;
+    margin:auto;
+    flex:1;
+
+}
+
+.day-box{
+    background-color: var(--bg-alpha-color);
+    border-radius: 10px;
+    margin:3px;
+}
+
+
+@media only screen and (orientation: portrait){
+    main{display:block; overflow: hidden;}
+    .menu{
+        position:absolute; 
+        z-index:10; 
+        top:0;
+        left:0;
+        width:100%;
+        background-color: rgba(255, 242, 230, 0.8);
+        transition: 1s;
+    }
+
+    .icon-menu:active .menu {
+        position:absolute; 
+        left:0;
+        background-color: red;
+    }
+
+    .menu > nav{
+        margin: auto;
+        width: 100%;
+        max-width: 250px;
+    }
+    .calendar{
+        position:absolute; 
+        width:100%;
+        top:0;
+        left:0;
+    }
+
+    header a{
+        margin-right:50px;
+    }
+
+    .icon-menu{
+        top:4px;
+        right: 4px;
+    }
+}

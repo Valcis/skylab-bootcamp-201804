@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/styles/main.css">
+</head>
+<body>
+    <!--TODO implement the view -->
+    <main>
+        <h1>Task App</h1>
+        <div class="container">
+            <div class="row justify-content-center">
+                <section class="add-task">
+                    <form action="" class="form-inline input-group mb-3">
+                        <input type="text" placeholder="Add new task" name="description" id="desc" class="form-control">
+                        <div class="input-group-append">
+                            <input type="submit" value="Add Task" class="btn btn-success">
+                        </div>
+                    </form>
+                </section> 
+            </div>
+            <div class="row">
+                <section class="toDo container">
+                    <ul class="list-group">
+                        <h4>TO DO</h4>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Some task to do</span>
+                            <button class="btn-outline-success badge">✔</button>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="row">
+                <section class="done container">
+                    <ul class="list-group">
+                        <h4>DONE</h4>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Some task already done</span>
+                            <button class="btn-outline-danger badge">✖</button>
+                        </li>
+
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../public/vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="../public/vendor/popper/1.14.3/popper.min.js"></script>
+    <script src="../public/vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>

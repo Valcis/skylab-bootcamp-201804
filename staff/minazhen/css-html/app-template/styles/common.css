@@ -1,0 +1,123 @@
+:root {
+    --bg-alpha-color: rgba(255, 202, 167, 0.6);
+    --font-border-color: rgb(255, 135, 88);
+  }
+
+html, body{
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 242, 230);
+    font: 20px 'Just Another Hand', monospace;
+}
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+
+}
+header, footer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: sticky;
+    height: 50px;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    font: 20px 'Yesteryear', Verdana;
+    color:var(--font-border-color);
+}
+
+header a{
+    float: left;
+    padding-right: 20px;
+}
+
+
+header {
+    top:0;
+    background: linear-gradient(rgb(255, 202, 167)47px, transparent);
+}
+
+.logoHeader{
+    max-height: 100%;
+    mix-blend-mode: overlay;
+}
+
+main{
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: scroll; 
+    margin-top: -3px;
+    height: calc(100vh - 94px);
+    padding: 20px;
+}
+
+footer{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    bottom: 0;
+    background: linear-gradient(transparent, rgb(255, 202, 167) 3px);
+}
+
+footer a{
+    flex-basis: 20%;
+    padding:0 20px;
+    max-height:50%;
+    text-align: center;
+}
+
+footer  p{
+    flex-basis: 100%;
+    text-align: center;
+    max-height:40%;
+    font: 15px/20px 'Sue Ellen Francisco', Verdana;
+    color: white;
+}
+
+.button {
+    width: 5em;
+    height: 2em;
+    margin:auto;
+    margin-top:2em;
+    background: linear-gradient(rgb(255, 157, 118) 40%, var(--font-border-color) 70%);
+    outline: 0;
+    border:0;
+    border-radius: 2em/5em;
+    box-shadow:inset 0 2px 0px rgb(255, 189, 163), 0 2px 0 rgb(163, 79, 22), 0 1px 10px rgb(163, 79, 22);
+    padding: auto;
+    font: 15px 'Yesteryear', Verdana;
+    color: white;
+    cursor: pointer;
+}
+
+.button:hover{
+    background: linear-gradient(rgb(255, 195, 171), rgb(255, 157, 118) 70%, var(--font-border-color) 90%);
+    box-shadow:inset 0 2px 0px rgb(255, 224, 212), 0 2px 0 rgb(163, 79, 22), 0 1px 10px rgb(163, 79, 22);
+    color: white;
+    transition: 0.3s;
+}
+
+.button-light{
+    background: linear-gradient(rgb(255, 234, 225) 40%, rgb(255, 194, 170) 70%);
+    box-shadow:inset 0 2px 0px white, 0 2px 0 rgb(163, 79, 22), 0 1px 10px rgb(163, 79, 22);
+    color: rgb(255, 109, 51);
+}
+
+/*scrollbar*/
+::-webkit-scrollbar {
+    position: relative;
+    background-color: rgb(255, 202, 167); 
+    width: 0.3em;
+}
+
+::-webkit-scrollbar-thumb{
+    background: linear-gradient(rgb(255, 202, 167), var(--font-border-color), rgb(255, 202, 167));
+    border-radius: 10px;
+}

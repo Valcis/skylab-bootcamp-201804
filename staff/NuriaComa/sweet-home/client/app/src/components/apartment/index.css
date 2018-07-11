@@ -1,0 +1,36 @@
+.wordsRA{
+    margin-top: 3vw;
+    margin-bottom: 0vw;
+    font-size: 5vw;
+}
+
+.wordsId{
+    margin-top:3vw;
+    font-size: 5vw;
+}
+
+.usAR{
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 8vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.t2{
+    font-size: 5vw;
+    margin-top: -5vw;
+}
+.backButton{
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin-top: 4vw;
+    padding: 4vw 0vw;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+   
+}

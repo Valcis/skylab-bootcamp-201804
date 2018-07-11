@@ -24,6 +24,12 @@ describe('logic (tasks)', function() {
         expect(task.done).toBeFalsy();
     });
 
+    it('should not add, and throw error on empty or blank text', function() {
+        expect(function() {
+            logic.addTask('      ')
+        }).toThrow()
+    })
+
     it('should list todos', function() {
         logic.addTask('desc');
         

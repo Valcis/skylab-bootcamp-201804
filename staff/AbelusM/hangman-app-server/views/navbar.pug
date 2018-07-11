@@ -1,0 +1,12 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href="#") Hangman App
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li(class=`nav-item ${path === '/'? 'active' : ''}`)
+                a.nav-link(href="/") Home
+        form.form-inline.my-2.my-lg-0(action="/add-word" method="POST")
+             form(action="/add-word" method="POST")
+                    input(type="password"  placeholder="input a new word" name="word")
+                    button(type="submit") TRY

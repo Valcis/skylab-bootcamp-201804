@@ -1,0 +1,169 @@
+main{ overflow: hidden;}
+
+.pf-profile{
+    display: flex;
+    flex-direction:column;
+    height:100%;
+}
+
+.info{      /***********************************TOP******************************************/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis:5;    
+}
+
+figure {    /*********LEFT*********************/
+    position: relative;
+    flex:1;
+    max-height: 30vh;
+    min-height: 30vh;
+    max-width: 30vh;
+    min-width: 30vh;
+    margin: auto;
+    border: 2px solid var(--font-border-color);
+}
+
+#profile_pic{
+    position: absolute;
+    z-index:2;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    margin:0;
+    border:0;
+    outline:0;
+    background-color:  var(--bg-alpha-color);
+}
+
+figure p{
+    position: absolute;
+    z-index:1;
+    width:100%;
+    top:45%;
+    vertical-align: middle;
+    text-align: center;
+    color:var(--font-border-color);
+}
+
+#profile_pic:hover{ opacity: 0.2; }
+
+#load_file{ display: none; }
+
+form {      /*********RIGHT********************/
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    align-self:center;
+    min-width: 250px;
+    max-width: 500px;
+    height:75px;
+    margin:auto;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.info input{
+    width: 90%;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 0.3px inset var(--font-border-color);
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+    font: 20px 'Just Another Hand', 12px monospace;
+    color: var(--font-border-color);
+}
+
+.display-events { /*************************BOTTOM**************************************************/
+    flex:4;
+    display:flex;
+    align-content: center;
+    justify-content: center;
+}
+.display-events > div{
+    margin: 1em auto;
+    min-width: 80%;
+    max-width:90%;
+    background-color: var(--bg-alpha-color);
+}
+
+.display-events-left{ /**********************left*************/
+    position:relative;
+    height:100%;
+    width:20%;
+    float:left;
+}
+
+.display-events-left > *{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+}
+.display-events-left > span{
+    width:100%;
+    top:10px;
+    text-align: center;
+}
+
+.display-events-left > button{
+    max-width: 70%;
+    bottom:10px; 
+}
+
+
+.display-events-right{ /*****************right****************/
+    position: relative;
+    width: 80%;
+    height:100%;
+    float:right;
+    overflow-y: scroll;
+
+}
+
+table {
+    width:90%;
+    margin: 20px 5%;
+    border-collapse: collapse;
+}
+
+thead, tfoot{
+    background-color: white;
+    color: var(--bg-alpha-color);
+    border: 1px solid white;
+}
+
+tr{
+    height:1.5em;
+    vertical-align: middle;
+}
+
+td {
+    padding-left: 0.3em;
+    
+}
+
+tbody td{
+    border: 1px dotted white;
+}
+tfoot {
+    text-align: center;
+}
+td input{
+    font: 18px 'Just Another Hand', 10px Verdana;
+    width:90%;
+    border: 0.2px solid black;  
+}
+
+.td-date{
+    width:20%;
+}
+.td-notes{
+     width: 30%;
+}
+
+.td-events{
+     width:50%;
+}

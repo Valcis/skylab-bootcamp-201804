@@ -12,6 +12,7 @@ class Note {
      * @param {string} text 
      */
     constructor(userId, text) {
+        // creates a random number
         this.id = uuidv4()
         this.userId = userId
         this.text = text
@@ -29,6 +30,7 @@ const logic = {
      * @throws
      */
     addNote(userId, text) {
+
         if (typeof userId !== 'string') throw Error('userId is not a string')
 
         if (!(userId = userId.trim()).length) throw Error('userId is empty or blank')
@@ -61,7 +63,7 @@ const logic = {
 
         if (!(id = id.trim())) throw Error('id is empty or blank')
 
-        const index = this._notes.findIndex(note => note.id === id)
+        const index = this._notes.findIndex(note => (note.id === id) && (note.userId === userId))
 
         if (index < 0) throw Error(`note with id ${id} does not exist`)
 
@@ -73,7 +75,11 @@ const logic = {
      */
     listNotes(userId) {
         // TODO filter by user id
-        return this._notes
+        if (typeof userId !== 'string') throw Error('userId is not a string')
+
+        if (!(userId = userId.trim()).length) throw Error('userId is empty or blank')
+
+        return this._notes.filter(note => note.userId === userId)
     },
 
     /**
@@ -93,7 +99,7 @@ const logic = {
 
         if (!(id = id.trim())) throw Error('id is empty or blank')
 
-        const index = this._notes.findIndex(note => note.id === id)
+        const index = this._notes.findIndex(note => (note.id === id) && (note.userId === userId))
 
         if (index < 0) throw Error(`note with id ${id} does not exist`)
 
@@ -122,7 +128,7 @@ const logic = {
 
         if ((text = text.trim()).length === 0) throw Error('text is empty or blank')
 
-        const note = this._notes.find(note => note.id === id)
+        const note = this._notes.find(note => (note.id === id) && (note.userId === userId))
 
         if (!note) throw Error(`note with id ${id} does not exist`)
 
@@ -146,7 +152,7 @@ const logic = {
 
         if (!text.length) throw Error('text is empty')
 
-        return this._notes.filter(note => note.text.includes(text))
+        return this._notes.filter(note => note.text.includes(text) && (note.userId === userId))
     }
 }
 

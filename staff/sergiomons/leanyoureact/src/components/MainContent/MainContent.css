@@ -1,0 +1,15 @@
+main{
+    background-color: rgb(188, 205, 221);
+    margin:10%;
+    padding: 4% 4% 3% 2%;
+    border: 2px solid black;
+}
+.wrongMessage{
+    font-weight: bold;
+}
+img{
+    width: 200px;
+    border-radius: 100px;
+    border: 2px solid black
+}
+

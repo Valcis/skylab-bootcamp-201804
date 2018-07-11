@@ -1,0 +1,87 @@
+
+
+.backt {
+    width:100vw;
+    color:white;
+    font-size: 5vw;
+    margin: -2vw 0vw 3vw 0vw;
+    padding: 4vw 38vw;
+    background: linear-gradient(70deg, #bd8215, #fccd77);
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.formulariot{
+    margin-bottom: 7vw;
+    border: 1px solid #bd8215;
+    font-size: 5vw;
+    width: 60vw;
+    height: 8vw;
+  }
+  
+  .butAddT{
+    color: white;
+    font-size: 5vw;
+    background: linear-gradient(70deg, #bd8215, #fccd77);
+    height: 10vw;
+    width: 20vw;
+  }
+  .butRot{
+    background: linear-gradient(70deg, #bd8215, #fccd77);
+    display: block;
+    color: white;
+    font-size: 5vw;
+    width: 81vw;
+    margin: 3vw 10vw;
+    padding: 1vw 14vw;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+      
+  }
+ .formTask{
+    min-height: 26vw;
+ }
+.ust{
+   
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 8vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #bd8215, #fccd77);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.listTasks{
+    border-bottom: 1px solid #bd8215;
+    margin-right: 9vw;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    
+}
+.deleteT{
+    float: right;
+    margin-right: -4vw;
+    font-size: 5vw;
+    background:white 0;
+    border:0
+}
+   
+   
+
+.textt{
+    height: 92vw;
+    overflow: scroll;
+    font-family: 'Montserrat', sans-serif;
+}
+ .datat{
+     margin-right: 5vw;
+     color:#bd8215;
+     font-size: 5vw;
+ }
+li{
+    margin: 2vw 6vw;
+    list-style:none;
+    
+}
+
+

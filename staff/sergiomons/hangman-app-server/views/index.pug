@@ -1,0 +1,31 @@
+extends layout.pug
+block content
+    include navbar.pug
+    main.container.main.mt-1
+        .row.justify-content-center.text-center
+            .col-xs-10.col-sm-10.col-md-10.col-lg-11
+                h2.font-weight-bold.text-center Hangman
+                    span.text-info Game
+                h4.mt-3.mb-2.font-italic.fonw
+                    | Instructions
+            .card.mt-4.mb-1
+                .card-body.bg-secondary.text-white.text-center
+                    ul.list-group.text-dark.bg-secondary
+                        li.list-group-item
+                            h5 Enter a secret word to guess by the player and the number of attempts.
+                        li.list-group-item
+                            h5 The player can go saying single letters or rightly the complete word.
+                        li.list-group-item
+                            h5 If the player say a single letter and fail an attempt will be subtracted.
+                        li.list-group-item
+                            h5 If the player say the full word and fail the game will be over.
+                        li.list-group-item
+                            h5 If the number of attempts is not indicated, they will be 10.
+        .row.justify-content-center.mt-4
+            form.form-inline.my-2.my-lg-0(action="/getWord" method="POST")
+                input.form-control.mr-sm-2(type="text" name="word" autofocus placeholder="Enter a secret word")
+                input.form-control.mr-sm-2(type="number" name="attempts" placeholder="Number of attempts")
+                button.btn.btn-info.my-2.my-sm-0(type="submit") Play
+        .row.justify-content-center.mt-4
+            if error
+                h4(class="error") #{error}

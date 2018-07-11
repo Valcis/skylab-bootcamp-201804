@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "6e6bebb9-3304-480a-9351-142c45b15efa",
+		"name": "notes Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register user__(registerUser)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"mina\",\n\t\"surname\" : \"zhen\",\n\t\"email\" : \"mz@mail.com\",\n\t\"password\" : \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authenticate user__(authenticateUser)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mz@mail.com\",\n\t\"password\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get specific user info__(retrieveUser)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change user info(updateUser)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Mina\",\n\t\"surname\" : \"Zhen\",\n\t\"email\" : \"mz@mail.com\",\n\t\"password\" : \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminate user__(unregisterUser)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mz@mail.com\",\n\t\"password\" : \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add new note__(addNote)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"MY NOute 4\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "full list__(listNotes)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "specific note__(retrieveNotes)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes/5b0ef17cd1df032990b6585d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes",
+						"5b0ef17cd1df032990b6585d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list with text filtered by query__(findNotes)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes?q=noute",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "noute"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changes value of text___(updateNote)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\" : \"changed\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes/5b0ef17cd1df032990b6585d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes",
+						"5b0ef17cd1df032990b6585d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NOT IMPLEMENTED changes values",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userId\" : \"changed\",\n\t\"id\" : \"changed\",\n\t\"text\" : \"changed\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/minazhen/notes/745c227f-0809-4649-8073-1dc6acc22f4e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"minazhen",
+						"notes",
+						"745c227f-0809-4649-8073-1dc6acc22f4e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove note__(removeNotes)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users/5b0ef120d1df032990b6585a/notes/5b0ef17cd1df032990b6585d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"5b0ef120d1df032990b6585a",
+						"notes",
+						"5b0ef17cd1df032990b6585d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

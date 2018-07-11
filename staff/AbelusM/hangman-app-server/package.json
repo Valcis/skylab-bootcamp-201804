@@ -1,0 +1,17 @@
+{
+  "name": "hangman-app-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "pub": "^0.2.0",
+    "pug": "^2.0.3"
+  }
+}

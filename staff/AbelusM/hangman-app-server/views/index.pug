@@ -1,0 +1,10 @@
+extends layout.pug
+block content
+    include navbar.pug
+    main.container.main
+            h4 HANGMAN GAME
+                form(action="/try-word" method="POST")
+                    input(type="text" placeholder="guess your letter" name="text" autofocus)
+                    button(type="submit") Submit
+                p #{guessed}
+                p #{attempts}

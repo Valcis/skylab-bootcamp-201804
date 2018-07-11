@@ -1,34 +1,50 @@
 'use strict';
 
-var count= countWords('Hello world')
+test(
+    function(){
+        return countWords('hello world');
+    },
+    'countWords ("hello world") should return 2',
+    function(count){
+        return count === 2;
+    }
+);
+test(
+    withErrorCapturing(function() {
+        countWords(true);
+    }),
+    'countWords(true) should throw an error',
+    function(count){
+        return count.message == 'input words is not a string';
+    }
+);
 
-console.log('countWords ("hello world" should return 2) ', count === 2, count);
+test(
+    withErrorCapturing(function(){
+        countWords({})
+    }),
+    'countWords({}) should throw an error',
+    function(count){
+        return count.message == 'input words is not a string';
+    }
+);    
 
+test(
+    withErrorCapturing(function(){
+        countWords(1)
+    }),
+    'countWords(1) should throw an error',
+    function(count){
+        return count.message == 'input words is not a string';
+    }
+); 
 
-try {
-        count = countWords(true)
-} catch (err) {
-    console.log('countWords(true should throw an error)', err !== undefined, err);
-}
-
-try {
-    count = countWords(false)
-} catch (err) {
-    console.log('countWords(true should throw an error)', err !== undefined, err);
-}
-
-try {
-    count = countWords(1)
-} catch (err) {
-    console.log('countWords(true should throw an error)', err !== undefined, err);
-}
-try {
-    count = countWords([])
-} catch (err) {
-    console.log('countWords(true should throw an error)', err !== undefined, err);
-}
-try {
-    count = countWords({})
-} catch (err) {
-    console.log('countWords(true should throw an error)', err !== undefined, err);
-}
+test(
+    withErrorCapturing(function(){
+        countWords([])
+    }),
+    'countWords([]) should throw an error',
+    function(count){
+        return count.message == 'input words is not a string';
+    }
+);   

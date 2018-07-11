@@ -1,0 +1,23 @@
+{
+  "name": "notes-api",
+  "version": "5.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "watch": "nodemon .",
+    "debug": "node debug ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.2",
+    "notes-data": "file:../../../notes-data/1.0.0/notes-data",
+    "notes-logic": "file:../../../notes-logic/1.0.0/notes-logic"
+  }
+}

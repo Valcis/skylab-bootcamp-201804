@@ -34,7 +34,7 @@ let RockPaperScissors = (function() {
         winner() { return this._winner}
     
         _check() {
-            if ((this._countPlayer1 === 2 || this._countPlayer2 === 2) || (this._whoWinArray[0] === 0 && this._whoWinArray[1] === 0 && this._whoWinArray[2] !== 0))
+            if ((this._countPlayer1 === 2 || this._countPlayer2 === 2) || (this._history.length===3 && ((this._countPlayer1 ===1 && this._countPlayer2===0 )||(this._countPlayer1 ===0 && this._countPlayer2===1)))||(this._history.length>3 && (this._countPlayer1 !==this._countPlayer2)))
                 this._status = 1
             if (this._status === 1) {
                 if (this._countPlayer1 > this._countPlayer2) {

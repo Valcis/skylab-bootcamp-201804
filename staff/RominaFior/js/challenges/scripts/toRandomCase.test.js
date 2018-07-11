@@ -19,7 +19,7 @@ try {
 } catch (err) {
     error=err;
 }finally{
-    console.log('toRandomCase(1) should throw an error',error !== undefined, error);
+    console.log('toRandomCase([]) should throw an error',error !== undefined, error);
 }
 error= undefined;
 
@@ -28,15 +28,8 @@ try {
 } catch (err) {
     error=err;
 }finally{
-    console.log('toRandomCase(1) should throw an error',error !== undefined, error);
+    console.log('toRandomCase({}) should throw an error',error !== undefined, error);
 }
 error= undefined;
 
-try {
-    convert = toRandomCase(2)
-} catch (err) {
-    error=err;
-}finally{
-    console.log('toRandomCase(1) should throw an error',error !== undefined, error);
-}
 

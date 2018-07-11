@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+* {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 {
+    background-color: yellow;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+img {
+    width: 400px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;  
+}

@@ -1,0 +1,241 @@
+{
+	"info": {
+<<<<<<< HEAD
+		"_postman_id": "854f5db8-68ea-400e-8527-500776b04a1b",
+=======
+		"_postman_id": "53d48546-f2f8-481d-bae9-1d637a03adc4",
+>>>>>>> upstream/develop
+		"name": "notes-api local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add note",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"my note abcd\" }"
+				},
+				"url": {
+<<<<<<< HEAD
+					"raw": "http://localhost:3000/api//api/users/:userId/notes",
+=======
+					"raw": "http://localhost:3000/api/users/123/notes",
+>>>>>>> upstream/develop
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+<<<<<<< HEAD
+						"",
+						"api",
+						"users",
+						":userId",
+=======
+						"users",
+						"123",
+>>>>>>> upstream/develop
+						"notes"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve note",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+<<<<<<< HEAD
+					"raw": "http://localhost:3000/api/users/:userId/notes/1526986522590-0.870965673870832",
+=======
+					"raw": "http://localhost:3000/api/users/123/notes/963eb1df-5f93-42a2-a62c-a96dc9850e47",
+>>>>>>> upstream/develop
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+<<<<<<< HEAD
+						":userId",
+						"notes",
+						"1526986522590-0.870965673870832"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+=======
+						"123",
+						"notes",
+						"963eb1df-5f93-42a2-a62c-a96dc9850e47"
+>>>>>>> upstream/develop
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list notes (filtered)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+<<<<<<< HEAD
+					"raw": "http://localhost:3000/api/users/:userId/notes?q=new",
+=======
+					"raw": "http://localhost:3000/api/users/123/notes?q=my",
+>>>>>>> upstream/develop
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+<<<<<<< HEAD
+						":userId",
+=======
+						"123",
+>>>>>>> upstream/develop
+						"notes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "my"
+						}
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove note",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+<<<<<<< HEAD
+					"raw": "http://localhost:3000/api/users/:userId/notes/1526986697131-0.4052847693662016",
+=======
+					"raw": "http://localhost:3000/api/users/123/notes/721187d5-7fff-4fc8-8b6f-498189988942",
+>>>>>>> upstream/develop
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+<<<<<<< HEAD
+						":userId",
+						"notes",
+						"1526986697131-0.4052847693662016"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+=======
+						"123",
+						"notes",
+						"721187d5-7fff-4fc8-8b6f-498189988942"
+>>>>>>> upstream/develop
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update note",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"my new note\" }"
+				},
+				"url": {
+<<<<<<< HEAD
+					"raw": "http://localhost:3000/api/users/:userId/notes/1526995963225-0.21361808339416166",
+=======
+					"raw": "http://localhost:3000/api/users/123/notes/2a61bb17-9094-4749-8d8b-f5c93822d7cf",
+>>>>>>> upstream/develop
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+<<<<<<< HEAD
+						":userId",
+						"notes",
+						"1526995963225-0.21361808339416166"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": ""
+						}
+=======
+						"123",
+						"notes",
+						"2a61bb17-9094-4749-8d8b-f5c93822d7cf"
+>>>>>>> upstream/develop
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

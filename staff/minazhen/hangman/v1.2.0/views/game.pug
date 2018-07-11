@@ -1,0 +1,46 @@
+extends layout.pug
+block content
+  body.text-center
+    if hangman.status() === 1
+      #bg-body(class=`sprite-win`)
+    else if hangman.status() === 2
+      #bg-body(class=`sprite-15`)
+    else
+      #bg-body(class=`sprite-${sprite}`)  
+    .cover-container.d-flex.h-100.p-3.mx-auto.flex-column
+      header.masthead.mb-auto
+        .inner
+          h1.masthead-brand.display-3 Hangman
+      main.inner.cover(role='main')
+        br
+        br
+        br
+        if error
+          .alert.alert-warning.alert-dismissible
+            a.close(href='/game', data-dismiss='alert', aria-label='close') ×
+            strong Warning! 
+            span #{error}
+        if hangman.status() === 2
+          h1#sparcing.masthead-brand.display-6 #{hangman.hidden().join("").toUpperCase()}
+        else
+          h1#sparcing.masthead-brand.display-6 #{hangman.guessed().join("").toUpperCase()}
+        br
+        form(action='/try', method='POST')
+          .form-inline.input-group.mx-auto
+            input#desc.form-control(type='text', placeholder='Word or letter', name='text', autocomplete='off', autofocus='')
+            .input-group-append
+              input.btn.btn-outline-secondary(type='submit', value='Send!')
+        br
+        br
+        p.fails #{hangman.fails()}
+        if hangman.status() === 1
+          #myModal.modal.modal-sm.modal-dialog.modal-content.modal-body(role='dialog')
+            a.close(href='/', data-dismiss='modal') ×
+            h5 YOU WIN!!  
+            br
+        if hangman.status() === 2
+          #myModal.modal.modal-sm.modal-dialog.modal-content.modal-body(role='dialog')
+            a.close(href='/', data-dismiss='modal') ×
+            h5 YOU LOSE  
+            br
+      include footer.pug

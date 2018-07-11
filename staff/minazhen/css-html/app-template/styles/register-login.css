@@ -1,0 +1,73 @@
+.logoHeader {opacity: 0;}
+
+article {
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    background: linear-gradient(to right, transparent, rgb(255, 202, 167) 2%, rgb(255, 202, 167) 98%, transparent) ;
+    align-content: space-between;
+    height: 100%;
+    width:80%;
+    top:0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+figure img{
+    width:90%;
+    max-width: 300px;
+    mix-blend-mode: overlay;
+}
+
+
+form {      
+    display:flex;
+    flex-direction: column;
+    align-self:center;
+    margin:auto;
+    width:80%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+input{
+    width: 90%;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 0.3px inset var(--font-border-color);
+    background-color: transparent;
+    padding: 0;
+    text-align: center;
+    font: 22px 'Just Another Hand', Verdana;
+    color: var(--font-border-color);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login form input::placeholder {
+    color: white;
+}
+
+.login form .button {
+    bottom:0;
+}
+
+.register > p, .register > p > a{
+    text-justify: auto;
+    font: 15px/20px 'Sue Ellen Francisco', Verdana;
+    color:rgb(255, 255, 255);
+    margin-bottom: 0.5em;
+}
+
+.confirm {
+    font: 15px/20px 'Sue Ellen Francisco', Verdana;
+    border: none;
+}
+
+.confirm::placeholder {
+    color: rgb(255, 163, 110);
+}

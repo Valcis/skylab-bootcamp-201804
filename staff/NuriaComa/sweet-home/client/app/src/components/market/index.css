@@ -1,0 +1,67 @@
+
+.backm {
+
+    background: linear-gradient(70deg, #9c1212, #fa7f7f);
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: -2vw 0vw 3vw 0vw;
+    padding: 4vw 38vw;
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.formulariom{
+    margin-bottom: 7vw;
+    border: 1px solid #9c1212;
+    font-size: 5vw;
+    width: 60vw;
+    height: 8vw;
+  }
+ 
+  .butAddM{
+    color: white;
+    font-size: 5vw;
+    background: linear-gradient(70deg, #9c1212, #fa7f7f);
+    height: 10vw;
+    width: 20vw;
+
+}
+.usm{
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 8vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #9c1212, #fa7f7f);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.listmarket{
+    border-bottom: 1px solid #9c1212;
+    margin-right: 10vw;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+.textM{
+    height: 113vw;
+    overflow: scroll;
+    font-family: 'Montserrat', sans-serif;
+}
+.deleteM{
+    float: right;
+    margin-right: -4vw;
+    font-size: 5vw;
+    background:white 0;
+    border:0
+}
+ .dataM{
+    margin-left: 5vw;
+    text-align: left;
+    font-size: 5vw;
+ }
+li{
+    margin: 2vw 5vw;
+    list-style:none;
+    
+}
+

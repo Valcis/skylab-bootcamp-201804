@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.backU {
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: -7vw 0vw 3vw 0vw;
+    padding: 4vw 38vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.butGroupU{
+
+    display: flex
+}
+.smallButE{
+ 
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    display:block;
+    color:white;
+    font-size: 3vw;
+    width: 81vw;
+    margin: 3vw 0vw;
+    padding: 2vw 14vw;
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.smallButN1{
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    display:block;
+    color:white;
+    font-size: 3vw;
+    margin: 7vw 10vw;
+    padding: 2vw 12vw;
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.smallButN2{
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    display:block;
+        color:white;
+        font-size: 3vw;
+        margin: 7vw -6vw;
+        padding: 2vw 11vw;
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.usUI{
+    text-align: center;
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 3vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.listUsers{
+    border-bottom: 1px solid #7b9214;
+    margin-right: 8vw;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+.text{
+    height: 114vw;
+    overflow: scroll;
+    font-family: 'Montserrat', sans-serif;
+}
+ .data{
+     margin-right: 2vw;
+     color:#7b9214;
+     font-size: 5vw;
+ }
+li{
+    margin: 2vw 5vw;
+    list-style:none;
+    
+}
+

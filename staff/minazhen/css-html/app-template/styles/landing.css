@@ -1,0 +1,32 @@
+.slide-section{
+    position:absolute;
+    background-image: url(../images/landing/land_1.png);
+    width:100vw;
+    height: 50vw;
+    top:50%;
+    left:0;
+    transform: translateY(-50%);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar { display: none; }
+
+.half-screen{
+    height:50vw;
+    width:50vw;
+    float: right;
+    background-color: var(--bg-alpha-color);
+    padding: 10px;
+}
+
+.half-screen img{
+    width:80%;
+    margin: 10% auto;
+}
+
+.half-screen p{
+    text-align: center;
+    font-size: 30px;
+}

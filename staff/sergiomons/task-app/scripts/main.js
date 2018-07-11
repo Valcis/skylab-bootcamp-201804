@@ -29,13 +29,13 @@ var $todosTitle, $todosList;
 
 function listTodos() {
     if (!$todosTitle) {
-        $todosTitle = $('<h3>ToDO List</h3>');
+        $todosTitle = $('<h2>todo\'s</h2>');
 
         $form.after($todosTitle);
     }
 
     if (!$todosList) {
-        $todosList = $('<ul class="list-group"></ul>');
+        $todosList = $('<ul></ul>');
 
         $todosTitle.after($todosList);
     }
@@ -49,11 +49,11 @@ function listTodos() {
         $todosList.show();
 
         todos.forEach(function(task) {
-            var $taskItem = $('<li class="list-group-item">* </li>');
+            var $taskItem = $('<li></li>');
     
             $taskItem.append(task.text);
     
-            var $taskButton = $('<button type="button" class="btn btn-outline-success btn-sm float-right">✔</button>');
+            var $taskButton = $('<button>V</button>');
     
             $taskButton.click(function() {
                 logic.markTaskDone(task.id);
@@ -75,13 +75,13 @@ var $donesTitle, $donesList;
 
 function listDones() {
     if (!$donesTitle) {
-        $donesTitle = $('<h3 class = "Done">DONE List</h3>');
+        $donesTitle = $('<h2>done\'s</h2>');
 
         $todosList.after($donesTitle);
     }
 
     if (!$donesList) {
-        $donesList = $('<ul class="list-group"></ul>');
+        $donesList = $('<ul></ul>');
 
         $donesTitle.after($donesList);
     }
@@ -95,11 +95,11 @@ function listDones() {
         $donesList.show();
 
         dones.forEach(function(task) {
-            var $taskItem = $('<li class="list-group-item">* </li>');
+            var $taskItem = $('<li></li>');
     
-            $taskItem.append('<span>' + task.text + '</span>&nbsp;');
+            $taskItem.append(task.text);
     
-            var $taskButton = $('<button type="button" class="btn btn-outline-danger btn-sm float-right">❌</button>');
+            var $taskButton = $('<button>X</button>');
     
             $taskButton.click(function() {
                 logic.removeTask(task.id);

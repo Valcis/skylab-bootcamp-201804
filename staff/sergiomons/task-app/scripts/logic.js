@@ -11,6 +11,10 @@ var logic = (function () {
 
     return {
         addTask: function (text) {
+            if (typeof text !== 'string') throw Error('text is not a string')
+
+            if ((text = text.trim()) === '') throw Error('text cannot be empty or blank')
+
             var task = new Task(text);
 
             tasks.push(task);

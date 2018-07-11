@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.backS {
+ 
+    background: linear-gradient(70deg, #404040, #7a7a7a);
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: -2vw 0vw 3vw 0vw;
+    padding: 4vw 38vw;
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.usS{
+    text-align: center;
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 3vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #404040, #7a7a7a);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.lang{
+    padding: 2vw;
+   
+    margin: 5vw 12vw;
+    font-family: 'Montserrat', sans-serif;
+}
+select{
+    margin: 1vw 12vw;
+    border:1px solid transparent;
+    font-size: 4vw;
+    padding: 2vw 3vw;
+}
+.formSettings{
+    height: 126vw ;
+    overflow: scroll;
+    font-family: 'Montserrat', sans-serif;
+    
+}

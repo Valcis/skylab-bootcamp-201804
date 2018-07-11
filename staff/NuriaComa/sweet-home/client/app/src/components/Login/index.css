@@ -1,0 +1,36 @@
+.general {
+    text-align: center;
+  }
+.text1{
+  margin-top:30vw;
+  margin-bottom: 1vw;
+}
+.text3{
+  margin-top: 12vw;
+  margin-bottom: 1vw;
+}
+.formulariol{
+  border: 1px solid #92ac19;
+  font-size: 6vw;
+  width: 79vw;
+  border-radius: 1vw;
+}
+p{
+  font-size:6vw;
+}
+  a{
+    text-decoration: none;
+    color:#92ac19;
+    font-size:6vw;
+  }
+.login-buttonL{
+  
+  width:80vw;
+  color:white;
+  font-size: 5vw;
+  margin: 14vw 7vw 11vw;
+  padding: 2vw;
+  background: linear-gradient(70deg, #7b9214, #c7da86);
+  border:0;
+  font-family: 'Montserrat', sans-serif;
+}

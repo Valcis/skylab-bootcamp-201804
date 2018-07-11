@@ -1,50 +1,51 @@
 'use strict';
 
+
+
+
+/*var res = reduce([1, 2, 3, 4, 5], function(accum, v) { return accum + v; }, 0);
+
+console.log('reduce([1, 2, 3, 4, 5], function(accum, v) { return accum + v; }, 0) should return 15', res === 15, res);
+
+res = reduce([1, 2, 3, 4, 5], function(accum, v) { return accum + v; });
+
+console.log('reduce([1, 2, 3, 4, 5], function(accum, v) { return accum + v; }) should return 15', res === 15, res);
+
 var error;
-
-var a = [{ name: 'jeans', price: 10.5 }, { name: 't-shirt', price: 5.99 }, { name: 'socks', price: 19.99 }];
-
-var result= reduce(a, function(accum, v){
-    if (v.price > 10){
-        return accum + v.price;
+ */
+test(
+    withErrorCapturing(
+        function() {
+            reduce();
+        }
+    ),
+    'reduce() without arguments should throw an error',
+    function(result) {
+        return result.message === 'input array is not an array';
     }
-    return accum;
-});
+);
 
-console.log(result);
+test(
+    withErrorCapturing(
+        function() {
+            reduce(undefined, function(v) { output.push(v) });
+        }
+    ),
+    'forEach(undefined, function(v) { output.push(v) }) without first argument should throw an error',
+    function(result) {
+        return result.message === 'input array is not an array';
+    }
+);
 
-error = undefined;
-try {
-    result = reduce(' ')
-} catch (err) {
-    error=err;
-}finally{
-    console.log('reduce(" ") should throw an error',error !== undefined, error);
-}
-
-error = undefined;
-try {
-    result = reduce(1, " ")
-} catch (err) {
-    error=err;
-}finally{
-    console.log('reduce(1, " ") should throw an error',error !== undefined, error);
-}
-
-error = undefined;
-try {
-    result = reduce({})
-} catch (err) {
-    error=err;
-}finally{
-    console.log('reduce({}) should throw an error',error !== undefined, error);
-}
-
-error = undefined;
-try {
-    result = reduce(1)
-} catch (err) {
-    error=err;
-}finally{
-    console.log('reduce(1) should throw an error',error !== undefined, error);
-}
+test(
+    withErrorCapturing(
+        function() {
+            reduce(input);
+        }
+    ),
+    'reduce(input) without second argument should throw an error',
+    function(result) {
+        return result.message === 'input handler is not a function';
+    }
+); 
+  

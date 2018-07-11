@@ -1,0 +1,50 @@
+.general {
+    text-align: center;
+  }
+.wordsR{
+   
+    font-size: 5vw;
+    margin-bottom: 1vw;
+}
+.words{
+    margin-top: 6vw;
+    margin-bottom: 1vw;
+    font-size: 5vw;
+}
+.formularior{
+    border: 1px solid #92ac19;
+    font-size: 6vw;
+    width: 79vw;
+    border-radius: 1vw;
+    
+}
+.registerButton{
+    width:80vw;
+    color:white;
+    font-size: 5vw;
+    margin: 5vw 7vw 2vw 7vw;
+    padding: 2vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border:0;
+}
+.backButtonUR{
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin-top: 2vw;
+    padding: 4vw 0vw;
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+   
+}
+.usUR{
+    width: 100vw;
+    color: white;
+    font-size: 5vw;
+    margin: 0vw 16vw 8vw 0vw;
+    padding: 4vw 0vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+}

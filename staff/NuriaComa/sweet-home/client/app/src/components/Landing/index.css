@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+.general {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+.tittle{
+    margin-top: 40vw;
+    font-size:12vw;
+    color:#92ac19;
+}
+
+.welcome{
+    font-size: 5vw;
+    margin-bottom: 20vw;
+}
+
+.register-button{
+
+    width:80vw;
+    
+    color:white;
+    font-size: 5vw;
+    margin: 5vw 7vw;
+    padding: 2vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}
+.login-button{
+
+    width:80vw;
+    color:white;
+    font-size: 5vw;
+    margin: 3vw 7vw;
+    padding: 2vw;
+    background: linear-gradient(70deg, #7b9214, #c7da86);
+    border:0;
+    font-family: 'Montserrat', sans-serif;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kalenmaker</title>
+    <link rel="stylesheet" href="styles/common.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link href="https://fonts.googleapis.com/css?family=Just+Another+Hand|Sue+Ellen+Francisco|Yesteryear" rel="stylesheet">
+    <link rel="icon" href="images/k_ico.ico" type="image/gif" sizes="16x16">
+</head>
+<body>
+    <header>
+        <img src="images/logoWb.png" alt="Kalenmaker logo" class="logoHeader">
+        <a href="">Home</a>
+    </header>
+    <main>
+        <section class="pf-profile">
+            <article class="info">
+                <figure>
+                    <input type="image" id="profile_pic" src="images/transp.png" alt="picture">
+                    <p>Upload Picture</p>
+                    <input type="file" id="load_file">
+                </figure>
+                <form action="">
+                    <input type="text" placeholder="user name" id="user_name"> 
+                    <input type="email" name="email" placeholder="user@email.com" id="user-email">
+                </form>
+            </article>
+            <article class="display-events">
+                <div>
+                    <div class="display-events-left">
+                        <span>Nearly events:</span>
+                        <button type="submit" class="button">Add It!</button>
+                    </div>
+                    <div class="display-events-right">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td class="td-date">Date</td>
+                                    <td class="td-notes">Notes</td>
+                                    <td class="td-event">Event</td>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <form action="">
+                                        <td class="td-date">
+                                            <input type="date" name="inp-date" id="inp-date" placeholder="Add new date">
+                                        </td>
+                                        <td class="td-notes">
+                                            <input type="text" name="inp-notes" id="inp-notes" placeholder="Add new notes">
+                                        </td>
+                                        <td class="td-event">
+                                            <input type="text" name="inp-event" id="inp-event" placeholder="Add new event">
+                                            
+                                        </td>
+                                    </form>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+                                    <td class="td-date"></td>
+                                    <td class="td-notes"></td></td>
+                                    <td class="td-event"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </article>
+        </section>       
+    </main>
+    <footer>
+        <a href="http//www.minazhen-fakeweb.com">MinaZhen</a>
+        <a href="http//www.skylabcoders-fakeweb.com">SkylabCoders</a>
+        <p>© MinaZhen for Skylab Coders Bootcamp.</p>
+    </footer>
+</body>
+</html>

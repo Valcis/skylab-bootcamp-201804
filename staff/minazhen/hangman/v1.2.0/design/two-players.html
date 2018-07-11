@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman App</title>
+    <link rel="stylesheet" href="../public/vendor/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/styles/main.css">
+</head>
+    <body class="text-center">
+
+            <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+                <header class="masthead mb-auto">
+                <div class="inner">
+                    <h1 class="masthead-brand display-3">Hangman</h1>
+                </div>
+                </header>
+        
+                <main role="main" class="inner cover">
+                <p class="lead">Choose a word for your mate.<br>Also you can select the number of attempts. </p><br><br>
+                    <form action="" class="">
+                        <label for="attm">Attempts: <span id="val-range"></span></label>  <br>
+                        <input type="range" name="attm" id="attm" value="10" step="1" min="5" max="15" data-show-value="true">
+                        <p><br></p>
+                        <div  class="form-inline input-group mx-auto">
+                            <input type="text" placeholder="Word to guess" name="description" id="desc" class="form-control">
+                            <div class="input-group-append">
+                                <input type="submit" value="Send!" class="btn btn-outline-secondary">
+                            </div>
+                        </div>
+                    </form>
+                </main>        
+                <footer class="mastfoot mt-auto">
+                <div class="inner">
+                    <p class="text-muted text-center">Hangman for <a href="https://http://www.skylabcoders.com/es/">SkylabCoders</a>, by <a href="https://github.com/MinaZhen">MinaZhen</a>.</p>
+                </div>
+                </footer>
+            </div>
+    <script src="../public/vendor/jquery/3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="../public/vendor/popper/1.14.3/popper.min.js"></script>
+    <script src="../public/vendor/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script>
+        var slider = document.getElementById("attm");
+        var output = document.getElementById("val-range");
+        output.innerHTML = slider.value;
+        
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+    </script>
+</body>
+</html>

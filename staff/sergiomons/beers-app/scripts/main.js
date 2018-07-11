@@ -1,4 +1,5 @@
 'use strict';
+
 var list;
 var infoShow;
 
