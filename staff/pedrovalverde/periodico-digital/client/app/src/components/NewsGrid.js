@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import img_default from './../default.jpg';
 import './newsGrid.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logic from '../logic/index'
@@ -6,53 +7,66 @@ import { TabContent, TabPane, Card, CardImg, CardBody, CardHeader, CardTitle } f
 import { Link } from 'react-router-dom'
 
 class NewsGrid extends Component {
+
   state = {
-    items: {},
+    comboNews: {},
     feed: {},
+    category: this.props.category
+
   }
 
   componentDidMount() {
-    this.loadNews(this.props.category)
+    this.loadNewsFromExternAPI(this.props.category)
   }
 
   componentWillReceiveProps(props) {
-    this.loadNews(props.category)
+    this.loadNewsFromExternAPI(props.category)
   }
 
-  loadNews(category) {
-    logic.news.getNews(category)
+  loadNewsFromExternAPI(category) {
+    logic.news.getExternNews(category)
       .then(data => {
-
-        if (data.status == 'ok') {
+        if (data.status === 'ok') {
           this.setState({
-            items: data.items,
+            comboNews: data.items,
             feed: data.feed,
           })
         }
       })
   }
 
+  saveItemOnBBDD(itemObject) {
+    logic.news.saveItem(itemObject)
+  }
+
   render() {
 
     let items = []
 
-    for (const key in this.state.items) {
-      if (this.state.items.hasOwnProperty(key)) {
+    for (const key in this.state.comboNews) {
+      if (this.state.comboNews.hasOwnProperty(key)) {
+        let _pubDate = this.state.comboNews[key].pubDate
+        let newsId = _pubDate.replace(/[- :]/gi, '');
+        let _title = encodeURIComponent(this.state.comboNews[key].title)
+        let _href = "/news/" + this.props.category + "/" + newsId + "/" + _title;
+        let _src = this.state.comboNews[key].thumbnail === '' ? img_default : this.state.comboNews[key].thumbnail
 
-        let _title = encodeURI(this.state.items[key].title)
-        let _href = "/news/" + this.props.category + "/" + _title;
+        // si el pubDate de esas noticias no esta en mi BBDD , entonces que la guarde:
+        logic.news.existItem(newsId)
+          .then(item => {
+            if (!item) {
+              this.saveItemOnBBDD(this.state.comboNews[key])
+            }
+          })
 
         items[key] =
           <TabPane key={"tb" + key} tabId={this.props.category}>
             <Card>
-              {<CardHeader><span>last update : {this.state.items[key].pubDate}</span><span>ABC</span></CardHeader>}
-
-              <Link to={_href} onClick={() => {
-                this.props.setActualNews(this.state.items[key])
-              }}>
-                <CardImg src={this.state.items[key].thumbnail} alt="Card image cap" />
+              {<CardHeader><span>last update : {this.state.comboNews[key].pubDate}</span><span>ABC</span></CardHeader>}
+              <Link to={_href}>
+                <CardImg src={_src} alt="Card image cap" />
                 <CardBody >
-                  <CardTitle >{this.state.items[key].title}</CardTitle>
+                  <CardTitle >{this.state.comboNews[key].title}</CardTitle>
                 </CardBody>
               </Link>
             </Card >
@@ -60,9 +74,7 @@ class NewsGrid extends Component {
       }
     }
 
-
     return (
-
       <TabContent className="tc-grid" activeTab={this.props.category}>
         {items}
       </TabContent>

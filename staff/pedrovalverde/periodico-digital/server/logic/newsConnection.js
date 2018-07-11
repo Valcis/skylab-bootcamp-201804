@@ -30,7 +30,7 @@ const conection = {
 
         
         let api_key_google = 'rctozux60qq0jkynqwpwl45cc3j4kylqltucas7k' // Generada con registro mediante cuenta de google
-        let api_key_this = 'apabksulqoq5ltg6uoodnje6qu1ssfticnkzd2zp'
+        //let api_key_this = 'apabksulqoq5ltg6uoodnje6qu1ssfticnkzd2zp'
 
         let feed = ''
 

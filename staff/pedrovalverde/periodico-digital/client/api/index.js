@@ -4,9 +4,11 @@ const axios = require('axios')
 
 const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
 
-const notesApi = {
+const api = {
     url: 'NO-URL',
     token: 'NO-TOKEN',
+
+    // FOR USERS BBDD:
 
     /**
      * 
@@ -248,7 +250,7 @@ const notesApi = {
             })
     },
 
-    // FOR NEWS BBDD:
+    // FOR EXTERN NEWS API :
 
     /**
      * 
@@ -262,7 +264,7 @@ const notesApi = {
                 if (typeof category !== 'string') throw Error('category is not a string')
                 if (!(category = category.trim()).length) throw Error('category is empty or blank')
 
-                return axios.get(`${this.url}/news/${category}/`)
+                return axios.get(`${this.url}/extnews/${category}/`)
 
                     .then(({ status, data }) => {
                         if (status !== 200 || data.status !== 'ok') throw Error(`unexpected response status ${status} (${data.status})`)
@@ -280,30 +282,83 @@ const notesApi = {
             })
     },
 
-    getNewsByPubDate(pubDate) {
+    // FOR NEWS BBDD :  
+
+    saveItem(itemObject) {
+        const { title, thumbnail, description, content, categories, link, pubDate, author } = itemObject
+        const comments = []
+        
         return Promise.resolve()
             .then(() => {
-                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
-                if (!(pubDate = pubDate.trim())) throw Error('pubDate is empty or blank')
+                if (typeof itemObject !== 'object') throw Error('itemObject is not a object')
 
-                return axios.post(`${this.url}/news-bbdd`, { pubDate })
-                    .then(( res) => {
-                        console.log(res);
-                       let { status, data } = res
+                return axios.post(`${this.url}/news-add`, { title, picture: thumbnail, summary: description, content, category: categories, link, pubDate, from: author, comments })
+                    .then((res) => {
+                        let { status, data } = res
                         if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
-                        return id
+                        
+                        return true
                     })
                     .catch(err => {
                         if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
 
                         if (err.response) {
                             const { response: { data: { error: message } } } = err
-
                             throw Error(message)
                         } else throw err
                     })
             })
     },
+
+    existOnBBDD(newsId) {
+        return Promise.resolve()
+            .then(() => {
+                if (typeof newsId !== 'string') throw Error('newsId is not a string')
+                if (!(newsId = newsId.trim())) throw Error('newsId is empty or blank')
+
+                return axios.post(`${this.url}/news-bbdd`, { newsId })
+                    .then((res) => {
+                        let { status, data } = res
+                        if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
+                        return data.exist
+                    })
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+                            throw Error(message)
+                        } else throw err
+                    })
+            })
+    },
+
+    getNewsById(newsId) {
+        return Promise.resolve()
+            .then(() => {
+                if (typeof newsId !== 'string') throw Error('newsId is not a string')
+                if (!(newsId = newsId.trim())) throw Error('newsId is empty or blank')
+
+                return axios.get(`${this.url}/news/${newsId}`)
+                    .then((res) => {
+                        let { status, data } = res
+                        if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
+                        return data
+                    })
+                    .catch(err => {
+                        if (err.code === 'ECONNREFUSED') throw Error('could not reach server')
+
+                        if (err.response) {
+                            const { response: { data: { error: message } } } = err
+                            throw Error(message)
+                        } else throw err
+                    })
+            })
+    },
+
+    
+
+    // FOR COMMENTS BBDD :
 
     /**
      * 
@@ -522,4 +577,4 @@ const notesApi = {
     }
 }
 
-module.exports = notesApi
+module.exports = api

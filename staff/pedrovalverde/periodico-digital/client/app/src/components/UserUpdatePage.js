@@ -5,7 +5,8 @@ import swal from 'sweetalert2'
 import Button from './Button';
 import './userUpdatePage.css';
 import { withRouter } from 'react-router-dom'
-import { Col, Input, Form, FormGroup, Label } from 'reactstrap';
+//import { Col, Input, Form, FormGroup, Label } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 class UserUpdatePage extends Component {
 

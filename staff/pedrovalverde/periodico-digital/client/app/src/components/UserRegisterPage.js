@@ -8,9 +8,9 @@ import { Col, Input, Form, FormGroup, Label, FormText } from 'reactstrap';
 
 
 class UserRegisterPage extends Component {
-  constructor() {
+  /* constructor() {
     super()
-  }
+  } */
 
   state = {
     // subscribeDate and permission are setted  by default
@@ -35,7 +35,7 @@ class UserRegisterPage extends Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    const { user } = this.state;
+    //const { user } = this.state;
     this.setState({
       user: {
         ...this.state.user,

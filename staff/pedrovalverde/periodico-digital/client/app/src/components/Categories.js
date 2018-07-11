@@ -9,25 +9,20 @@ class Categories extends Component {
 
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
+    
     this.state = {
-      activeTab: 'introduction'
+      activeTab: props.actived
     };
   }
 
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
+  toggle(section) {
+    this.setState({
+      activeTab: section
+    });
   }
-
 
   render() {
     return (
-
       <div className="categories">
         <Nav tabs>
           <NavItem >

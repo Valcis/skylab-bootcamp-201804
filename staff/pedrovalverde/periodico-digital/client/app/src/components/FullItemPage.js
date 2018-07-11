@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './fullItemPage.css'
 import Header from './Header'
 import Categories from './Categories'
 import FullItem from './FullItem'
 import CommentsGrid from './CommentsGrid'
 
-class FullItemPage extends Component {
-
-  render() {
+function FullItemPage (props) {
+    
     return (
       <div className="container">
         <Header />
-        <Categories />
-        <FullItem actualNews={this.props.actualNews} category={this.props.category} title={this.props.title} />
-        <CommentsGrid data={this.props.actualNews}/>
-
+        <Categories actived={props.category}/>
+        <FullItem category={props.category} newsId={props.newsId} />
+        <CommentsGrid />
       </div>
     )
-  }
+  
 }
 export default FullItemPage;

@@ -10,15 +10,14 @@ import LoginPage from './components/LoginPage';
 
 class App extends Component {
 
-  state = { 
+  state = {
     registered: false,
-    actualNews : {} 
+    //actualNews: {}
   }
 
-  setActualNews = (article) =>{
-    this.setState({actualNews : article})
-  }
-
+  /* setActualNews = (article) => {
+    this.setState({ actualNews: article })
+  } */
 
   render() {
     return (
@@ -30,12 +29,8 @@ class App extends Component {
 
           <Route exact path="/" render={() => <Redirect to="/news/introduction" />} />
 
-          <Route path="/news/:category/:title" render={props => <FullItemPage actualNews={this.state.actualNews} datos={props} category={props.match.params.category} title={props.match.params.title} />} />
-
-          <Route exact path="/news/:category" render={props => <LandingPage setActualNews={this.setActualNews} category={props.match.params.category} />} />
-
-
-
+          <Route path="/news/:category/:newsId/:title" render={props => <FullItemPage category={props.match.params.category} newsId={props.match.params.newsId} />} />
+          <Route exact path="/news/:category" render={props => <LandingPage /* setActualNews={this.setActualNews} */ category={props.match.params.category} />} />
 
           <Route path="/404" component={NotFound} />
         </Switch >

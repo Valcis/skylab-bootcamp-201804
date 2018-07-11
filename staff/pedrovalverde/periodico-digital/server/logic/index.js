@@ -3,7 +3,7 @@
 const { models: { User, Comment, News } } = require('data')
 
 const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-const apiNews = require('./newsConnection')
+const extApiNews = require('./newsConnection')
 const logic = {
 
 //FOR USERS BBDD :
@@ -206,35 +206,26 @@ const logic = {
             .then(() => true)
     },
 
+// FOR EXTERN NEWS API :
 
- // FOR NEWS BBDD:
-
-    getNews(category){
-        return apiNews.getNews(category)
+    /**
+     * 
+     * @param {string} category 
+     * 
+     * @returns {Promise<array>}
+     */
+    getExternNewsBy(category){
+        return extApiNews.getNews(category)
     },
 
-    getNewsByPubDate(pubDate) {
-        return Promise.resolve()
-            .then(() => {
-                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
-                if (!(pubDate = pubDate.trim()).length) throw Error('pubDate is empty or blank')
-
-                return News.findOne({ pubDate })
-            })
-            .then(item => {
-                if (!item) throw Error('No news with pubDate : '+{ pubDate })
-
-                return item
-            })
-    },
-
+// FOR NEWS BBDD :
 
     /**
      * 
      * @param {string} title
-     * @param {string} subtitle 
+     * @param {string} picture 
      * @param {string} summary
-     * @param {string} complete
+     * @param {string} content
      * @param {string} category
      * @param {date} inputDate
      * @param {string} from
@@ -243,52 +234,79 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    addNews(title, subtitle, summary, complete, category, from, comments) {
+    addNews( title, picture, summary, content, category, link, pubDate, from, comments) {
         return Promise.resolve()
             .then(() => {
+                
                 if (typeof title !== 'string') throw Error('title is not a string')
                 if (!(title = title.trim()).length) throw Error('title is empty or blank')
 
-                if (typeof subtitle !== 'string') throw Error('subtitle is not a string')
+                if (typeof picture !== 'string') throw Error('picture is not a string')
 
                 if (typeof summary !== 'string') throw Error('summary is not a string')
                 if (!(summary = summary.trim()).length) throw Error('summary is empty or blank')
 
-                if (typeof complete !== 'string') throw Error('complete is not a string')
-                if (!(complete = complete.trim()).length) throw Error('complete is empty or blank')
+                if (typeof content !== 'string') throw Error('content is not a string')
+                if (!(content = content.trim()).length) throw Error('content is empty or blank')
 
-                if (typeof category !== 'string') throw Error('category is not a string')
-                if (!(category = category.trim()).length) throw Error('category is empty or blank')
-                if (category !== "portada" && category !== "actualidad" && category !== "sociedad" && category !== "economia") throw Error('news category value not admited')
+                if (typeof category !== 'object') throw Error('category is not an array')
+                
+                if (typeof link !== 'string') throw Error('link is not a string')
+
+                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
+                if (!(pubDate = pubDate.trim()).length) throw Error('pubDate is empty or blank')
 
                 if (typeof from !== 'string') throw Error('from is not a string')
                 if (!(from = from.trim()).length) throw Error('from is empty or blank')
 
                 if (typeof comments !== 'object') throw Error('comments is not an array')
-
-                return News.create({ title, subtitle, summary, complete, category, from, comments })
-                    .then(news => { return news.id })
+                
+                let newsId = pubDate.replace(/[- :]/gi,'');
+                
+                return News.create({ newsId, title, picture, summary, content, category, link, pubDate, from, comments })
+                    .then(() => true)
             })
     },
 
     /**
      * 
-     * @param {string} id
+     * @param {string} newsId
      * 
      * @returns {Promise<[News]>}
      */
-    retrieveNews(id) {
+    retrieveNews(newsId) {
         return Promise.resolve()
             .then(() => {
-                if (typeof id !== 'string') throw Error('news id is not a string')
-                if (!(id = id.trim()).length) throw Error('news id is empty or blank')
+                if (typeof newsId !== 'string') throw Error('newsId is not a string')
+                if (!(newsId = newsId.trim()).length) throw Error('newsId is empty or blank')
 
-                return News.findById(id)
+                return News.findOne({newsId})
             })
-            .then(news => {
-                if (!news) throw Error(`no news found with id ${id}`)
+            .then(item => {
+                if (!item) throw Error('No news with newsId : '+ { newsId })
 
-                return news
+                return item
+            })
+    },
+
+     /**
+     * 
+     * @param {string} newsId
+     * 
+     * @returns {Promise<Boolean>}
+     */
+    existItem(newsId) {
+        return Promise.resolve()
+            .then(() => {
+                if (typeof newsId !== 'string') throw Error('newsId is not a string')
+                if (!(newsId = newsId.trim()).length) throw Error('newsId is empty or blank')
+
+                return News.findOne({newsId})
+            })
+            .then(item => {
+                if (!item) return false
+
+                return true
             })
     },
 
@@ -296,9 +314,9 @@ const logic = {
      * 
      * @param {string} id
      * @param {string} title
-     * @param {string} subtitle 
+     * @param {string} picture 
      * @param {string} summary
-     * @param {string} complete
+     * @param {string} content
      * @param {string} category
      * @param {date} inputDate
      * @param {string} from
@@ -307,23 +325,23 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    updateNews(id, title, subtitle, summary, complete, category, inputDate, from, isDeleted, comments) {
+    updateNews(newsId, title, picture, summary, content, category, link, pubDate, from, isDeleted, comments) {
         return Promise.resolve()
             .then(() => {
-                if (typeof id !== 'string') throw Error('news id is not a string')
-                if (!(id = id.trim()).length) throw Error('news id is empty or blank')
+                if (typeof newsId !== 'string') throw Error('news newsId is not a string')
+                if (!(newsId = newsId.trim()).length) throw Error('news newsId is empty or blank')
 
                 if (typeof title !== 'string') throw Error('title is not a string')
                 if (!(title = title.trim()).length) throw Error('title is empty or blank')
 
-                if (typeof subtitle !== 'string') throw Error('subtitle is not a string')
-                //if (!(subtitle = subtitle.trim()).length) throw Error('subtitle is empty or blank')
+                if (typeof picture !== 'string') throw Error('picture is not a string')
+                //if (!(picture = picture.trim()).length) throw Error('picture is empty or blank')
 
                 if (typeof summary !== 'string') throw Error('summary is not a string')
                 if (!(summary = summary.trim()).length) throw Error('summary is empty or blank')
 
-                if (typeof complete !== 'string') throw Error('complete is not a string')
-                if (!(complete = complete.trim()).length) throw Error('complete is empty or blank')
+                if (typeof content !== 'string') throw Error('content is not a string')
+                if (!(content = content.trim()).length) throw Error('content is empty or blank')
 
                 if (typeof category !== 'string') throw Error('category is not a string')
                 if (!(category = category.trim()).length) throw Error('category is empty or blank')
@@ -340,7 +358,7 @@ const logic = {
                 if (typeof comments !== 'array') throw Error('comments is not a array')
                 if (comments = comments.length) throw Error('comments is empty or blank')
 
-                return News.findById(id)
+                return News.findById(newsId)
             })
             .then(news => {
                 if (!news) throw Error('wrong credentials')
@@ -349,9 +367,9 @@ const logic = {
             })
             .then(news => {
                 news.title = title
-                news.subtitle = subtitle
+                news.picture = picture
                 news.summary = summary
-                news.complete = complete
+                news.content = content
                 news.category = category
                 news.inputDate = inputDate
                 news.from = from
@@ -370,19 +388,19 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    updateCommentsArray(id, commentId) {
+    updateCommentsArray(newsId, commentId) {
         return Promise.resolve()
             .then(() => {
-                if (typeof id !== 'string') throw Error('news id is not a string')
-                if (!(id = id.trim()).length) throw Error('news id is empty or blank')
+                if (typeof newsId !== 'string') throw Error('news newsId is not a string')
+                if (!(newsId = newsId.trim()).length) throw Error('news newsId is empty or blank')
 
                 if (typeof commentId !== 'objectId') throw Error('commentId is not a string')
                 if (!(commentId = commentId.trim()).length) throw Error('commentId is empty or blank')
 
-                return News.findOne({ id })
+                return News.findOne({ newsId })
             })
             .then(news => {
-                if (!news) throw Error(`no news found with id ${id}`)
+                if (!news) throw Error(`no news found with newsId ${newsId}`)
 
                 return news
             })
@@ -400,22 +418,20 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    deleteNews(id) {
+    deleteNews(newsId) {
         return Promise.resolve()
             .then(() => {
-                if (typeof id !== 'string') throw Error('news id is not a string')
-                if (!(id = id.trim()).length) throw Error('news id is empty or blank')
+                if (typeof newsId !== 'string') throw Error('news newsId is not a string')
+                if (!(newsId = newsId.trim()).length) throw Error('news newsId is empty or blank')
 
-                return News.findByIdAndUpdate({ id }, { $set: { isDeleted: true } })
+                return News.findByIdAndUpdate({ newsId }, { $set: { isDeleted: true } })
                     .then(news => {
-                        if (!news) throw Error(`no comment found with id ${id}`)
+                        if (!news) throw Error(`no news found with newsId ${newsId}`)
 
                         return news.isDeleted
                     })
             })
     },
-
-
 
     //FOR COMMENTS BBDD :
 

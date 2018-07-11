@@ -3,15 +3,16 @@ const { Schema, Schema: { ObjectId } } = require('mongoose')
 const Comment = require('./comment')
 
 module.exports = new Schema({
-    newsId:{
+    newsId: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     title: {
         type: String,
         required: true
     },
-    subtitle: {
+    picture: {
         type: String,
         required: false
     },
@@ -19,30 +20,42 @@ module.exports = new Schema({
         type: String,
         required: true
     },
-    complete: {
+    content: {
         type: String,
         required: true
     },
-    category: {
+     category: {
+        type: "array",
+        minItems: 1,
+        maxItems: 3,
+        items: {
+            type: "string"
+        },   
+        required: true
+    }, 
+    link: {
         type: String,
-        enum: ['portada', 'actualidad', 'sociedad', 'economia'],
+        required: false
+    },
+    pubDate: {
+        type: String,
         required: true
     },
-    inputDate:{
-        type : Date,
+    inputDate: {
+        type: Date,
         default: Date.now,
-        required : true
+        required: true
     },
-    from : {
-        type : String,
+    from: {
+        type: String,
         default: "RSS",
-        required : true
+        required: true
     },
-    isDeleted : {
-        type : Boolean,
+    isDeleted: {
+        type: Boolean,
         default: false,
-        required : true
+        required: true
     },
     comments: [Comment]
-    
+
 })

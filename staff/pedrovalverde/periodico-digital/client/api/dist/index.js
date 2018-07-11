@@ -6,9 +6,11 @@ var axios = require('axios');
 
 var DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}');
 
-var notesApi = {
+var api = {
     url: 'NO-URL',
     token: 'NO-TOKEN',
+
+    // FOR USERS BBDD:
 
     /**
      * 
@@ -273,7 +275,7 @@ var notesApi = {
     },
 
 
-    // FOR NEWS BBDD:
+    // FOR EXTERN NEWS API :
 
     /**
      * 
@@ -288,7 +290,7 @@ var notesApi = {
             if (typeof category !== 'string') throw Error('category is not a string');
             if (!(category = category.trim()).length) throw Error('category is empty or blank');
 
-            return axios.get(_this6.url + '/news/' + category + '/').then(function (_ref6) {
+            return axios.get(_this6.url + '/extnews/' + category + '/').then(function (_ref6) {
                 var status = _ref6.status,
                     data = _ref6.data;
 
@@ -306,26 +308,87 @@ var notesApi = {
             });
         });
     },
-    getNewsByPubDate: function getNewsByPubDate(pubDate) {
+
+
+    // FOR NEWS BBDD :  
+
+    saveItem: function saveItem(itemObject) {
         var _this7 = this;
 
-        return Promise.resolve().then(function () {
-            if (typeof pubDate !== 'string') throw Error('pubDate is not a string');
-            if (!(pubDate = pubDate.trim())) throw Error('pubDate is empty or blank');
+        var title = itemObject.title,
+            thumbnail = itemObject.thumbnail,
+            description = itemObject.description,
+            content = itemObject.content,
+            categories = itemObject.categories,
+            link = itemObject.link,
+            pubDate = itemObject.pubDate,
+            author = itemObject.author;
 
-            return axios.post(_this7.url + '/news-bbdd', { pubDate: pubDate }).then(function (res) {
-                console.log(res);
+        var comments = [];
+
+        return Promise.resolve().then(function () {
+            if ((typeof itemObject === 'undefined' ? 'undefined' : _typeof(itemObject)) !== 'object') throw Error('itemObject is not a object');
+
+            return axios.post(_this7.url + '/news-add', { title: title, picture: thumbnail, summary: description, content: content, category: categories, link: link, pubDate: pubDate, from: author, comments: comments }).then(function (res) {
                 var status = res.status,
                     data = res.data;
 
                 if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
-                return id;
+
+                return true;
             }).catch(function (err) {
                 if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
 
                 if (err.response) {
                     var message = err.response.data.error;
 
+                    throw Error(message);
+                } else throw err;
+            });
+        });
+    },
+    existOnBBDD: function existOnBBDD(newsId) {
+        var _this8 = this;
+
+        return Promise.resolve().then(function () {
+            if (typeof newsId !== 'string') throw Error('newsId is not a string');
+            if (!(newsId = newsId.trim())) throw Error('newsId is empty or blank');
+
+            return axios.post(_this8.url + '/news-bbdd', { newsId: newsId }).then(function (res) {
+                var status = res.status,
+                    data = res.data;
+
+                if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
+                return data.exist;
+            }).catch(function (err) {
+                if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
+
+                if (err.response) {
+                    var message = err.response.data.error;
+
+                    throw Error(message);
+                } else throw err;
+            });
+        });
+    },
+    getNewsById: function getNewsById(newsId) {
+        var _this9 = this;
+
+        return Promise.resolve().then(function () {
+            if (typeof newsId !== 'string') throw Error('newsId is not a string');
+            if (!(newsId = newsId.trim())) throw Error('newsId is empty or blank');
+
+            return axios.get(_this9.url + '/news/' + newsId).then(function (res) {
+                var status = res.status,
+                    data = res.data;
+
+                if (status !== 200 || data.status !== 'OK') throw Error('unexpected response status ' + status + ' (' + data.status + ')');
+                return data;
+            }).catch(function (err) {
+                if (err.code === 'ECONNREFUSED') throw Error('could not reach server');
+
+                if (err.response) {
+                    var message = err.response.data.error;
 
                     throw Error(message);
                 } else throw err;
@@ -333,6 +396,8 @@ var notesApi = {
         });
     },
 
+
+    // FOR COMMENTS BBDD :
 
     /**
      * 
@@ -342,7 +407,7 @@ var notesApi = {
      * @returns {Promise<string>}
      */
     addComnent: function addComnent(userId, text) {
-        var _this8 = this;
+        var _this10 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -353,7 +418,7 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.post(_this8.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this8.token } }).then(function (_ref7) {
+            return axios.post(_this10.url + '/users/' + userId + '/notes', { text: text }, { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref7) {
                 var status = _ref7.status,
                     data = _ref7.data;
 
@@ -382,7 +447,7 @@ var notesApi = {
      * @returns {Promise<Comnent>}
      */
     retrieveComnent: function retrieveComnent(userId, noteId) {
-        var _this9 = this;
+        var _this11 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -393,7 +458,7 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.get(_this9.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this9.token } }).then(function (_ref8) {
+            return axios.get(_this11.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref8) {
                 var status = _ref8.status,
                     data = _ref8.data;
 
@@ -420,14 +485,14 @@ var notesApi = {
      * @returns {Promise<[Comnent]>}
      */
     listComnents: function listComnents(userId) {
-        var _this10 = this;
+        var _this12 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
 
             if (!(userId = userId.trim()).length) throw Error('user id is empty or blank');
 
-            return axios.get(_this10.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this10.token } }).then(function (_ref9) {
+            return axios.get(_this12.url + '/users/' + userId + '/notes', { headers: { authorization: 'Bearer ' + _this12.token } }).then(function (_ref9) {
                 var status = _ref9.status,
                     data = _ref9.data;
 
@@ -457,7 +522,7 @@ var notesApi = {
      * @returns {Promise<boolean>}
      */
     updateComnent: function updateComnent(userId, noteId, text) {
-        var _this11 = this;
+        var _this13 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -472,7 +537,7 @@ var notesApi = {
 
             if ((text = text.trim()).length === 0) throw Error('text is empty or blank');
 
-            return axios.patch(_this11.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this11.token } }).then(function (_ref10) {
+            return axios.patch(_this13.url + '/users/' + userId + '/notes/' + noteId, { text: text }, { headers: { authorization: 'Bearer ' + _this13.token } }).then(function (_ref10) {
                 var status = _ref10.status,
                     data = _ref10.data;
 
@@ -501,7 +566,7 @@ var notesApi = {
      * @returns {Promise<boolean>}
      */
     removeComnent: function removeComnent(userId, noteId) {
-        var _this12 = this;
+        var _this14 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -512,7 +577,7 @@ var notesApi = {
 
             if (!(noteId = noteId.trim())) throw Error('note id is empty or blank');
 
-            return axios.delete(_this12.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this12.token } }).then(function (_ref11) {
+            return axios.delete(_this14.url + '/users/' + userId + '/notes/' + noteId, { headers: { authorization: 'Bearer ' + _this14.token } }).then(function (_ref11) {
                 var status = _ref11.status,
                     data = _ref11.data;
 
@@ -542,7 +607,7 @@ var notesApi = {
      * @returns {Promise<[Comnent]>}
      */
     findComnents: function findComnents(userId, text) {
-        var _this13 = this;
+        var _this15 = this;
 
         return Promise.resolve().then(function () {
             if (typeof userId !== 'string') throw Error('user id is not a string');
@@ -553,7 +618,7 @@ var notesApi = {
 
             if (!text.length) throw Error('text is empty');
 
-            return axios.get(_this13.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this13.token } }).then(function (_ref12) {
+            return axios.get(_this15.url + '/users/' + userId + '/notes?q=' + text, { headers: { authorization: 'Bearer ' + _this15.token } }).then(function (_ref12) {
                 var status = _ref12.status,
                     data = _ref12.data;
 
@@ -574,4 +639,4 @@ var notesApi = {
     }
 };
 
-module.exports = notesApi;
+module.exports = api;

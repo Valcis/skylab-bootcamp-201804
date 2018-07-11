@@ -6,10 +6,9 @@ class CommentsGrid extends Component {
 
   render() {
 
-    console.log("en el grid de comments",this.props.data)
     return (
       <div className="container">
-        
+      
         <Jumbotron  >
           <h3 className="display-3">Comentarios</h3>
     
