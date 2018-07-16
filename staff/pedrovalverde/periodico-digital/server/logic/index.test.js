@@ -12,13 +12,12 @@ const { env: { DB_URL } } = process
 describe('logic (BBDD persistence)', () => {
 
   const dummyUserId = '123456781234567812345678'
-  const dummyCommentId = '123456781234567812345678'
-  const dummyNewsId = '123456781234567812345678'
 
   const userData = { name: 'John', surname: 'Doe', email: 'jd@mail.com', username: 'jhony2', password: '123', birthdate: '', gender: 'male', address: 'anyDirection', permission: 'reader' }
   const otherUserData = { name: 'Jack', surname: 'Wayne', email: 'jw@mail.com', username: 'jWayne', password: '456', birthdate: '', gender: 'male', address: '', permission: 'editor' }
-  const commentData = { userId: dummyUserId, newsId: dummyNewsId, content: "comment content", isDeleted: false }
-  const newsData = { title: 'titulo', subtitle: '', summary: 'resumen', complete: 'noticia completa', category: 'portada', from: 'RSS', comments: [] }
+  const newsData = { newsId: '20181607111111', title: 'titulo', picture: '', summary: 'resumen', content: 'noticia completa', category: ['portada'], link: '', pubDate: '2018-16-07 11:11:11', from: 'RSS', comments: [] }
+  const otherNewsData = { newsId: '20181607222222', title: 'titulo2', picture: '222', summary: 'resumen2', content: 'noticia completa22', category: ['portada', 'other'], link: '222', pubDate: '2018-16-07 22:22:22', from: 'valcis', isDeleted: false, comments: ["un comentario"] }
+
 
   const indexes = []
 
@@ -29,8 +28,9 @@ describe('logic (BBDD persistence)', () => {
     indexes.length = 0
     while (count--) indexes.push(count)
 
-    return Promise.all([User.remove()])
+    return Promise.all([User.remove(), News.remove()])
   })
+
   //TESTING USERS DATA BASE
   false && describe('register user', () => {
 
@@ -39,17 +39,17 @@ describe('logic (BBDD persistence)', () => {
         .then(res => expect(res).to.be.true)
     )
 
-    it('should fail on no user name', () =>
+    it('should fail on no user\'s name', () =>
       logic.registerUser()
         .catch(({ message }) => expect(message).to.equal('user name is not a string'))
     )
 
-    it('should fail on empty user name', () =>
+    it('should fail on empty user\'s name', () =>
       logic.registerUser('')
         .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
     )
 
-    it('should fail on blank user name', () =>
+    it('should fail on blank user\'s name', () =>
       logic.registerUser('     ')
         .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
     )
@@ -87,7 +87,7 @@ describe('logic (BBDD persistence)', () => {
     it('should fail on already user email registered', () =>
       User.create(userData)
         .then(() => {
-          const { name, surname, email, username, password, birthdate, gender, address, permission } = userData
+          const { name, surname, email, password, birthdate, gender, address, permission } = userData
 
           return logic.registerUser(name, surname, email, "username", password, birthdate, gender, address, permission)
         })
@@ -114,7 +114,7 @@ describe('logic (BBDD persistence)', () => {
     it('should fail on already username registered', () =>
       User.create(userData)
         .then(() => {
-          const { name, surname, email, username, password, birthdate, gender, address, permission } = userData
+          const { name, surname, username, password, birthdate, gender, address, permission } = userData
 
           return logic.registerUser(name, surname, "email@algo.com", username, password, birthdate, gender, address, permission)
         })
@@ -314,17 +314,17 @@ describe('logic (BBDD persistence)', () => {
         .catch(({ message }) => expect(message).to.equal('user id is empty or blank'))
     )
 
-    it('should fail on no user name', () =>
+    it('should fail on no user\'s name', () =>
       logic.updateUser(dummyUserId)
         .catch(({ message }) => expect(message).to.equal('user name is not a string'))
     )
 
-    it('should fail on empty user name', () =>
+    it('should fail on empty user\'s name', () =>
       logic.updateUser(dummyUserId, '')
         .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
     )
 
-    it('should fail on blank user name', () =>
+    it('should fail on blank user\'s name', () =>
       logic.updateUser(dummyUserId, '     ')
         .catch(({ message }) => expect(message).to.equal('user name is empty or blank'))
     )
@@ -483,12 +483,15 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
+  //TESTING EXTERN NEWS API
+  //se testea aparte
+
+
   //TESTING NEWS DATA BASE
-  !false && describe('register news', () => {
+  false && describe('add news', () => {
 
     it('should succeed on correct data', () =>
-
-      logic.addNews('titulo', '', 'resumen', 'noticia completa', 'portada', 'RSS', [])
+      logic.addNews('titulo', '', 'resumen', 'noticia completa', ['portada'], 'link', '2018-16-07 11:11:11', 'RSS', [])
         .then(res => expect(res).to.be.true)
     )
 
@@ -507,111 +510,409 @@ describe('logic (BBDD persistence)', () => {
         .catch(({ message }) => expect(message).to.equal('title is empty or blank'))
     )
 
-    it('should fail on no subtitle', () =>
-      logic.addNews(newsData.title)
-        .catch(({ message }) => expect(message).to.equal('subtitle is not a string'))
-    )
-
-    it('should fail on wrong subtitle type', () =>
+    it('should fail on wrong picture type', () =>
       logic.addNews(newsData.title, [1, 2])
-        .catch(({ message }) => expect(message).to.equal('subtitle is not a string'))
+        .catch(({ message }) => expect(message).to.equal('picture is not a string'))
     )
 
     it('should fail on no summary', () =>
-      logic.addNews(newsData.title, newsData.subtitle)
+      logic.addNews(newsData.title, newsData.picture)
         .catch(({ message }) => expect(message).to.equal('summary is not a string'))
     )
 
     it('should fail on empty summary', () =>
-      logic.addNews(newsData.title, newsData.subtitle, '')
+      logic.addNews(newsData.title, newsData.picture, '')
         .catch(({ message }) => expect(message).to.equal('summary is empty or blank'))
     )
 
     it('should fail on blank summary', () =>
-      logic.addNews(newsData.title, newsData.subtitle, '     ')
+      logic.addNews(newsData.title, newsData.picture, '     ')
         .catch(({ message }) => expect(message).to.equal('summary is empty or blank'))
     )
 
-    it('should fail on no complete', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary)
-        .catch(({ message }) => expect(message).to.equal('complete is not a string'))
+    it('should fail on no content', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary)
+        .catch(({ message }) => expect(message).to.equal('content is not a string'))
     )
 
-    it('should fail on empty complete', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, '')
-        .catch(({ message }) => expect(message).to.equal('complete is empty or blank'))
+    it('should fail on empty content', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, '')
+        .catch(({ message }) => expect(message).to.equal('content is empty or blank'))
     )
 
-    it('should fail on blank complete', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, '     ')
-        .catch(({ message }) => expect(message).to.equal('complete is empty or blank'))
+    it('should fail on blank content', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, '     ')
+        .catch(({ message }) => expect(message).to.equal('content is empty or blank'))
     )
 
     it('should fail on no category', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete)
-        .catch(({ message }) => expect(message).to.equal('category is not a string'))
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content)
+        .catch(({ message }) => expect(message).to.equal('category is not an array'))
     )
 
     it('should fail on empty category', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, '')
-        .catch(({ message }) => expect(message).to.equal('category is empty or blank'))
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, [])
+        .catch(({ message }) => expect(message).to.equal('category is empty'))
     )
 
-    it('should fail on blank category', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, '     ')
-        .catch(({ message }) => expect(message).to.equal('category is empty or blank'))
+    it('should fail on wrong type of category values', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, [1, 2])
+        .catch(({ message }) => expect(message).to.equal('some categorys value are not a string'))
     )
 
-    it('should fail on wrong category', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, "other")
-        .catch(({ message }) => expect(message).to.equal('news category value not admited'))
+    it('should fail on blank category values', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, ['', '    '])
+        .catch(({ message }) => expect(message).to.equal('some categorys value are blank'))
+    )
+
+    it('should fail on to much categorys', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, ["a", "b", "c", "d", "e"])
+        .catch(({ message }) => expect(message).to.equal('category has more tan 4 values'))
+    )
+
+    it('should fail on no link', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category)
+        .catch(({ message }) => expect(message).to.equal('link is not a string'))
+    )
+
+    it('should fail on wrong link type', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, ["error"])
+        .catch(({ message }) => expect(message).to.equal('link is not a string'))
+    )
+
+    it('should fail on no pubDate', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link)
+        .catch(({ message }) => expect(message).to.equal('pubDate is not a string'))
+    )
+
+    it('should fail on empty pubDate', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, '')
+        .catch(({ message }) => expect(message).to.equal('pubDate is empty or blank'))
+    )
+
+    it('should fail on empty pubDate', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, '     ')
+        .catch(({ message }) => expect(message).to.equal('pubDate is empty or blank'))
     )
 
     it('should fail on no from', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category)
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate)
         .catch(({ message }) => expect(message).to.equal('from is not a string'))
     )
 
     it('should fail on empty from', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category, '')
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, '')
         .catch(({ message }) => expect(message).to.equal('from is empty or blank'))
     )
 
     it('should fail on blank from', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category, '     ')
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, '     ')
         .catch(({ message }) => expect(message).to.equal('from is empty or blank'))
     )
 
     it('should fail on no comments array', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category, newsData.from)
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from)
         .catch(({ message }) => expect(message).to.equal('comments is not an array'))
     )
 
-    it('should fail on empty comments array', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category, newsData.from, '')
+    it('should fail on wrong comments type', () =>
+      logic.addNews(newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from, 'error')
+        .catch(({ message }) => expect(message).to.equal('comments is not an array'))
+    )
+  }) // DONE -> its OK
+
+  false && describe('retrieve news', () => {
+
+    it('should succeed on correct data', () =>
+      News.create(newsData)
+        .then(({ newsId }) => {
+          return logic.retrieveNews(newsId)
+        })
+        .then(news => {
+          expect(news).to.exist
+
+          const { title, picture, summary, content, category, link, pubDate, from, comments } = news
+
+          expect(title).to.equal('titulo')
+          expect(picture).to.equal('')
+          expect(summary).to.equal('resumen')
+          expect(content).to.equal('noticia completa')
+          expect(category[0]).to.equal('portada')
+          expect(link).to.equal('')
+          expect(pubDate).to.equal('2018-16-07 11:11:11')
+          expect(from).to.equal('RSS')
+          expect(comments).to.empty
+        })
+    )
+
+    it('should fail on no newsId', () =>
+      logic.retrieveNews()
+        .catch(({ message }) => expect(message).to.equal('newsId is not a string'))
+    )
+
+    it('should fail on empty newsId', () =>
+      logic.retrieveNews('')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on blank newsId', () =>
+      logic.retrieveNews('     ')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on wrong newsId', () =>
+      logic.retrieveNews('20181111121212')
+        .catch(({ message }) => expect(message).to.equal('No news with newsId : 20181111121212'))
+    )
+  }) // DONE -> its OK
+
+  false && describe('exist this newsId', () => {
+
+    it('should succeed on correct data', () =>
+      News.create(newsData)
+        .then(({ newsId }) => {
+          return logic.existItem(newsId)
+        })
+        .then(item => {
+          expect(item).to.be.true
+        })
+    )
+
+    it('should fail on no newsId', () =>
+      logic.existItem()
+        .catch(({ message }) => expect(message).to.equal('newsId is not a string'))
+    )
+
+    it('should fail on empty newsId', () =>
+      logic.existItem('')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on blank newsId', () =>
+      logic.existItem('     ')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on wrong newsId', () =>
+      logic.existItem('20181111121212')
+        .then(item => expect(item).to.be.false)
+    )
+  }) // DONE -> its OK
+
+  false && describe('udpate news', () => {
+
+    it('should succeed on correct data', () =>
+      News.create(newsData)
+        .then(({ newsId }) => {
+          return logic.updateNews(newsId, 'titulo2', '2', 'resumen2', 'noticia completa2', ['portada', '2'], 'link2', '2018-16-07 11:11:11', 'valcis', false, ["un comentario"])
+            .then(res => {
+              expect(res).to.be.true
+
+              return News.findOne({ newsId })
+            })
+            .then(news => {
+              expect(news).to.exist
+
+              const { newsId, title, picture, summary, content, category, link, pubDate, from, isDeleted, comments } = news
+
+              expect(newsId).to.equal('20181607111111')
+              expect(title).to.equal('titulo2')
+              expect(picture).to.equal('2')
+              expect(summary).to.equal('resumen2')
+              expect(content).to.equal('noticia completa2')
+              expect(category[0]).to.equal('portada')
+              expect(category[1]).to.equal('2')
+              expect(link).to.equal('link2')
+              expect(pubDate).to.equal('2018-16-07 11:11:11')
+              expect(from).to.equal('valcis')
+              expect(isDeleted).to.be.false
+              expect(comments[0]).to.equal('un comentario')
+            })
+        })
+    )
+
+    it('should fail on no newsId', () =>
+      logic.updateNews()
+        .catch(({ message }) => expect(message).to.equal('news newsId is not a string'))
+    )
+
+    it('should fail on empty newsId', () =>
+      logic.updateNews('')
+        .catch(({ message }) => expect(message).to.equal('news newsId is empty or blank'))
+    )
+
+    it('should fail on blank newsId', () =>
+      logic.updateNews('     ')
+        .catch(({ message }) => expect(message).to.equal('news newsId is empty or blank'))
+    )
+
+    it('should fail on no news title', () =>
+      logic.updateNews(newsData.newsId)
+        .catch(({ message }) => expect(message).to.equal('title is not a string'))
+    )
+
+    it('should fail on empty new\'s title', () =>
+      logic.updateNews(newsData.newsId, '')
+        .catch(({ message }) => expect(message).to.equal('title is empty or blank'))
+    )
+
+    it('should fail on blank new\'s title', () =>
+      logic.updateNews(newsData.newsId, '     ')
+        .catch(({ message }) => expect(message).to.equal('title is empty or blank'))
+    )
+
+    it('should fail on no picture', () =>
+      logic.updateNews(newsData.newsId, newsData.title)
+        .catch(({ message }) => expect(message).to.equal('picture is not a string'))
+    )
+
+    it('should fail on no summary', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture)
+        .catch(({ message }) => expect(message).to.equal('summary is not a string'))
+    )
+
+    it('should fail on empty summary', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, '')
+        .catch(({ message }) => expect(message).to.equal('summary is empty or blank'))
+    )
+
+    it('should fail on blank summary', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, '     ')
+        .catch(({ message }) => expect(message).to.equal('summary is empty or blank'))
+    )
+
+    it('should fail on no content', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary)
+        .catch(({ message }) => expect(message).to.equal('content is not a string'))
+    )
+
+    it('should fail on empty content', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, '')
+        .catch(({ message }) => expect(message).to.equal('content is empty or blank'))
+    )
+
+    it('should fail on blank content', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, '     ')
+        .catch(({ message }) => expect(message).to.equal('content is empty or blank'))
+    )
+
+    it('should fail on no category', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content)
+        .catch(({ message }) => expect(message).to.equal('category is not an array'))
+    )
+
+    it('should fail on empty category', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, [])
+        .catch(({ message }) => expect(message).to.equal('category is empty'))
+    )
+
+    it('should fail on blank category', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, [1, 2])
+        .catch(({ message }) => expect(message).to.equal('some categorys value are not a string'))
+    )
+    it('should fail on blank category values', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, ['', '    '])
+        .catch(({ message }) => expect(message).to.equal('some categorys value are blank'))
+    )
+
+    it('should fail on to much categorys', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, ["a", "b", "c", "d", "e"])
+        .catch(({ message }) => expect(message).to.equal('category has more tan 4 values'))
+    )
+
+    it('should fail on no link', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category)
+        .catch(({ message }) => expect(message).to.equal('link is not a string'))
+    )
+
+    it('should fail on no pubDate', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link)
+        .catch(({ message }) => expect(message).to.equal('pubDate is not a string'))
+    )
+
+    it('should fail on empty pubDate', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, '')
+        .catch(({ message }) => expect(message).to.equal('pubDate is empty or blank'))
+    )
+
+    it('should fail on empty pubDate', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, '     ')
+        .catch(({ message }) => expect(message).to.equal('pubDate is empty or blank'))
+    )
+
+    it('should fail on no from', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate)
+        .catch(({ message }) => expect(message).to.equal('from is not a string'))
+    )
+
+    it('should fail on empty from', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, '')
+        .catch(({ message }) => expect(message).to.equal('from is empty or blank'))
+    )
+
+    it('should fail on empty from', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, '    ')
+        .catch(({ message }) => expect(message).to.equal('from is empty or blank'))
+    )
+
+    it('should fail on no isDeleted', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from)
+        .catch(({ message }) => expect(message).to.equal('isDeleted is not a boolean'))
+    )
+
+    it('should fail on empty or blank isDeleted', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from, '  ')
+        .catch(({ message }) => expect(message).to.equal('isDeleted is not a boolean'))
+    )
+
+    it('should fail on no comments', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from, false)
         .catch(({ message }) => expect(message).to.equal('comments is not an array'))
     )
 
-    it('should fail on blank comments array', () =>
-      logic.addNews(newsData.title, newsData.subtitle, newsData.summary, newsData.complete, newsData.category, newsData.from, '     ')
+    it('should fail on blank comments', () =>
+      logic.updateNews(newsData.newsId, newsData.title, newsData.picture, newsData.summary, newsData.content, newsData.category, newsData.link, newsData.pubDate, newsData.from, false, '   ')
         .catch(({ message }) => expect(message).to.equal('comments is not an array'))
     )
+  }) // DONE -> its OK 
 
+  !false && describe('delete news', () => {
+
+    it('should succeed on correct data', () =>
+      News.create(newsData)
+        .then(({ newsId }) => {
+          return logic.deleteNews(newsId)
+        })
+        .then(item => {
+          expect(item).to.be.true
+        })
+    )
+
+    it('should fail on no newsId', () =>
+      logic.existItem()
+        .catch(({ message }) => expect(message).to.equal('newsId is not a string'))
+    )
+
+    it('should fail on empty newsId', () =>
+      logic.existItem('')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on blank newsId', () =>
+      logic.existItem('     ')
+        .catch(({ message }) => expect(message).to.equal('newsId is empty or blank'))
+    )
+
+    it('should fail on wrong newsId', () =>
+      logic.existItem('20181111121212')
+        .then(item => expect(item).to.be.false)
+    )
   })
 
 
 
 
 
-
-
-
-
-
-
-
-
-  
   //TESTING COMMENTS DATA BASE
   false && describe('add comment', () => {
 

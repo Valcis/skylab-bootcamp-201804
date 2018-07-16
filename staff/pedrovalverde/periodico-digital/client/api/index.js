@@ -46,8 +46,8 @@ const api = {
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
                 if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
-                if ((birthdate.trim().length > 0)? !DATE_REGEX.test(birthdate):false) throw Error('user birthdate is not valid')
-                
+                if ((birthdate.trim().length > 0) ? !DATE_REGEX.test(birthdate) : false) throw Error('user birthdate is not valid')
+
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
@@ -289,7 +289,7 @@ const api = {
     saveItem(itemObject) {
         const { title, thumbnail, description, content, categories, link, pubDate, author } = itemObject
         const comments = []
-        
+
         return Promise.resolve()
             .then(() => {
                 if (typeof itemObject !== 'object') throw Error('itemObject is not a object')
@@ -298,7 +298,7 @@ const api = {
                     .then((res) => {
                         let { status, data } = res
                         if (status !== 200 || data.status !== 'OK') throw Error(`unexpected response status ${status} (${data.status})`)
-                        
+
                         return true
                     })
                     .catch(err => {
@@ -358,7 +358,7 @@ const api = {
             })
     },
 
-    
+
 
     // FOR COMMENTS BBDD :
 

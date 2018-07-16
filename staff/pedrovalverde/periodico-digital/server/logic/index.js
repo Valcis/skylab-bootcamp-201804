@@ -249,7 +249,6 @@ const logic = {
     addNews(title, picture, summary, content, category, link, pubDate, from, comments) {
         return Promise.resolve()
             .then(() => {
-
                 if (typeof title !== 'string') throw Error('title is not a string')
                 if (!(title = title.trim()).length) throw Error('title is empty or blank')
 
@@ -262,6 +261,12 @@ const logic = {
                 if (!(content = content.trim()).length) throw Error('content is empty or blank')
 
                 if (typeof category !== 'object') throw Error('category is not an array')
+                if (!category.length) throw Error('category is empty')
+                category.forEach(element => {
+                    if (typeof element !== 'string') throw Error('some categorys value are not a string')
+                    if (!(element= element.trim()).length) throw Error('some categorys value are blank')
+                });
+                if (category.length>4) throw Error('category has more tan 4 values')
 
                 if (typeof link !== 'string') throw Error('link is not a string')
 
@@ -295,7 +300,7 @@ const logic = {
                 return News.findOne({ newsId })
             })
             .then(item => {
-                if (!item) throw Error('No news with newsId : ' + { newsId })
+                if (!item) throw Error('No news with newsId : ' + newsId )
 
                 return item
             })
@@ -347,7 +352,6 @@ const logic = {
                 if (!(title = title.trim()).length) throw Error('title is empty or blank')
 
                 if (typeof picture !== 'string') throw Error('picture is not a string')
-                //if (!(picture = picture.trim()).length) throw Error('picture is empty or blank')
 
                 if (typeof summary !== 'string') throw Error('summary is not a string')
                 if (!(summary = summary.trim()).length) throw Error('summary is empty or blank')
@@ -355,25 +359,30 @@ const logic = {
                 if (typeof content !== 'string') throw Error('content is not a string')
                 if (!(content = content.trim()).length) throw Error('content is empty or blank')
 
-                if (typeof category !== 'string') throw Error('category is not a string')
-                if (!(category = category.trim()).length) throw Error('category is empty or blank')
+                if (typeof category !== 'object') throw Error('category is not an array')
+                if (!category.length) throw Error('category is empty')
+                category.forEach(element => {
+                    if (typeof element !== 'string') throw Error('some categorys value are not a string')
+                    if (!(element= element.trim()).length) throw Error('some categorys value are blank')
+                });
+                if (category.length>4) throw Error('category has more tan 4 values')
 
-                if (typeof inputDate !== 'date') throw Error('inputDate is not a date')
-                if (!(inputDate = inputDate.trim()).length) throw Error('inputDate is empty or blank')
+                if (typeof link !== 'string') throw Error('link is not a string')
+
+                if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
+                if (!(pubDate = pubDate.trim()).length) throw Error('pubDate is empty or blank')
 
                 if (typeof from !== 'string') throw Error('from is not a string')
                 if (!(from = from.trim()).length) throw Error('from is empty or blank')
 
                 if (typeof isDeleted !== 'boolean') throw Error('isDeleted is not a boolean')
-                if (!(isDeleted = isDeleted.trim()).length) throw Error('isDeleted is empty or blank')
 
-                if (typeof comments !== 'array') throw Error('comments is not a array')
-                if (comments = comments.length) throw Error('comments is empty or blank')
+                if (typeof comments !== 'object') throw Error('comments is not an array')
 
-                return News.findById(newsId)
+                return News.findOne({ newsId })
             })
             .then(news => {
-                if (!news) throw Error('wrong credentials')
+                if (!news) throw Error('wrong newsId')
 
                 return news
             })
@@ -383,7 +392,8 @@ const logic = {
                 news.summary = summary
                 news.content = content
                 news.category = category
-                news.inputDate = inputDate
+                news.link = link
+                news.pubDate = pubDate
                 news.from = from
                 news.isDeleted = isDeleted
                 news.comments = comments

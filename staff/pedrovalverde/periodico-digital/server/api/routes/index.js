@@ -141,9 +141,9 @@ router.get('/news/:newsId', (req, res) => { // RETRIEVE news data
 })
 
 router.patch('/news/:newsId', jsonBodyParser, (req, res) => {  // UPDATE 
-    const { params: { newsId }, body: { title, picture, summary, content, category, link, pubDate, from, comments } } = req
+    const { params: { newsId }, body: { title, picture, summary, content, category, link, pubDate, from, isDeleted, comments } } = req
 
-    logic.updateUser(newsId, title, picture, summary, content, category, link, pubDate, from, comments)
+    logic.updateNews(newsId, title, picture, summary, content, category, link, pubDate, from, isDeleted, comments)
         .then(() => {
             res.status(200)
             res.json({ status: 'OK' })

@@ -27,7 +27,7 @@ module.exports = new Schema({
      category: {
         type: "array",
         minItems: 1,
-        maxItems: 3,
+        maxItems: 4,
         items: {
             type: "string"
         },   
@@ -56,6 +56,8 @@ module.exports = new Schema({
         default: false,
         required: true
     },
-    comments: [Comment]
-
+    //comments: [Comment]
+    comments: [{
+        type : String
+    }]
 })
