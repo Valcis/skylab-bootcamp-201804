@@ -45,7 +45,9 @@ const api = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (typeof birthdate !== 'undefined' && !typeof birthdate !== 'string' && !DATE_REGEX.test(birthdate)) throw Error('user birthdate is not a date')
+                if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
+                if ((birthdate.trim().length > 0)? !DATE_REGEX.test(birthdate):false) throw Error('user birthdate is not valid')
+                
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
@@ -178,7 +180,7 @@ const api = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (birthdate.trim().length > 0) if (typeof birthdate !== 'date') throw Error('user birthdate is not a date')
+                if (birthdate.trim().length > 0) if (typeof birthdate !== 'date') throw Error('U_ser birthdate is not a date')
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
                 if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')

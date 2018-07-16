@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./ ",
-    "coverage": "nyc mocha ./",
+    "test": "mocha ./ --timeout 15000",
+    "coverage": "nyc mocha ./ --timeout 15000",
     "coverage-report": "nyc --reporter=html --reporter=text mocha "
   },
   "keywords": [],

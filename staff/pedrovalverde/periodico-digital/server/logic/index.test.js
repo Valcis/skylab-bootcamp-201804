@@ -2,7 +2,7 @@
 
 require('dotenv').config()
 
-const { mongoose, models: { User, Note, Comment, News } } = require('data')
+const { mongoose, models: { User, Comment, News } } = require('data')
 const { expect } = require('chai')
 const logic = require('.')
 const _ = require('lodash')
@@ -12,7 +12,7 @@ const { env: { DB_URL } } = process
 describe('logic (BBDD persistence)', () => {
 
   const dummyUserId = '123456781234567812345678'
-  const dummyNoteId = '123456781234567812345678'
+  const dummyCommentId = '123456781234567812345678'
   const dummyNewsId = '123456781234567812345678'
 
   const userData = { name: 'John', surname: 'Doe', email: 'jd@mail.com', username: 'jhony2', password: '123', birthdate: '', gender: 'male', address: 'anyDirection', permission: 'reader' }
@@ -29,13 +29,13 @@ describe('logic (BBDD persistence)', () => {
     indexes.length = 0
     while (count--) indexes.push(count)
 
-    return Promise.all([User.remove()/*, Note.deleteMany()*/])
+    return Promise.all([User.remove()])
   })
-//TESTING USERS DATA BASE
-  !false && describe('register user', () => {
+  //TESTING USERS DATA BASE
+  false && describe('register user', () => {
 
     it('should succeed on correct data', () =>
-      logic.registerUser('John', 'Doe', 'jd@mail.com', 'jhony', '123', '', 'male', 'anyDirection', 'reader')
+      logic.registerUser('John', 'Doe', 'jd@mail.com', 'jhony', '123', '2018-06-17T18:16:10.456Z', '', 'anyDirection', 'reader')
         .then(res => expect(res).to.be.true)
     )
 
@@ -140,7 +140,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong user birthdate', () =>
       logic.registerUser(userData.name, userData.surname, userData.email, userData.username, userData.password, "noDate")
-        .catch(({ message }) => expect(message).to.equal('user birthdate is not a date'))
+        .catch(({ message }) => expect(message).to.equal('user birthdate has not valid format'))
     )
 
     it('should fail on blank user gender', () =>
@@ -165,16 +165,17 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on blank user permission', () =>
       logic.registerUser(userData.name, userData.surname, userData.email, userData.username, userData.password, userData.birthdate, userData.gender, userData.address, '   ')
-        .catch(({ message }) => expect(message).to.equal('user permission value not admited'))
+        .catch(({ message }) => expect(message).to.equal('user permission is empty or blank'))
     )
 
     it('should fail on wrong user permission', () =>
       logic.registerUser(userData.name, userData.surname, userData.email, userData.username, userData.password, userData.birthdate, userData.gender, userData.address, 'notFromEnumOptions')
-        .catch(({ message }) => expect(message).to.equal('user permission value not admited'))
+        .catch((mierda) => expect(mierda.message).to.equal('user permission value not admited')
+        )
     )
   }) // DONE -> its OK
 
-  !false && describe('authenticate user', () => {
+  false && describe('authenticate user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -215,7 +216,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  !false && describe('retrieve user', () => {
+  false && describe('retrieve user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -255,7 +256,7 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-  !false && describe('udpate user', () => {
+  false && describe('udpate user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -390,7 +391,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong user birthdate', () =>
       logic.updateUser(dummyUserId, userData.name, userData.surname, userData.email, userData.username, userData.password, "noDate")
-        .catch(({ message }) => expect(message).to.equal('user birthdate is not a date'))
+        .catch(({ message }) => expect(message).to.equal('user birthdate has not valid format'))
     )
 
     it('should fail on blank user gender', () =>
@@ -415,31 +416,16 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on blank user permission', () =>
       logic.updateUser(dummyUserId, userData.name, userData.surname, userData.email, userData.username, userData.password, userData.birthdate, userData.gender, userData.address, '   ')
-        .catch(({ message }) => expect(message).to.equal('user permission value not admited'))
+        .catch(({ message }) => expect(message).to.equal('user permission is empty or blank'))
     )
 
     it('should fail on wrong user permission', () =>
       logic.updateUser(dummyUserId, userData.name, userData.surname, userData.email, userData.username, userData.password, userData.birthdate, userData.gender, userData.address, 'notFromEnumOptions')
         .catch(({ message }) => expect(message).to.equal('user permission value not admited'))
     )
-  }) // DONE -> its OK
+  }) // DONE -> its OK 
 
-  !false && describe('unregister user', () => {
-
-    /* it('should succeed on correct data', () =>
-      User.create(userData)
-        .then(({ id }) => { console.log("mira : ",id)
-          return logic.unregisterUser(id, 'jd@mail.com', '123')
-            .then(res => {
-              expect(res).to.be.true
-
-              return User.findById(id)
-            })
-            .then(user => {
-              expect(user).to.be.null
-            })
-        })
-    ) */
+  false && describe('unregister user', () => {
 
     it('should succeed on correct data', () =>
       User.create(userData)
@@ -497,9 +483,9 @@ describe('logic (BBDD persistence)', () => {
     )
   }) // DONE -> its OK
 
-//TESTING NEWS DATA BASE
-  !false && describe('add news', () => {
-    
+  //TESTING NEWS DATA BASE
+  !false && describe('register news', () => {
+
     it('should succeed on correct data', () =>
 
       logic.addNews('titulo', '', 'resumen', 'noticia completa', 'portada', 'RSS', [])
@@ -527,7 +513,7 @@ describe('logic (BBDD persistence)', () => {
     )
 
     it('should fail on wrong subtitle type', () =>
-      logic.addNews(newsData.title, [1,2])
+      logic.addNews(newsData.title, [1, 2])
         .catch(({ message }) => expect(message).to.equal('subtitle is not a string'))
     )
 
@@ -624,8 +610,10 @@ describe('logic (BBDD persistence)', () => {
 
 
 
-//TESTING COMMENTS DATA BASE
-  !false && describe('add comment', () => {
+
+  
+  //TESTING COMMENTS DATA BASE
+  false && describe('add comment', () => {
 
     /* it('should succeed on correct data', () =>
       User.create(userData)
@@ -715,10 +703,10 @@ describe('logic (BBDD persistence)', () => {
     )
   })
 
-  !false && describe('retrieve comment', () => {
+  false && describe('retrieve comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -750,7 +738,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong user id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -778,7 +766,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong note id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -790,11 +778,11 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  !false && describe('list comment', () => {
+  false && describe('list comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
 
-      const notes = indexes.map(index => new Note({ text: `${noteText} ${index}` }))
+      const notes = indexes.map(index => new Comment({ text: `${noteText} ${index}` }))
 
       user.notes = notes
 
@@ -844,7 +832,7 @@ describe('logic (BBDD persistence)', () => {
     )
   })
 
-  !false && describe('update comment', () => {
+  false && describe('update comment', () => {
     it('should succeed on correct data', () =>
       User.create(userData)
         .then(({ id: userId }) =>
@@ -887,7 +875,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong user id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -900,7 +888,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong note id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -912,10 +900,10 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  !false && describe('remove comment', () => {
+  false && describe('remove comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -951,7 +939,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong user id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -979,7 +967,7 @@ describe('logic (BBDD persistence)', () => {
 
     it('should fail on wrong note id', () => {
       const user = new User(userData)
-      const note = new Note({ text: noteText })
+      const note = new Comment({ text: noteText })
 
       user.notes.push(note)
 
@@ -991,15 +979,15 @@ describe('logic (BBDD persistence)', () => {
     })
   })
 
-  !false && describe('find comment', () => {
+  false && describe('find comment', () => {
     it('should succeed on correct data', () => {
       const user = new User(userData)
 
-      user.notes.push(new Note({ text: `${noteText} a` }))
-      user.notes.push(new Note({ text: `${noteText} ab` }))
-      user.notes.push(new Note({ text: `${noteText} abc` }))
-      user.notes.push(new Note({ text: `${noteText} bc` }))
-      user.notes.push(new Note({ text: `${noteText} c` }))
+      user.notes.push(new Comment({ text: `${noteText} a` }))
+      user.notes.push(new Comment({ text: `${noteText} ab` }))
+      user.notes.push(new Comment({ text: `${noteText} abc` }))
+      user.notes.push(new Comment({ text: `${noteText} bc` }))
+      user.notes.push(new Comment({ text: `${noteText} c` }))
 
       const text = 'ab'
 

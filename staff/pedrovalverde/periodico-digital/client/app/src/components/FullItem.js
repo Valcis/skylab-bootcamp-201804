@@ -24,7 +24,7 @@ class FullItem extends Component {
   }
 
   render() {
-    console.log('item: ', this.state.item);
+    
     return (
       <TabContent className="tc-itemPage" activeTab={this.props.category}>
         <TabPane tabId={this.props.category}>

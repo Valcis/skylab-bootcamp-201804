@@ -6,7 +6,7 @@ const DATE_REGEX = new RegExp('[0-9]{4}-[0-9]{2}-[0-9]{2}')
 const extApiNews = require('./newsConnection')
 const logic = {
 
-//FOR USERS BBDD :
+    //FOR USERS BBDD :
 
     /**
      * 
@@ -23,6 +23,8 @@ const logic = {
      * @returns {Promise<boolean>}
      */
     registerUser(name, surname, email, username, password, birthdate, gender, address, permission) {
+        const genders = ["male", "female", ""]
+        const permissions = ['reader', 'editor', 'admin', 'unsubscribe']
         return Promise.resolve()
             .then(() => {
                 if (typeof name !== 'string') throw Error('user name is not a string')
@@ -40,17 +42,21 @@ const logic = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (typeof birthdate !== 'undefined' && !typeof birthdate !== 'string' && !DATE_REGEX.test(birthdate)) throw Error('user birthdate is not a date')
+                if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
+                if ((birthdate.trim().length > 0) && !DATE_REGEX.test(birthdate)) throw Error('user birthdate has not valid format')
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
-                if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
+                if (!genders.includes(gender)) throw Error('user gender value not admited')
 
                 if (typeof address !== 'string') throw Error('user address is not a string')
 
                 if (typeof permission !== 'string') throw Error('user permission is not a string')
-                if (permission !== "reader" && permission !== "editor" && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
+                if (!(permission = permission.trim()).length) throw Error('user permission is empty or blank')
+                if (!permissions.includes(permission)) throw Error('user permission value not admited')
 
-                return User.create({ name, surname, email, username, password, birthdate: new Date(birthdate), gender, address, permission })
+                if (birthdate.trim().length > 0) birthdate = new Date(birthdate)
+
+                return User.create({ name, surname, email, username, password, birthdate, gender, address, permission })
                     .then(() => true)
             })
     },
@@ -118,6 +124,8 @@ const logic = {
      * @returns {Promise<boolean>}
      */
     updateUser(id, name, surname, email, username, password, birthdate, gender, address, permission, newEmail, newPassword) {
+        const genders = ["male", "female", ""]
+        const permissions = ['reader', 'editor', 'admin', 'unsubscribe']
         return Promise.resolve()
             .then(() => {
                 if (typeof id !== 'string') throw Error('user id is not a string')
@@ -138,19 +146,23 @@ const logic = {
                 if (typeof password !== 'string') throw Error('user password is not a string')
                 if (!(password = password.trim()).length) throw Error('user password is empty or blank')
 
-                if (birthdate.trim().length > 0) if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
+                if (typeof birthdate !== 'string') throw Error('user birthdate is not a string')
+                if ((birthdate.trim().length > 0) && !DATE_REGEX.test(birthdate)) throw Error('user birthdate has not valid format')
 
                 if (typeof gender !== 'string') throw Error('user gender is not a string')
-                if (gender !== "male" && gender !== "female" && gender !== "") throw Error('user gender value not admited')
+                if (!genders.includes(gender)) throw Error('user gender value not admited')
 
                 if (typeof address !== 'string') throw Error('user address is not a string')
 
                 if (typeof permission !== 'string') throw Error('user permission is not a string')
-                if (permission !== "reader" && permission !== "editor" && permission !== "admin" && permission !== "unsubscribe") throw Error('user permission value not admited')
+                if (!(permission = permission.trim()).length) throw Error('user permission is empty or blank')
+                if (!permissions.includes(permission)) throw Error('user permission value not admited')
+
+                if (birthdate.trim().length > 0) birthdate = new Date(birthdate)
 
                 if (newEmail.trim().length > 0) if (typeof newEmail !== 'string') throw Error('user newEmail is not a string')
 
-                if (newPassword.trim().length > 0) if (typeof newPassword !== 'date') throw Error('user newPassword is not a string')
+                if (newPassword.trim().length > 0) if (typeof newPassword !== 'string') throw Error('user newPassword is not a string')
 
                 return User.findOne({ email, password })
             })
@@ -206,7 +218,7 @@ const logic = {
             .then(() => true)
     },
 
-// FOR EXTERN NEWS API :
+    // FOR EXTERN NEWS API :
 
     /**
      * 
@@ -214,11 +226,11 @@ const logic = {
      * 
      * @returns {Promise<array>}
      */
-    getExternNewsBy(category){
+    getExternNewsBy(category) {
         return extApiNews.getNews(category)
     },
 
-// FOR NEWS BBDD :
+    // FOR NEWS BBDD :
 
     /**
      * 
@@ -234,10 +246,10 @@ const logic = {
      * 
      * @returns {Promise<boolean>}
      */
-    addNews( title, picture, summary, content, category, link, pubDate, from, comments) {
+    addNews(title, picture, summary, content, category, link, pubDate, from, comments) {
         return Promise.resolve()
             .then(() => {
-                
+
                 if (typeof title !== 'string') throw Error('title is not a string')
                 if (!(title = title.trim()).length) throw Error('title is empty or blank')
 
@@ -250,7 +262,7 @@ const logic = {
                 if (!(content = content.trim()).length) throw Error('content is empty or blank')
 
                 if (typeof category !== 'object') throw Error('category is not an array')
-                
+
                 if (typeof link !== 'string') throw Error('link is not a string')
 
                 if (typeof pubDate !== 'string') throw Error('pubDate is not a string')
@@ -260,9 +272,9 @@ const logic = {
                 if (!(from = from.trim()).length) throw Error('from is empty or blank')
 
                 if (typeof comments !== 'object') throw Error('comments is not an array')
-                
-                let newsId = pubDate.replace(/[- :]/gi,'');
-                
+
+                let newsId = pubDate.replace(/[- :]/gi, '');
+
                 return News.create({ newsId, title, picture, summary, content, category, link, pubDate, from, comments })
                     .then(() => true)
             })
@@ -280,28 +292,28 @@ const logic = {
                 if (typeof newsId !== 'string') throw Error('newsId is not a string')
                 if (!(newsId = newsId.trim()).length) throw Error('newsId is empty or blank')
 
-                return News.findOne({newsId})
+                return News.findOne({ newsId })
             })
             .then(item => {
-                if (!item) throw Error('No news with newsId : '+ { newsId })
+                if (!item) throw Error('No news with newsId : ' + { newsId })
 
                 return item
             })
     },
 
-     /**
-     * 
-     * @param {string} newsId
-     * 
-     * @returns {Promise<Boolean>}
-     */
+    /**
+    * 
+    * @param {string} newsId
+    * 
+    * @returns {Promise<Boolean>}
+    */
     existItem(newsId) {
         return Promise.resolve()
             .then(() => {
                 if (typeof newsId !== 'string') throw Error('newsId is not a string')
                 if (!(newsId = newsId.trim()).length) throw Error('newsId is empty or blank')
 
-                return News.findOne({newsId})
+                return News.findOne({ newsId })
             })
             .then(item => {
                 if (!item) return false

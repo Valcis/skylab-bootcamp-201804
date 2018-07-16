@@ -108,10 +108,11 @@ class UserRegisterPage extends Component {
   render() {
     const { user, submitted } = this.state;
     return (
-      <div>
+      <div className="container">
+
         <Header />
 
-        <Form onSubmit={this.handleSubmit}>
+        <Form className="update-user-form" onSubmit={this.handleSubmit}>
           <FormGroup row>
             <Label for="username" sm={2}>Username</Label>
             <Col sm={7}>

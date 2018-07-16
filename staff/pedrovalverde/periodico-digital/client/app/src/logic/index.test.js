@@ -22,7 +22,7 @@ describe('logic (notes-app)', () => {
         it('should succeed on correct data', () => {
             const { name, surname, email, password } = userData
 
-            return logic.registerUser(name, surname, email, password)
+            return logic.user.registerUser(name, surname, email, password)
                 .then(res => expect(res).to.be.true)
         })
     })
